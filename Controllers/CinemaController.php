@@ -27,10 +27,12 @@
         }
 
         public function ShowFilmTabView($cine)
-        {
+        { 
             require_once(VIEWS_PATH."validate-session.php");
-             echo $cine;
-            //$cineList =array();
+            var_dump($cine);
+            $cinema= new Cinema();
+            $cinema=$this->cinemaDAO->getCinemaById($cine);
+            var_dump($cinema);
             //$cineList =$this->cinemaDAO->getAll();
             //require_once(VIEWS_PATH."FilmTab.php");
         }
