@@ -1,10 +1,13 @@
 <?php
         namespace Models;
         class Cinema{
-            //private $id;
+            private $id;
             private $adress;
             private $name;
             private $price_ticket;
+
+            public function setId($id){$this->id=$id;}
+            public function getId(){return $this->id;}
 
             public function setAdress($adress){$this->adress=$adress;}
             public function getAdress(){return $this->adress;}

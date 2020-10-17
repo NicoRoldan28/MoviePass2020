@@ -16,7 +16,7 @@
       {
        ?>
         <tr>
-          <input type= "checkbox" name="cine" value="<?php echo $cinema->getName()?>"><?php echo $cinema->getName()?>
+          <input type= "checkbox" name="idCinema" value="<?php echo $cinema->getId()?>"><?php echo $cinema->getName()?>
         </tr>
       <?php 
       }

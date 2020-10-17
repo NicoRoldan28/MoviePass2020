@@ -45,7 +45,7 @@
                 {                
                     $cinema = new Cinema();
             
-                    //$cinema->setId($row["id_cinema"]);
+                    $cinema->setId($row["id_cinema"]);
                     $cinema->setName($row["name"]);-
                     $cinema->setAdress($row["adress"]);
                     $cinema->setPrice_ticket($row["price_ticket"]);
@@ -53,6 +53,27 @@
                 }
 
                 return $cineList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+        public function getCinema($idCinema){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableCinemas." WHERE (id_cinema = :id_cinema)";
+                $parameters["id_cinema"] = $idCinema;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query,$parameters);
+                //var_dump($resultSet);
+                $cinema = new Cinema();
+                $cinema->setId($resultSet[0]["id_cinema"]);
+                $cinema->setName($resultSet[0]["name"]);
+                $cinema->setAdress($resultSet[0]["adress"]);
+                $cinema->setPrice_ticket($resultSet[0]["price_ticket"]);
+                
+                return $cinema;
             }
             catch(Exception $ex)
             {
