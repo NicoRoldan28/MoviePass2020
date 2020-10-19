@@ -4,12 +4,16 @@
     use Models\User as User;
     use DAO\UserDAO as UserDAO;
     
+    use DAO\MovieDAO as MovieDAO;
+    use Models\Movie as Movie;
+
     class UserController{
 
         private $userDAO;
 
         public function __construct(){
             $this->userDAO = new UserDAO();
+            $this->movieDAO = new MovieDAO();
         }
 
         public function Index($message = "")
@@ -23,7 +27,8 @@
         }
 
         public function Login($email, $password)
-        {
+        {   
+            
             $user = new User;
             $user = $this->userDAO->GetByEmail($email);
 
@@ -35,17 +40,21 @@
                 if($rol==2)
                 {
                     require_once(VIEWS_PATH."registerCinema.php");
+                }else
+                {
+                    $this->ShowMovies();
                 }
-                /*else{
-                    require_once(VIEWS_PATH."menuClient.php");
-
-
-                    //$this->ShowBillboard();
-                }*/
-            }
-            else
+            
+            }else{
                 $this->Index("Usuario y/o Contraseña incorrectos");
+            }       
         }
+
+        public function ShowMovies(){
+            $movieList = $this->movieDAO->GetAll();
+            require_once(VIEWS_PATH.'movie-list.php');
+        }
+        
 
 
         public function logverify($email,$password,$userName,$firstName,$lastName,$dni) {

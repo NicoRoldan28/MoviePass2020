@@ -13,8 +13,7 @@
         private $tableCinemas = "cinemas";
 
         public function Add(Cinema $cinema){
-            //var_dump($user);
-            //$iduser = 0;
+
             try
             {
                 $query1 = "INSERT INTO ".$this->tableCinemas."(adress,name,price_ticket) 
@@ -33,6 +32,7 @@
                 throw $ex;
             }
         }
+
         public function getAll(){
             try
             {
@@ -46,7 +46,7 @@
                     $cinema = new Cinema();
             
                     $cinema->setId($row["id_cinema"]);
-                    $cinema->setName($row["name"]);-
+                    $cinema->setName($row["name"]);
                     $cinema->setAdress($row["adress"]);
                     $cinema->setPrice_ticket($row["price_ticket"]);
                     array_push($cineList, $cinema);
@@ -59,6 +59,7 @@
                 throw $ex;
             }
         }
+        
         public function getCinema($idCinema){
             try
             {

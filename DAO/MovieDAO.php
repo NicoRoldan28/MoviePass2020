@@ -267,8 +267,9 @@ class MovieDAO{
                  $this->connection = Connection::GetInstance();
      
                  $results=$this->connection->Execute($query, $parameters);
+                 //var_dump($results);
                  return($results[0]['id']);
-                 //var_dump($results[0]['id']);
+                
                  }
                  catch(Exception $e)
                  {

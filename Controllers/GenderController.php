@@ -24,7 +24,7 @@
         {
             require_once(VIEWS_PATH."validate-session.php");
             $genderList = $this->genderDAO->GetAll();
-            require_once(VIEWS_PATH."gender-list.php");
+            //require_once(VIEWS_PATH."gender-list.php");
         }
 
         public function SaveDataBD(){
@@ -52,7 +52,7 @@
             require_once(VIEWS_PATH."selectGender.php");
         }
 
-        public function selectGender($name){
+        /*public function selectGender($name){
           
             $movieList=array();
             $movieList2=array();
@@ -73,9 +73,9 @@
                 $movie=$this->movieDAO->returnMovieXid($value);
                 array_push($movieList3,$movie);
             }
-            var_dump($movieList3);*/
+            var_dump($movieList3);
             require_once(VIEWS_PATH."movie-list2.php");
-        }
+        }*/
     }
 
 ?>

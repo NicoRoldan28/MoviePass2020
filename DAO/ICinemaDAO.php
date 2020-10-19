@@ -8,6 +8,7 @@
 
         function Add(Cinema $cinema);
         function GetAll();
+        function GetCinema($idCinema);
         //function getByEmail($email);
 
     }
