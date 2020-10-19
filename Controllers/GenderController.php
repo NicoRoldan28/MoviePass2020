@@ -31,8 +31,8 @@
             
             $decodeGender = $this->apiDAO->RetrieveDataGender();
             foreach($decodeGender['genres'] as $gender){
-            
-                if($this->genderDAO->checkIfExist($gender['id'])==null){
+                $result=$this->genderDAO->checkIfExist($gender['id']);
+                if($result==null){
                     $insertGe = new Gender($gender['id'],$gender['name']);
                     //var_dump($insertGe);
                     $this->genderDAO->AddGender($insertGe);
@@ -45,6 +45,7 @@
         $this->ShowListView();
 
         }
+
         public function ShowListViewForSelect()
         {
             require_once(VIEWS_PATH."validate-session.php");

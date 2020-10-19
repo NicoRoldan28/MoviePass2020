@@ -262,13 +262,9 @@ class MovieDAO{
                  $query = "SELECT ifnull(m.id_Movie,'a') as id from ".$this->tableName." m
                  WHERE (m.id_Movie = :idMovie);";
                  $parameters["idMovie"] = $idMovie;
-     
                  $this->connection = Connection::GetInstance();
-     
                  $results=$this->connection->Execute($query, $parameters);
-                 
-                 return($results);
-                 
+                 return($results); 
                  }
                  catch(Exception $e)
                  {
