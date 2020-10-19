@@ -22,7 +22,6 @@
         }
 
         public function Register(){
-            //echo "eeeeeeeeee";
             require_once(VIEWS_PATH."register.php");
         }
 
@@ -58,53 +57,40 @@
 
 
         public function logverify($email,$password,$userName,$firstName,$lastName,$dni) {
-            if ($this->userDAO->read($email)) {
-                $msg = "Ya hay un usuario registrado con ese email.";
-                echo $msg;
+            if ($this->userDAO->readEmail($email)) {
+                echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Email");</script>';
+                //$this->ShowListView();
+                //$msg = "Ya hay un usuario registrado con ese email.";
+                //echo $msg;
                 require ("views/home.php");
-            } else {
+            }
+            else {
+                if($this->userDAO->readDni($dni)){
+                echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Dni");</script>';
+                require ("views/home.php");
+                }
+                else {
                 $this->Add($email,$password,$userName,$firstName,$lastName,$dni);
+                }
             }
         }
 
         public function Add($email,$password,$userName,$firstName,$lastName,$dni)
         {
-            //require_once(VIEWS_PATH."validate-session.php")
-            
-            //$perfil= new PerfilUser();
-
-            //seteamos los parametros del perfilUser
-            /*$perfilUser = new PerfilUser();
-            $perfilUser->setUserName($userName);
-            $perfilUser->setFirstName($firstName);
-            $perfilUser->setLastName($lastName);
-            $perfilUser->setDni($dni);*/
-
-            //agregamos a la base de datos el perfilUser y lo mostramos
-            //$this->perfilUserDAO->Add($perfilUser);
-            //var_dump($perfilUser);
-
-            //buscamos el perfilUser con determinado dni
-            //$perfil=$this->perfilUserDAO->getByDni($dni);
-            //var_dump($perfil);
-
             //seteamos los parametros del user
             $user = new User();
             $user->setEmail($email);
             $user->setPassword($password);
-            //$user->setRol(1);
+            $user->setRol(1);
             $user->setUserName($userName);
             $user->setFirstName($firstName);
             $user->setLastName($lastName);
             $user->setDni($dni);
-            var_dump($user);
+            //var_dump($user);
 
-            //$user->setId_perfilUser($perfil->getId());
-
-            //mostramos el user
             $this->userDAO->Add($user);
             
-            $this->Index();
+            $this->Login($user->getEmail(),$user->getPassword());
         }
     }
 ?>
