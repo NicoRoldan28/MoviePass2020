@@ -1,54 +1,8 @@
-
 <div class="wrapper row1">
   <header id="header" class="clear"> 
   <nav id="mainav" class="fl_right">
         <nav class="navegacion">
           <ul class="menu">
-          <div class="login-box">
-            <form action="<?php echo FRONT_ROOT."Cine/RegisterCine" ?>" method="post">
-                <li><label><input class="seach-movie" type="text" name="name" placeholder="Enter Name" required ></label>
-          <input type="submit" name="btnLogin" value= 'SEACH'></button>
-            </form></li>  
-            
-                
-                
-        </div>
-          <li><a href="#">MOVIES</a>
-              <ul class="submenu">
-              <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddView "?>">SEACH MOVIE</a></li>
-              <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListView "?>">lIST MOVIE</a></li>
-              </ul>
-          </li>
-            <!--<li><a href="#">ROOM</a>
-              <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Cine/ShowListView3 "?>">ADD ROOM</a></li>
-                 <li><a href="<?php echo  FRONT_ROOT."Room/ShowListView "?>">LIST ROOM</a></li>
-              </ul>
-            </li>-->
-            <li><a href="#">MOVIES</a>
-              <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Movie/SaveDataBD "?>">UPDATE MOVIES</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Movie/ShowListView"?>">LIST MOVIES</a></li>
-              </ul>
-            </li>
-            <li><a href="#">GENDERS</a>
-              <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Gender/SaveDataBD "?>">UPDATE GENDERS</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Gender/ShowListView "?>">LIST GENDERS</a></li>
-              </ul>
-            </li><!--
-            <li><a href="#">SHOWING</a>
-              <ul class="submenu">
-            <li><a href="<?php echo  FRONT_ROOT."Cine/SelectCinema"?>">ADD SHOWING</a></li>
-            <li><a href="<?php echo  FRONT_ROOT."Showing/ShowListViewAdm"?>">LIST SHOWING</a></li>
-              </ul>
-            </li>-->
-            <li><a href="#">TURN</a>
-              <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowAddView"?>">ADD TURNO</a></li>
-              </ul>
-            </li>
-  
             <li><a style="background-color: #3e94ec"  href="<?php echo  FRONT_ROOT."Home/Logout "?>">LOGOUT</a></li>
           </ul>
         </nav>

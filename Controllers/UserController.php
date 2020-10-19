@@ -42,7 +42,7 @@
                     require_once(VIEWS_PATH."registerCinema.php");
                 }else
                 {
-                    require_once(VIEWS_PATH.'nav-user2.php');
+                    //require_once(VIEWS_PATH."nav-user.php");
                     $this->ShowMovies();
                 }
             
@@ -53,7 +53,7 @@
 
         public function ShowMovies(){
             $movieList = $this->movieDAO->GetAll();
-            require_once(VIEWS_PATH.'movie-list.php');
+            require_once(VIEWS_PATH.'movie-list2.php');
         }
         
 
