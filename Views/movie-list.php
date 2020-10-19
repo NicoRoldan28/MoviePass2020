@@ -1,4 +1,4 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'nav-cine.php');?></nav> 
+<nav style='position: fixed'><?php require_once(VIEWS_PATH.'nav-user.php');?></nav> 
 <br>
   <ul class="pricing_table">
       <?php
