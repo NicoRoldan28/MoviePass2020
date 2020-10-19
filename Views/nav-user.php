@@ -8,8 +8,7 @@
             <form action="<?php echo FRONT_ROOT."Cine/RegisterCine" ?>" method="post">
                 <li><label><input class="seach-movie" type="text" name="name" placeholder="Enter Name" required ></label>
           <input type="submit" name="btnLogin" value= 'SEACH'></button>
-            </form>
-            </li>  
+            </form></li>  
             
                 
                 
