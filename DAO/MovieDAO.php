@@ -66,7 +66,6 @@ class MovieDAO{
                 $parameters['lenguage']=$movie->getLenguage();
 
                 $this->connection = Connection::GetInstance();
-
                 $this->connection->ExecuteNonQuery($query,$parameters);
             } catch (Exception $ex) {
                 
@@ -267,8 +266,9 @@ class MovieDAO{
                  $this->connection = Connection::GetInstance();
      
                  $results=$this->connection->Execute($query, $parameters);
-                 return($results[0]['id']);
-                 //var_dump($results[0]['id']);
+                 
+                 return($results);
+                 
                  }
                  catch(Exception $e)
                  {

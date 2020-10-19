@@ -35,17 +35,18 @@
             $movieList = $this->movieDAO->GetAll();
             require_once(VIEWS_PATH."movie-list2.php");
         }
-        public function SaveDataBD(){
 
+        public function SaveDataBD(){
             $decodeMovie = $this->apiDAO->RetrieveDataMovie();
+            
             foreach($decodeMovie['results'] as $movie){
                 $result=$this->movieDAO->checkIfExist($movie['id']);
                 if($result==null)
                 {
-                   $insert= new Movie($movie['id'],rand(100,150),$movie['title'],$movie['poster_path'],$movie['original_language']);
-                 $this->movieDAO->Add($insert);
-                 foreach ($movie['genre_ids'] as $value) {
-                     $this->movieDAO->AddGxM($insert->getId(),$value);
+                    $insert= new Movie($movie['id'],rand(100,150),$movie['title'],$movie['poster_path'],$movie['original_language']);
+                    $this->movieDAO->Add($insert);
+                    foreach ($movie['genre_ids'] as $value) {
+                    $this->movieDAO->AddGxM($insert->getId(),$value);
                  }
                 }
           }
