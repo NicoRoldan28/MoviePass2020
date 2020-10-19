@@ -12,24 +12,19 @@
   <table>
     <thead>
       <tr>
+      <th>id</th>
         <th>Name</th>
         <th>Address</th>
         <th>Value</th>
       </tr>
     </thead>
     <tbody>
-    <?php
-    foreach($cineList as $cinema)
-    {
-      ?>
         <tr> 
+          <td><?php echo $cinema->getId() ?></td>
           <td><?php echo $cinema->getName() ?></td>
           <td><?php echo $cinema->getAdress() ?></td>
           <td><?php echo $cinema->getPrice_ticket() ?></td>
       </tr>
-    <?php 
-    }
-    ?>
     </tbody>
   </table>
 </div>

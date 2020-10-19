@@ -26,15 +26,12 @@
             require_once(VIEWS_PATH."listCinema.php");
         }
 
-        public function ShowFilmTabView($cine)
-        { 
+        public function ShowFilmTabView($idCinema)
+        {
             require_once(VIEWS_PATH."validate-session.php");
-            var_dump($cine);
-            $cinema= new Cinema();
-            $cinema=$this->cinemaDAO->getCinemaById($cine);
-            var_dump($cinema);
-            //$cineList =$this->cinemaDAO->getAll();
-            //require_once(VIEWS_PATH."FilmTab.php");
+            //$cineList =array();
+            $cinema =$this->cinemaDAO->getCinema($idCinema);
+            require_once(VIEWS_PATH."FilmTab.php");
         }
 
 

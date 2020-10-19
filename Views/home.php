@@ -1,8 +1,8 @@
 <body>
        <div class="login-box">
           <form action=<?php echo FRONT_ROOT."User/Login"?> method="post">
-
-          <?php require_once(VIEWS_PATH."header.php");?>
+          <?php 
+          require_once(VIEWS_PATH."header.php");?>
           <h1>Login Here</h1>
 
           <!-- USERNAME INPUT -->
