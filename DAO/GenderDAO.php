@@ -297,7 +297,6 @@
         
         public function checkIfExist($idGender){
             try{
-                echo $idGender;
                  $query = "SELECT ifnull(g.id_Gender,'a') as id from ".$this->tableName." g
                  WHERE (g.id_Gender = :idGender);";
                  $parameters["idGender"] = $idGender;
@@ -305,8 +304,8 @@
                  $this->connection = Connection::GetInstance();
      
                  $results=$this->connection->Execute($query, $parameters);
-                 //var_dump($results[0]['id']);
-                 return($results[0]['id']);
+                 
+                 return($results); 
                  //var_dump($results[0]['id']);
                  }
                  catch(Exception $e)

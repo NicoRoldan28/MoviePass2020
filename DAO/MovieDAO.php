@@ -66,7 +66,6 @@ class MovieDAO{
                 $parameters['lenguage']=$movie->getLenguage();
 
                 $this->connection = Connection::GetInstance();
-
                 $this->connection->ExecuteNonQuery($query,$parameters);
             } catch (Exception $ex) {
                 
@@ -263,13 +262,9 @@ class MovieDAO{
                  $query = "SELECT ifnull(m.id_Movie,'a') as id from ".$this->tableName." m
                  WHERE (m.id_Movie = :idMovie);";
                  $parameters["idMovie"] = $idMovie;
-     
                  $this->connection = Connection::GetInstance();
-     
                  $results=$this->connection->Execute($query, $parameters);
-                 //var_dump($results);
-                 return($results[0]['id']);
-                
+                 return($results); 
                  }
                  catch(Exception $e)
                  {
