@@ -39,16 +39,24 @@
                 $rol=$user->getRol();
                 if($rol==2)
                 {
-                    require_once(VIEWS_PATH."registerCinema.php");
+                    $this->admin();
                 }else
                 {
-                    //require_once(VIEWS_PATH."nav-user.php");
-                    $this->ShowMovies();
+                    
+                    $this->user();
                 }
             
             }else{
                 $this->Index("Usuario y/o Contraseña incorrectos");
             }       
+        }
+        public function admin(){
+            require_once(VIEWS_PATH."nav-admin.php");
+            require_once(VIEWS_PATH."registerCinema.php");
+        }
+        public function user(){
+            require_once(VIEWS_PATH."nav-user.php");
+            $this->ShowMovies();
         }
 
         public function ShowMovies(){

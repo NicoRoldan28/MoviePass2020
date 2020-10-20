@@ -30,7 +30,7 @@
         {
             require_once(VIEWS_PATH."validate-session.php");
             //$cineList =array();
-            $cinema =$this->cinemaDAO->getCinema($idCinema);
+            $cinema =$this->cinemaDAO->getCinemaById($idCinema);
             require_once(VIEWS_PATH."FilmTab.php");
         }
 

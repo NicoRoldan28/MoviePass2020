@@ -1,5 +1,5 @@
 <?php 
- include('nav-admin.php');
+ require_once('nav-admin.php');
  require_once("validate-session.php");
 ?>
 <div class="login-box">  

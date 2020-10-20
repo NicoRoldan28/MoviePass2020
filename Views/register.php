@@ -1,7 +1,7 @@
 
  <div class="login-box">  
-            <H1>Sign In</H1>
-            <form action="<?php echo FRONT_ROOT?>User/logverify" method="post">
+        <H1>Sign In</H1>
+        <form action="<?php echo FRONT_ROOT?>User/logverify" method="post">
 
             <label><input type="text" name="email" placeholder="Email" requerid></label>
             <br>
@@ -17,7 +17,7 @@
             <br>
             <input class="btn-login btn" type="submit" name="btnLogin" value='Register'></button>
 
-                </form>
+    </form>
 </div>
 
   
