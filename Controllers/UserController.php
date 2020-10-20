@@ -68,9 +68,6 @@
         public function logverify($email,$password,$userName,$firstName,$lastName,$dni) {
             if ($this->userDAO->readEmail($email)) {
                 echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Email");</script>';
-                //$this->ShowListView();
-                //$msg = "Ya hay un usuario registrado con ese email.";
-                //echo $msg;
                 require ("views/home.php");
             }
             else {
