@@ -1,6 +1,6 @@
 <?php 
  include('header.php');
- //include('nav-admin.php');
+ include('nav-admin.php');
  require_once("validate-session.php");
 ?>
 <br><br>
@@ -12,7 +12,7 @@
   <table>
     <thead>
       <tr>
-      <th>id</th>
+        <th>id</th>
         <th>Name</th>
         <th>Address</th>
         <th>Value</th>
@@ -28,9 +28,5 @@
     </tbody>
   </table>
 </div>
-<div>
-    
-    <a href="<?php echo  FRONT_ROOT."Cinema/ShowAddView"?>">ADD CINEMAS</a>
-</div>
- 
+
 

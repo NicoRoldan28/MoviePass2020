@@ -1,5 +1,4 @@
 <?php 
-
     namespace DAO;
     use Models\Cinema as Cinema;
     use DAO\Connection as Connection;

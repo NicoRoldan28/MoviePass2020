@@ -29,8 +29,8 @@
         public function ShowFilmTabView($idCinema)
         {
             require_once(VIEWS_PATH."validate-session.php");
-            //$cineList =array();
             $cinema =$this->cinemaDAO->getCinemaById($idCinema);
+            //var_dump($cinema);
             require_once(VIEWS_PATH."FilmTab.php");
         }
 
@@ -43,11 +43,14 @@
             $cinema->setAdress($adress);
             $cinema->setPrice_ticket($price_ticket);
 
-            $this->cinemaDAO->Add($cinema);
-
-            $this->ShowListView();
+            $result=$this->cinemaDAO->seachCinema($cinema->getName(),$cinema->getAdress());
+            if($result==null){
+                $this->cinemaDAO->Add($cinema);
+                $this->ShowListView();
+            }else{
+                echo '<script language="javascript">alert("Ya hay un cine registrado con ese nombre o direccion");</script>';
+                $this->ShowAddView();
+            }
         }
-    
-
     }
 ?>

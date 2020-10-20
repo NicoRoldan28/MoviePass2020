@@ -85,11 +85,35 @@
                 throw $ex;
             }
         }
+        public function seachCinema($name,$adress){
+            try
+            {
+                $query = "SELECT name, adress FROM ".$this->tableCinemas." WHERE (name = :name)||(adress = :adress)";
 
-        
+                $parameters["name"] = $name;
+                $parameters["adress"] = $adress;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query,$parameters);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $cinema = new Cinema();
+            
+                    $cinema->setAdress($row["adress"]);
+                    $cinema->setName($row["name"]);
+                }
+                if($cinema==null)
+                $verific=false;
+                else
+                    $verific=true;
 
+                    
+                return $verific;
+            } catch (Exception $th) {
+                throw $th;
+            } 
+        }
 
     }
-
 
 ?>

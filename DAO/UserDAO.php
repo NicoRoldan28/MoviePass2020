@@ -3,6 +3,7 @@
     namespace DAO;
     use DAO\IUserDAO as IUserDAO;
     use Models\User as User;
+    use Models\PerfilUser as PerfilUser;
 
     use \Exception as Exception;
     use DAO\Connection as Connection;
@@ -14,8 +15,6 @@
         private $tablePerfilUsers = "perfilUsers";
 
         public function Add(User $user){
-            //var_dump($user);
-            //$iduser = 0;
             try
             {
                 $procedure = "call CargarUserClient(:user_name,:firstName,:lastName,:dni,:email,:password);";
@@ -26,52 +25,10 @@
                 $parameters["dni"] = $user->getDni();
                 $parameters["email"] = $user->getEmail();
                 $parameters["password"] = $user->getPassword();
-                //$parameters["id_perfilUser"] =$user->getId_PerfilUser();
-                //$parameters["id_rol"] =$user->getRol();
-
-                //$parameters["id"] = $iduser;
 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($procedure,$parameters);
-                //var_dump($id);
                 
-                
-                /*$query1 = "INSERT INTO ".$this->tablePerfilUsers."(user_name,firstName,lastName,dni) 
-                VALUES (:user_name,:firstName,:lastName,:dni)";
-                
-                $parameters["user_name"] = $user->getUserName();
-                $parameters["firstName"] = $user->getFirstName();
-                $parameters["lastName"] = $user->getLastName();
-                $parameters["dni"] = $user->getDni();
-
-                $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query1,$parameters);
-                echo 'aaaa';
-                $query2 = "SELECT @@identity AS id_perfil FROM ".$this->tablePerfilUsers;
-                $this->connection = Connection::GetInstance();
-                $id = $this->connection->Execute($query2,$parameters);
-                var_dump($id);*/
-                
-                
-                //$query2 = "SELECT * FROM ".$this->tablePerfilUsers." WHERE (email = :email)";
-                
-                
-                /*$query = "INSERT INTO ".$this->tableUsers." (email,password,id_rol)
-                VALUES (:email,:password,:id_rol)";
-                
-                //$parameters["id_user"]=1;
-                $parameters["email"] = $user->getEmail();
-                $parameters["password"] = $user->getPassword();
-                //$parameters["id_perfilUser"] =$user->getId_PerfilUser();
-                $parameters["id_rol"] =$user->getRol();
-                
-
-                $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query,$parameters);*/
-
-                
-                
-
             }
             catch(Exception $ex)
             {
@@ -79,7 +36,7 @@
             }
         }
 
-        public function read($email)
+        public function readEmail($email)
         {
             try {
                 $user = null;
@@ -108,9 +65,39 @@
             return $verific;
             } catch (Exception $th) {
                 throw $th;
-            }
-            
+            }    
         }
+        public function readDni($dni)
+        {
+            try {
+                $perfilUser = null;
+
+            $query = "SELECT * FROM ".$this->tablePerfilUsers." WHERE (dni = :dni)";
+
+            $parameters["dni"] = $dni;
+
+            $this->connection = Connection::GetInstance();
+
+            $results=$this->connection->Execute($query, $parameters);
+
+            foreach($results as $row)
+            {
+                $perfilUser = new PerfilUser();
+                //$user->setId_user($row["id"]);
+                $perfilUser->setDni($row["dni"]);
+            }
+            if($perfilUser==null)
+                $verific=false;
+            else
+                $verific=true;
+
+                
+            return $verific;
+            } catch (Exception $th) {
+                throw $th;
+            }    
+        }
+
         public function GetByEmail($email)
         {
             try {
