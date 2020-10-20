@@ -28,9 +28,5 @@
     </tbody>
   </table>
 </div>
-<div>
-    
-    <a href="<?php echo  FRONT_ROOT."Cinema/ShowAddView"?>">ADD CINEMAS</a>
-</div>
- 
+
 

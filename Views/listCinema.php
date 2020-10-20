@@ -1,6 +1,6 @@
 <?php 
  include('header.php');
- include('nav-admin.php');
+ require_once('nav-admin.php');
  require_once("validate-session.php");
 ?>
 <br><br>
@@ -9,20 +9,31 @@
 </div>
 <br>
 <div class="TableStyles">
-  <form action="<?php echo FRONT_ROOT?>Cinema/ShowFilmTabView" method="post">
+<table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Value</th>
+      </tr>
+    </thead>
       <tbody>
       <?php
       foreach($cineList as $cinema)
       {
        ?>
         <tr>
-          <input type= "checkbox" name="cine" value="<?php echo $cinema->getId()?>"><?php echo $cinema->getName()?>
+        <td><?php echo $cinema->getId() ?></td>
+          <td><?php echo $cinema->getName() ?></td>
+          <td><?php echo $cinema->getAdress() ?></td>
+          <td><?php echo $cinema->getPrice_ticket() ?></td>
         </tr>
       <?php 
       }
       ?>
       </tbody>
-    <button type="submit">Send</button>
-  </form>
+</table>
 </div>
+
 
