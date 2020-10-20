@@ -1,6 +1,6 @@
 <?php require_once("validate-session.php");?>
 
-<nav style='position: fixed'><?php include('nav-cine.php');?></nav> 
+<nav style='position: fixed'><?php include('nav-admin.php');?></nav> 
   <div class="div-login"><br>
     <h1 class="text-login">LISTA DE GENEROS</h1>
   </div>  
