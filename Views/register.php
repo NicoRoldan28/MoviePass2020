@@ -13,7 +13,7 @@
             <br>
             <label><input type="text" name="lastName" placeholder="LastName" requerid></label>
             <br>
-            <label><input type="number" name="dni" placeholder="DNI" requerid></label>
+            <label><input type="number" name="dni" placeholder="DNI" min=0 requerid></label>
             <br>
             <input class="btn-login btn" type="submit" name="btnLogin" value='Register'></button>
 
