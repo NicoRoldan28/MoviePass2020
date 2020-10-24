@@ -27,8 +27,12 @@
                 $parameters["password"] = $user->getPassword();
 
                 $this->connection = Connection::GetInstance();
+<<<<<<< HEAD
                 $this->connection->ExecuteNonQuery($procedure,$parameters);
                 
+=======
+                $this->connection->ExecuteNonQuery($procedure,$parameters);  
+>>>>>>> subMaster
             }
             catch(Exception $ex)
             {

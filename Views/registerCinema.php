@@ -1,5 +1,5 @@
 <?php 
- include('nav-admin.php');
+ require_once('nav-admin.php');
  require_once("validate-session.php");
 ?>
 <div class="login-box">  
@@ -10,10 +10,9 @@
         <br>
         <label>ADDRESS<input class="input-login" type="text" name="address" placeholder="Enter Address" required ></label>
         <br>
-        <label>PRICE TICKET<input class="input-login" type="text" name="price_ticket" placeholder="Enter Price Ticket" required ></label>
+        <label>PRICE TICKET<input class="input-login" type="number" name="price_ticket" placeholder="Enter Price Ticket" min=0 required ></label>
         <br>
         <input type="submit" name="btnLogin" value= 'REGISTER'></button>
-        <a href="<?php echo  FRONT_ROOT."Cinema/ShowListView"?>">LIST CINEMAS</a>
     </form>
 </div>
 

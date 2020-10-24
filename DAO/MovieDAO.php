@@ -8,8 +8,10 @@ use Models\Gender as Gender;
 use \Exception as Exception;
 use DAO\Connection as Connection;
 use DAO\QueryType as QueryType;
+use DAO\IDAO as IDAO;
 
-class MovieDAO{
+
+class MovieDAO implements IDAO{
 
     private $connection;
     private $tableName = 'Movies';

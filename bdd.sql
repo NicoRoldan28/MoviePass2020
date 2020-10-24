@@ -4,18 +4,9 @@ use MP;
 
 drop database MP;
 
--- #######################################  PERFILUSERS  ##############################################
 
-create table perfilUsers(
-    id_perfil integer auto_increment primary key,
-    user_name varchar(50) unique not null,
-    firstName varchar(50) not null,
-    lastName varchar(50) not null,
-    dni integer unique not null
-);
 
-/*drop table perfilUsers;*/
-select * from perfilusers;
+
 
 -- #######################################  ROL  ##############################################
 
@@ -26,6 +17,18 @@ create table rol(
 
 /*drop table rol;*/
 select * from rol;
+
+-- #######################################  PERFILUSERS  ##############################################
+
+create table perfilUsers(
+    id_perfil integer auto_increment primary key,
+    user_name varchar(50) unique not null,
+    firstName varchar(50) not null,
+    lastName varchar(50) not null,
+    dni integer unique not null
+);
+/*drop table perfilUsers;*/
+select * from perfilusers;
 
 -- #######################################  USERS  ##############################################
 
@@ -41,6 +44,18 @@ constraint fk_id_rol foreign key(id_rol) references rol(id_rol));
 /*drop table users;*/
 select * from users;
 
+select * from users u
+inner join perfilusers p
+on u.id_perfilUser = p.id_perfil;
+
+	select count(t.nro_entrada) from Ticket t
+	inner join Showings s
+	on s.id_Showing = t.id_Showing 
+	where s.id_turno = Valuee;
+
+delete from perfilusers
+where perfilusers.id_perfil=4;
+
 insert into rol(id_rol,name_description) values(1,'CLIENTE'),(2,'ADMINISTRADOR');
 select * from rol;
 insert into perfilusers(user_name,firstName,lastName,dni) value('Rodri_07','Rodrigo','Villarroel',39809917);
@@ -53,7 +68,7 @@ select * from users;
 
 create table Movies(
     id_Movie integer primary key,
-    title_Movie varchar(50),
+    title_Movie varchar(100),
     image blob,
     lenght int,
     lenguage varchar(50)
@@ -61,6 +76,9 @@ create table Movies(
 
 /*drop table Movies;*/
 select * from movies;
+select * from movies
+where id_Movie=635302;
+truncate table movies;
 
 -- #######################################  Genders  ##############################################
 
@@ -72,6 +90,7 @@ create table Genders(
 /*drop table Genders;*/
 
 select * from Genders;
+truncate table Genders;
 -- #######################################  GendersXMovies  ##############################################
 
 create table GendersXMovies(
@@ -84,13 +103,15 @@ create table GendersXMovies(
 
 /*drop table GendersXMovies;*/
 
+select * from GendersXMovies;
+truncate table gendersxmovies;
 
 -- #######################################  Cinemas  ##############################################
 
 Create table Cinemas(
     id_cinema integer auto_increment primary key,
     adress varchar(50) not null,
-    namee varchar(50) not null,
+    name varchar(50) not null,
     price_ticket integer not null
 );
 
@@ -141,9 +162,7 @@ create table Showings(
 drop table Showings;
 select * from showings;
 
-
-
-
+--
 select * from users;
 select * from perfilusers;
 
@@ -472,3 +491,15 @@ truncate table showings;
 truncate table ticket;
 truncate table paytc;
 truncate table buy;
+
+DELIMITER //
+CREATE PROCEDURE CargarUserClient (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
+BEGIN
+    insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
+    -- set id = last_insert_id();select @id;
+    insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
+
+END //
+
+/*drop procedure `CargarUserClient`; */
+
