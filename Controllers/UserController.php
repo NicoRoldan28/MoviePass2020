@@ -49,10 +49,12 @@
                 $this->Index("Usuario y/o Contraseña incorrectos");
             }       
         }
+        
         public function admin(){
             require_once(VIEWS_PATH."nav-admin.php");
             require_once(VIEWS_PATH."registerCinema.php");
         }
+
         public function user(){
             require_once(VIEWS_PATH."nav-user.php");
             $this->ShowMovies();
