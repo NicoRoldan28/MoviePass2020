@@ -11,9 +11,9 @@
           </div>
           <ul class="features">
               <li>Lenght : <?php echo $movie->getLenght(); ?> minutes.</li>
-              <li>Lenguage : <?php echo $movie->getLenguage() ?></li>
+              <li>Lenguage : <?php echo $movie->getLenguage(); ?></li>
           </ul>
           <?php } 
           ?>
   </ul>
-  <script src="prefixfree.min.js" type="text/javascript"></script>
+  <!--<script src="prefixfree.min.js" type="text/javascript"></script>-->

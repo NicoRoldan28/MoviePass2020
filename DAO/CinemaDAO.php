@@ -94,20 +94,18 @@
                 $parameters["adress"] = $adress;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query,$parameters);
-                
+                $cinema=null;
                 foreach ($resultSet as $row)
-                {                
-                    $cinema = new Cinema();
-            
+                { 
+                    $cinema = new Cinema();               
                     $cinema->setAdress($row["adress"]);
                     $cinema->setName($row["name"]);
                 }
-                if($cinema==null)
-                $verific=false;
-                else
+                if($cinema==null){
+                   $verific=false; 
+                }else{
                     $verific=true;
-
-                    
+                }  
                 return $verific;
             } catch (Exception $th) {
                 throw $th;
