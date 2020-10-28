@@ -22,15 +22,10 @@
                 <li><a href="<?php echo  FRONT_ROOT."Gender/ShowListView "?>">LIST GENDERS</a></li>
               </ul>
             </li>
-            <li><a href="#">TURNS</a>
-<<<<<<< HEAD
-                <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowAddView "?>">TURN ADD</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowListView "?>">TURN LIST</a></li>
-=======
+            <li><a href="#">ROOMS</a>
               <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowListTurn"?>">LIST TURN</a></li>
->>>>>>> Rodrigo
+                <li><a href="<?php echo  FRONT_ROOT."Room/ShowAddView "?>">ROOM ADD</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Room/ShowListView "?>">CINEMA LIST</a></li>
               </ul>
             </li>
   

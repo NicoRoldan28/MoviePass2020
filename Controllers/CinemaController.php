@@ -59,22 +59,5 @@
                 $this->ShowAddView();
             }
         }
-
-        public function AddRoom($name,$capacity,$idCinema){
-
-
-            $room = new Room();
-            $room->setNombre($name);
-            $room->setCapacidad($capacity);
-            var_dump($idCinema);
-            
-            $this->cinemaDAO->AddRoom($room,$idCinema);
-
-            $rooms = $this->cinemaDAO->getAllRoomsXCine($idCinema);
-
-            var_dump($rooms);
-    
-
-        }
     }
 ?>

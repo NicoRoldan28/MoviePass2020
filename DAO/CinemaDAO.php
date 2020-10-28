@@ -89,6 +89,32 @@
                 throw $ex;
             }
         }
+        public function getCinemaByName($name){
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableCinemas." WHERE (name = :name)";
+
+                $parameters["name"] = $name;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query,$parameters);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $cinema = new Cinema();
+            
+                    $cinema->setId($row["id_cinema"]);
+                    $cinema->setAdress($row["adress"]);
+                    $cinema->setName($row["name"]);
+                    $cinema->setPrice_ticket($row["price_ticket"]);
+                }
+
+                return $cinema;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
         public function seachCinema($name,$adress){
             try
             {

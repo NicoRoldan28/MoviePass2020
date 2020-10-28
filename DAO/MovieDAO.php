@@ -27,7 +27,7 @@ class MovieDAO implements IDAO{
                 $result = $this->connection->Execute($query);
 
                 foreach($result as $row){
-                    $movie= new Movie($row['id_Movie'],$row['runtime'],$row['title_Movie'],$row['image'],$row['lenguage']);
+                    $movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
         
                     array_push($movieList,$movie);
                 }
@@ -41,12 +41,12 @@ class MovieDAO implements IDAO{
         
         public function Add(Movie $movie){
             try {
-                $query = 'INSERT INTO '.$this->tableName." (id_Movie,title_Movie,image,runtime ,lenguage) VALUES(:id_Movie,:title_Movie,:image,:runtime,:lenguage);";
+                $query = 'INSERT INTO '.$this->tableName." (id_Movie,title_Movie,image,lenght ,lenguage) VALUES(:id_Movie,:title_Movie,:image,:runtime,:lenguage);";
 
                 $parameters['id_Movie']=$movie->getId();
                 $parameters['title_Movie']=$movie->getTitle();
                 $parameters['image']=$movie->getImage();
-                $parameters['runtime']=$movie->getBudget();
+                $parameters['runtime']=$movie->getLenght();
                 //echo($parameters->lenght);
                 $parameters['lenguage']=$movie->getLenguage();
 
