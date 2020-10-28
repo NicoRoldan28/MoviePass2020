@@ -5,10 +5,19 @@
 
         public function RetrieveDataMovie(){
 
-            $fileMovie = file_get_contents(API2);
+            $fileMovie = file_get_contents(APINOWPLAYING);
             $decodeMovie = json_decode($fileMovie,true);
             return $decodeMovie;
         }
+        
+
+        public function RetrieveDataMovie2($idMovie){
+
+            $fileMovie = file_get_contents(API.$idMovie.KEY);
+            $decodeMovie = json_decode($fileMovie,true);
+            return $decodeMovie;
+        }
+
 
         public function RetrieveDataGender(){
 

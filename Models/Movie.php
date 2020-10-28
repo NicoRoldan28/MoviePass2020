@@ -2,15 +2,15 @@
     namespace Models;
     class Movie{
         private $id;
-        private $lenght;
+        private $budget ;
         private $title;
         private $image;
         private $lenguage;
         private $genders = array();
 
-        function __construct($id,$lenght,$title,$image,$lenguage/*,$generos*/){
+        function __construct($id,$budget ,$title,$image,$lenguage/*,$generos*/){
            $this->setId($id);
-           $this->setLenght($lenght);
+           $this->setBudget($budget);
            $this->setTitle($title);
            $this->setImage($image);
            $this->setLenguage($lenguage);
@@ -20,8 +20,8 @@
         public function setId($id){$this->id=$id;}
         public function getId(){return $this->id;}
 
-        public function setLenght($lenght){$this->lenght=$lenght;}
-        public function getLenght(){return $this->lenght;}
+        public function setBudget($budget){$this->budget=$budget;}
+        public function getBudget(){return $this->budget;}
 
         public function setTitle($title){$this->title=$title;}
         public function getTitle(){return $this->title;}

@@ -70,24 +70,12 @@
         public function logverify($email,$password,$userName,$firstName,$lastName,$dni) {
             if ($this->userDAO->readEmail($email)) {
                 echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Email");</script>';
-<<<<<<< HEAD
-                //$this->ShowListView();
-                //$msg = "Ya hay un usuario registrado con ese email.";
-                //echo $msg;
                 require ("views/home.php");
             }
             else {
                 if($this->userDAO->readDni($dni)){
                 echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Dni");</script>';
                 require ("views/home.php");
-=======
-                require ("views/home.php");
-            }
-            else {
-                if($this->userDAO->readDni($dni)){
-                echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Dni");</script>';
-                require ("views/home.php");
->>>>>>> subMaster
                 }
                 else {
                 $this->Add($email,$password,$userName,$firstName,$lastName,$dni);

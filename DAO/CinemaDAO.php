@@ -90,8 +90,6 @@
             {
                 $query = "SELECT name, adress FROM ".$this->tableCinemas." WHERE (name = :name)||(adress = :adress)";
 
-<<<<<<< HEAD
-=======
                 $parameters["name"] = $name;
                 $parameters["adress"] = $adress;
                 $this->connection = Connection::GetInstance();
@@ -114,7 +112,6 @@
             } 
         }
 
->>>>>>> subMaster
     }
 
 ?>
