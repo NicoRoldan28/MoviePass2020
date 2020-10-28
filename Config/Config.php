@@ -15,15 +15,29 @@
 
 
     //API
+<<<<<<< HEAD
     define('KEY','api_key=2e353a04f443ba09a1f69c15142ff76f');
 
     define("API","https://api.themoviedb.org/3/movie");
 
     //https://api.themoviedb.org/3/movie/157336?api_key={api_key}
 
+=======
+    
+    define('KEY','?api_key=2e353a04f443ba09a1f69c15142ff76f');
+    //define("API","https://api.themoviedb.org/3/movie/top_rated?");
+>>>>>>> Rodrigo
     define("IMAGE","http://image.tmdb.org/t/p//w500");
-    define("API2","https://api.themoviedb.org/3/movie/now_playing?".KEY);
-    define("GENDER","https://api.themoviedb.org/3/genre/movie/list?".KEY);
+    
+    //define("APIDETAILS","https://api.themoviedb.org/3/movie/now_playing?".KEY);
+    define("GENDER","https://api.themoviedb.org/3/genre/movie/list".KEY);
+    
+    
+    
+    define("API","https://api.themoviedb.org/3/movie");
+    define("APINOWPLAYING",API."/now_playing".KEY);
+    //define("APIDETAILS",API.KEY);
+    //https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
 
     //define("API3","https://api.themoviedb.org/3/movie/".idPelicula"?".KEY);
    

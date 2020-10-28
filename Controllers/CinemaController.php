@@ -2,6 +2,7 @@
     namespace Controllers;
 
     use Models\Cinema as Cinema;
+    use Models\Room as Room;
     use DAO\CinemaDAO as CinemaDAO;
 
     class CinemaController{
@@ -23,7 +24,7 @@
             require_once(VIEWS_PATH."validate-session.php");
             $cineList =array();
             $cineList =$this->cinemaDAO->getAll();
-            require_once(VIEWS_PATH."listCinema.php");
+            require_once(VIEWS_PATH."listCinema2.php");
         }
 
         public function ShowFilmTabView($idCinema)
@@ -34,6 +35,12 @@
             require_once(VIEWS_PATH."FilmTab.php");
         }
 
+        public function ShowAddRoomView($idCinema)
+        {
+            var_dump($idCinema);
+            require_once(VIEWS_PATH."add-room.php");
+            $this->AddRoom($name,$capacity,$idCinema);
+        }
 
         public function RegisterCine($name,$adress,$price_ticket)
         {
@@ -51,6 +58,23 @@
                 echo '<script language="javascript">alert("Ya hay un cine registrado con ese nombre o direccion");</script>';
                 $this->ShowAddView();
             }
+        }
+
+        public function AddRoom($name,$capacity,$idCinema){
+
+
+            $room = new Room();
+            $room->setNombre($name);
+            $room->setCapacidad($capacity);
+            var_dump($idCinema);
+            
+            $this->cinemaDAO->AddRoom($room,$idCinema);
+
+            $rooms = $this->cinemaDAO->getAllRoomsXCine($idCinema);
+
+            var_dump($rooms);
+    
+
         }
     }
 ?>

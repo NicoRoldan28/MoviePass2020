@@ -23,9 +23,14 @@
               </ul>
             </li>
             <li><a href="#">TURNS</a>
+<<<<<<< HEAD
                 <ul class="submenu">
                 <li><a href="<?php echo  FRONT_ROOT."Turn/ShowAddView "?>">TURN ADD</a></li>
                 <li><a href="<?php echo  FRONT_ROOT."Turn/ShowListView "?>">TURN LIST</a></li>
+=======
+              <ul class="submenu">
+                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowListTurn"?>">LIST TURN</a></li>
+>>>>>>> Rodrigo
               </ul>
             </li>
   

@@ -43,6 +43,7 @@
                 $result=$this->movieDAO->checkIfExist($movie['id']);
                 if($result==null)
                 {
+<<<<<<< HEAD
                     //$insert= new Movie($movie['id'],$movie['runtime'],$movie['title'],$movie['poster_path'],$movie['original_language']);
                     $insert= new Movie($movie['id'],null,$movie['title'],$movie['poster_path'],$movie['original_language']);
                     $result2 = $this->apiDAO->RetrieveDataMovie2($result['id']);
@@ -53,6 +54,11 @@
                     }
                     //var_dump ($insert);
                     //var_dump($insert->runtime);
+=======
+                    $url = API."/".$movie['id'].KEY;
+                    $result2 = $this->apiDAO->RetrieveDataMovie2($url);
+                    $insert= new Movie($movie['id'],$result2["runtime"],$movie['title'],$movie['poster_path'],$movie['original_language']);
+>>>>>>> Rodrigo
                     $this->movieDAO->Add($insert);
                     foreach ($movie['genre_ids'] as $value) {
                     $this->movieDAO->AddGxM($insert->getId(),$value);
