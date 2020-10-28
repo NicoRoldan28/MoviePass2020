@@ -1,13 +1,15 @@
 <?php namespace Models;
 
+    use Models\Room as Room;
+
+
     class Showing
     {
         private $idShowing;
         private $dayTime;
         private $Movie;
-        //private $idRoom;
-        private $Turn;
-
+        private Room $room;
+  
         public function setIdShowing($idShowing){$this->idShowing=$idShowing;}
         public function getIdShowing(){return $this->idShowing;}
 
@@ -17,11 +19,9 @@
         public function setMovie($Movie){$this->Movie=$Movie;}
         public function getMovie(){return $this->Movie;}
 
-        //public function setIdRoom($idRoom){$this->idRoom=$idRoom;}
-        //public function getIdRoom(){return $this->idRoom;}
+        public function setRoom($room){$this->room=$room;}
+        public function getRoom(){return $this->room;}
 
-        public function setTurn($Turn){$this->Turn=$Turn;}
-        public function getTurn(){return $this->Turn;}
     }
     
 ?>
