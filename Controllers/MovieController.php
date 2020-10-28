@@ -43,7 +43,9 @@
                 $result=$this->movieDAO->checkIfExist($movie['id']);
                 if($result==null)
                 {
-                    $insert= new Movie($movie['id'],rand(100,150),$movie['title'],$movie['poster_path'],$movie['original_language']);
+                    $url = API."/".$movie['id'].KEY;
+                    $result2 = $this->apiDAO->RetrieveDataMovie2($url);
+                    $insert= new Movie($movie['id'],$result2["runtime"],$movie['title'],$movie['poster_path'],$movie['original_language']);
                     $this->movieDAO->Add($insert);
                     foreach ($movie['genre_ids'] as $value) {
                     $this->movieDAO->AddGxM($insert->getId(),$value);

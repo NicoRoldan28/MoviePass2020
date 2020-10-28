@@ -5,7 +5,14 @@
 
         public function RetrieveDataMovie(){
 
-            $fileMovie = file_get_contents(API2);
+            $fileMovie = file_get_contents(APINOWPLAYING);
+            $decodeMovie = json_decode($fileMovie,true);
+            return $decodeMovie;
+        }
+
+        public function RetrieveDataMovie2($url){
+
+            $fileMovie = file_get_contents($url);
             $decodeMovie = json_decode($fileMovie,true);
             return $decodeMovie;
         }

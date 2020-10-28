@@ -54,7 +54,7 @@
             require_once(VIEWS_PATH."registerCinema.php");
         }
         public function user(){
-            require_once(VIEWS_PATH."nav-user.php");
+            require_once(VIEWS_PATH."nav-user2.php");
             $this->ShowMovies();
         }
 

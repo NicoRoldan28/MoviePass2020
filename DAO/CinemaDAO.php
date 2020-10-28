@@ -4,6 +4,8 @@
     use DAO\ICinemaDAO as ICinemaDAO;
     use Models\Cinema as Cinema;
 
+    use Models\Room as Room;
+
     use \Exception as Exception;
     use DAO\Connection as Connection;
 
@@ -11,6 +13,7 @@
 
         private $connection;
         private $tableCinemas = "cinemas";
+        private $tableRooms = "rooms";
 
         public function Add(Cinema $cinema){
 
@@ -49,6 +52,7 @@
                     $cinema->setName($row["name"]);
                     $cinema->setAdress($row["adress"]);
                     $cinema->setPrice_ticket($row["price_ticket"]);
+                    
                     array_push($cineList, $cinema);
                 }
 
@@ -111,6 +115,57 @@
                 throw $th;
             } 
         }
+
+        public function AddRoom(Room $room,$id_cinema){
+            try
+            {
+                $procedure = "call CargarRoomCinema(:nombre,:capacidad,:id);";
+
+                $parameters["nombre"] = $room->getNombre();
+                $parameters["capacidad"] = $room->getCapacidad();
+                $parameters["id"] = $id_cinema;
+
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($procedure,$parameters);  
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        
+        }
+
+        public function getAllRoomsXCine($id_cinema){
+            try
+            {
+                $roomsList = array();
+                $query = "SELECT * FROM ".$this->tableRooms." r inner join".$this->tableCinemas." c ON c.id_cinema = r.id_Cine
+                where c.id_cinema = :id_cinema;";
+                $parameters["id_cinema"] = $id_cinema;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query,$parameters);
+                var_dump($resultSet);
+                /*foreach ($resultSet as $row)
+                {                
+                    $cinema = new Cinema();
+            
+                    $cinema->setId($row["id_cinema"]);
+                    $cinema->setName($row["name"]);
+                    $cinema->setAdress($row["adress"]);
+                    $cinema->setPrice_ticket($row["price_ticket"]);
+                    
+                    array_push($cineList, $cinema);
+                }*/
+
+                //return $cineList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+
 
     }
 

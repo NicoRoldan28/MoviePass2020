@@ -21,6 +21,11 @@
                 <li><a href="<?php echo  FRONT_ROOT."Gender/ShowListView "?>">LIST GENDERS</a></li>
               </ul>
             </li>
+            <li><a href="#">TURNS</a>
+              <ul class="submenu">
+                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowListTurn"?>">LIST TURN</a></li>
+              </ul>
+            </li>
   
             <li><a style="background-color: #3e94ec"  href="<?php echo  FRONT_ROOT."Home/Logout "?>">LOGOUT</a></li>
           </ul>
