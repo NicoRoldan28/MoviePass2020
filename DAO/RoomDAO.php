@@ -34,6 +34,30 @@ class RoomDAO implements IDAO{
                 throw $ex;
             }
     }
+    public function GetAllForCinema($id_Cine){
+        try {
+            $roomList = array();
+            $query = "SELECT * FROM ".$this->tableName." WHERE (id_Cine = :id_Cine)";
+
+            $parameters["id_Cine"] = $id_Cine;
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query,$parameters);
+            foreach($result as $row){
+                $room= new Room();
+                $room->setId($row["idRoom"]);
+                $room->setNombre($row["nombre"]);
+                $room->setCapacidad($row["capacidad"]);
+                //$room->setCinema($row["id_Cine"]);
+
+                //var_dump($room);
+                array_push($roomList,$room);
+            }
+            return $roomList;
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+    }
 
     public function Add(Room $room){
         try {
@@ -74,6 +98,32 @@ class RoomDAO implements IDAO{
         } catch (Exception $th) {
             throw $th;
         } 
+    }
+    public function getRoomById($idRoom){
+        try
+        {
+            $query = "SELECT * FROM ".$this->tableName." WHERE (idRoom = :idRoom)";
+
+            $parameters["idRoom"] = $idRoom;
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query,$parameters);
+            
+            foreach ($resultSet as $row)
+            {                
+                $room = new Room();
+        
+                $room->setId($row["idRoom"]);
+                $room->setNombre($row["nombre"]);
+                $room->setCapacidad($row["capacidad"]);
+                //$room->setPrice_ticket($row["price_ticket"]);
+            }
+
+            return $room;
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }
     }
 }
 

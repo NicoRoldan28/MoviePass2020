@@ -1,10 +1,10 @@
-<?php require_once('nav-cine.php');?>
+<?php require_once('nav-admin.php');?>
 <div class="login-box">  
-            <form action="<?php echo FRONT_ROOT?>Showing/RegisterFuncion" method="post">
+            <form action="<?php echo FRONT_ROOT?>Cinema/AddShowing" method="post">
                 <h1>Add Showing</h1>
                 <br>
                 <br>
-                <label>Date<input type="date" name="dayTime" requerid></label>
+                <label>Date && Hs Start <input type="datetime-local" name="dayTime" requerid></label>
                 <br>
                 <label>Movie Name <select name="nombreMovie" required ></label>
                 <br>
@@ -13,7 +13,7 @@
                 {?>
                     <tr>
                         <td>
-                            <option value="<?php echo $movie->getTitle() ?>"><?php echo $movie->getTitle() ?> </option>
+                            <option value="<?php echo $movie->getId() ?>"><?php echo $movie->getTitle() ?> </option>
                         </td>
                     </tr>
                 <?php
@@ -28,7 +28,7 @@
                 {?>
                     <tr>
                         <td>
-                            <option value="<?php echo $room->getNombre() ?>"><?php echo $room->getNombre() ?> </option>
+                            <option value="<?php echo $room->getId() ?>"><?php echo $room->getNombre() ?> </option>
                         </td>
                     </tr>
                 <?php
@@ -36,8 +36,7 @@
                 </select>
                 <br>
                 <br>
-                <br>
-                <label>Cine Id<input type="number" name="idCine" value="<?php echo $id ?>" readonly></label>
+                
                 <br>
                 <br>
                 <input class="btn-login btn" type="submit" name="btnLogin"value='Save'></button>

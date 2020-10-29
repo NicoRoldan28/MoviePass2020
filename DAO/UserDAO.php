@@ -1,14 +1,13 @@
 <?php 
 
     namespace DAO;
-    use DAO\IUserDAO as IUserDAO;
     use Models\User as User;
     use Models\PerfilUser as PerfilUser;
 
     use \Exception as Exception;
     use DAO\Connection as Connection;
 
-    class UserDAO implements IUserDAO{
+    class UserDAO {
 
         private $connection;
         private $tableUsers = "users";

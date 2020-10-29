@@ -5,8 +5,8 @@
           <ul class="menu">
           <li><a href="#">CINEMA</a>
               <ul class="submenu">
-              <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddView "?>">CINEMA ADD</a></li>
-              <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListView "?>">CINEMA LIST</a></li>
+              <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddCinemaView "?>">CINEMA ADD</a></li>
+              <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListCinemaView "?>">CINEMA LIST</a></li>
               </ul>
           </li>
             
@@ -24,8 +24,14 @@
             </li>
             <li><a href="#">ROOMS</a>
               <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Room/ShowAddView "?>">ROOM ADD</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Room/ShowListView "?>">CINEMA LIST</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddRoomView "?>">ROOM ADD</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListRoomView "?>">ROOM LIST</a></li>
+              </ul>
+            </li>
+            <li><a href="#">SHOWINGS</a>
+              <ul class="submenu">
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/selectCinema "?>">SHOWING ADD</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListRoomView "?>">SHOWINGS LIST</a></li>
               </ul>
             </li>
   
