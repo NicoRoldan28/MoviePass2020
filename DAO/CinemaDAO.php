@@ -1,15 +1,12 @@
 <?php 
 
     namespace DAO;
-    use DAO\ICinemaDAO as ICinemaDAO;
     use Models\Cinema as Cinema;
-
     use Models\Room as Room;
-
     use \Exception as Exception;
     use DAO\Connection as Connection;
 
-    class CinemaDAO implements ICinemaDAO{
+    class CinemaDAO{
 
         private $connection;
         private $tableCinemas = "cinemas";

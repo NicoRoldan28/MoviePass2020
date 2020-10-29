@@ -5,7 +5,6 @@
             private $adress;
             private $name;
             private $price_ticket;
-            private $rooms = array();
 
             public function setId($id){$this->id=$id;}
             public function getId(){return $this->id;}
@@ -18,8 +17,5 @@
 
             public function setPrice_ticket($price_ticket){$this->price_ticket=$price_ticket;}
             public function getPrice_ticket(){return $this->price_ticket;}
-
-            public function setRooms($rooms){$this->rooms=$rooms;}
-            public function getRooms(){return $this->rooms;}
 
         }

@@ -1,12 +1,15 @@
 <?php namespace Models;
 
+    use Models\Room as Room;
+
     class Showing
     {
         private $idShowing;
         private $dayTime;
-        private $Movie;
-        //private $idRoom;
-        private $Turn;
+        private $$idMovie;;
+        private Room $room;
+        private $hrStart;
+        private $hrFinish;
 
         public function setIdShowing($idShowing){$this->idShowing=$idShowing;}
         public function getIdShowing(){return $this->idShowing;}
@@ -14,14 +17,18 @@
         public function setDayTime($dayTime){$this->dayTime=$dayTime;}
         public function getDayTime(){return $this->dayTime;}
 
-        public function setMovie($Movie){$this->Movie=$Movie;}
-        public function getMovie(){return $this->Movie;}
+        public function setidMovie($idMovie){$this->idMovie=$idMovie;}
+        public function getidMovie(){return $this->idMovie;}
 
-        //public function setIdRoom($idRoom){$this->idRoom=$idRoom;}
-        //public function getIdRoom(){return $this->idRoom;}
+        public function setRoom(Room $room){$this->room=$room;}
+        public function getRoom(){return $this->room;}
 
-        public function setTurn($Turn){$this->Turn=$Turn;}
-        public function getTurn(){return $this->Turn;}
+        public function setHrStart($hrStart){$this->hrStart=$hrStart;}
+        public function getHrStart(){return $this->hrStart;}
+
+        public function setHrFinish($hrFinish){$this->hrFinish=$hrFinish;}
+        public function getHrFinish(){return $this->hrFinish;}
+
     }
     
 ?>

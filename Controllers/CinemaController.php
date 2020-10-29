@@ -3,23 +3,33 @@
 
     use Models\Cinema as Cinema;
     use Models\Room as Room;
+    use Models\Showing as Showing;
+
     use DAO\CinemaDAO as CinemaDAO;
+    use DAO\RoomDAO as RoomDAO;
+    use DAO\ShowingDAO as ShowingDAO;
 
     class CinemaController{
 
         private $cinemaDAO;
+        private $roomDAO;
+        private $showingDAO;
 
         public function __construct(){
             $this->cinemaDAO = new CinemaDAO();
+            $this->roomDAO = new RoomDAO();
+            ////$this->showingDAO = new ShowingDAO();
         }
 
-        public function ShowAddView()
+        //################ CINEMA ##################
+
+        public function ShowAddCinemaView()
         {
             require_once(VIEWS_PATH."validate-session.php");
             require_once(VIEWS_PATH."registerCinema.php");
         }
 
-        public function ShowListView()
+        public function ShowListCinemaView()
         {
             require_once(VIEWS_PATH."validate-session.php");
             $cineList =array();
@@ -34,14 +44,7 @@
             //var_dump($cinema);
             require_once(VIEWS_PATH."FilmTab.php");
         }
-
-        public function ShowAddRoomView($idCinema)
-        {
-            var_dump($idCinema);
-            require_once(VIEWS_PATH."add-room.php");
-            $this->AddRoom($name,$capacity,$idCinema);
-        }
-
+        
         public function RegisterCine($name,$adress,$price_ticket)
         {
             $cinema = new Cinema();
@@ -60,21 +63,79 @@
             }
         }
 
-        public function AddRoom($name,$capacity,$idCinema){
+        ################### ROOM #####################
+        
+        public function ShowAddRoomView()
+        {
+            require_once(VIEWS_PATH."validate-session.php");
+            $cineList=array();
+            $cineList=$this->cinemaDAO->getAll();
+            require_once(VIEWS_PATH."registerRoom.php");
+        }
 
+        public function ShowListRoomView()
+        {
+            require_once(VIEWS_PATH."validate-session.php");
+            $cineList =array();
+            $cineList =$this->cinemaDAO->getAll();
+            require_once(VIEWS_PATH."listCinema2.php");
+        }
 
+        public function RegisterRoom($name,$capacidad,$idCinema)
+        {
+            
             $room = new Room();
             $room->setNombre($name);
-            $room->setCapacidad($capacity);
-            var_dump($idCinema);
+            $room->setCapacidad($capacidad);
+            $room->setCinema($this->cinemaDAO->getCinemaById($idCinema));
             
-            $this->cinemaDAO->AddRoom($room,$idCinema);
+            $result=$this->roomDAO->seachRoom($room->getNombre(),$idCinema);
+            if($result==null){
+                $this->roomDAO->Add($room);
+                $this->ShowListView();
+            }else{
+                echo '<script language="javascript">alert("Ya hay una sala registrada con ese nombre en ese cine");</script>';
+                $this->ShowAddView();
+            }
+        }
 
-            $rooms = $this->cinemaDAO->getAllRoomsXCine($idCinema);
+        ################### SHOWING #####################
 
-            var_dump($rooms);
-    
+        
+        public function ShowAddShowingView()
+        {
+            require_once(VIEWS_PATH."validate-session.php");
+            $cineList=$this->cinemaDAO->getAll();
+            $roomList=$this->roomDAO->GetAll();
+            var_dump($roomList);
+            var_dump($cineList);
+            require_once(VIEWS_PATH."selectCinema.php");
+        }
 
+        public function ShowListShowingView()
+        {
+            require_once(VIEWS_PATH."validate-session.php");
+            $cineList =array();
+            $cineList =$this->cinemaDAO->getAll();
+            require_once(VIEWS_PATH."listCinema2.php");
+        }
+
+        public function AddShowing($idCinema)
+        {
+            
+            $room = new Room();
+            $room->setNombre($name);
+            $room->setCapacidad($capacidad);
+            $room->setCinema($this->cinemaDAO->getCinemaById($idCinema));
+            
+            $result=$this->roomDAO->seachRoom($room->getNombre(),$idCinema);
+            if($result==null){
+                $this->roomDAO->Add($room);
+                $this->ShowListView();
+            }else{
+                echo '<script language="javascript">alert("Ya hay una sala registrada con ese nombre en ese cine");</script>';
+                $this->ShowAddView();
+            }
         }
     }
 ?>

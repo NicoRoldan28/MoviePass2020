@@ -1,13 +1,12 @@
 <?php namespace DAO;
     use Models\Gender as Gender;
-    use DAO\IGenderDAO as IGenderDAO;
     use \Exception as Exception;
     use DAO\Connection as Connection;
     use DAO\QueryType as QueryType;
     use Models\Movie as Movie;
     use DAO\MovieDAO as MovieDAO;
 
-    class GenderDAO implements IGenderDAO{
+    class GenderDAO{
 
         private $connection;
         private $tableName = 'Genders';
