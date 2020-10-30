@@ -1,23 +1,10 @@
-<?php require_once('nav-cine.php');?>
+<?php require_once('nav-admin.php');?>
 <div class="login-box">  
-            <form action="<?php echo FRONT_ROOT?>Showing/RegisterFuncion" method="post">
+            <form action="<?php echo FRONT_ROOT?>Cinema/AddShowing" method="post">
                 <h1>Add Showing</h1>
-                <label>ROOM <br><select name="idRoom" required ></label>
-                <?php
-                foreach($rooms as $room)
-                {?>
-                    <tr> 
-                    <td>
-                        <option value="<?php echo $room->getId() ?>"><?php echo $turn->getHrStart()?> - <?php echo $turn->getHrFinish()  ?> </option>
-                    </td>
-                </tr>
-                <?php 
-                } ?>
-                </select>
                 <br>
                 <br>
-                <br>
-                <label>Date<input type="date" name="dayTime" requerid></label>
+                <label>Date && Hs Start <input type="datetime-local" name="dayTime" requerid></label>
                 <br>
                 <label>Movie Name <select name="nombreMovie" required ></label>
                 <br>
@@ -26,7 +13,7 @@
                 {?>
                     <tr>
                         <td>
-                            <option value="<?php echo $movie->getTitle() ?>"><?php echo $movie->getTitle() ?> </option>
+                            <option value="<?php echo $movie->getId() ?>"><?php echo $movie->getTitle() ?> </option>
                         </td>
                     </tr>
                 <?php
@@ -41,13 +28,15 @@
                 {?>
                     <tr>
                         <td>
-                            <option value="<?php echo $room->getNombre() ?>"><?php echo $room->getNombre() ?> </option>
+                            <option value="<?php echo $room->getId() ?>"><?php echo $room->getNombre() ?> </option>
                         </td>
                     </tr>
                 <?php
                 } ?>
                 </select>
                 <br>
+                <br>
+                
                 <br>
                 <br>
                 <input class="btn-login btn" type="submit" name="btnLogin"value='Save'></button>

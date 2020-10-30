@@ -16,7 +16,7 @@
             $decodeMovie = json_decode($fileMovie,true);
             return $decodeMovie;
         }
-
+        
         public function RetrieveDataGender(){
 
             $fileGender = file_get_contents(GENDER);

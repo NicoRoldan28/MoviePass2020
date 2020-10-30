@@ -9,6 +9,7 @@
               <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListCinemaView "?>">CINEMA LIST</a></li>
               </ul>
           </li>
+            
             <li><a href="#">MOVIES</a>
               <ul class="submenu">
                 <li><a href="<?php echo  FRONT_ROOT."Movie/SaveDataBD "?>">UPDATE MOVIES</a></li>
@@ -23,19 +24,14 @@
             </li>
             <li><a href="#">ROOMS</a>
               <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddRoomView "?>">ADD ROOM</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Gender/ShowListView "?>">LIST GENDERS</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddRoomView "?>">ROOM ADD</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListRoomView "?>">ROOM LIST</a></li>
               </ul>
             </li>
             <li><a href="#">SHOWINGS</a>
               <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddShowingView "?>">ADD SHOWINGS</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Gender/ShowListView "?>">LIST GENDERS</a></li>
-              </ul>
-            </li>
-            <li><a href="#">TURNS</a>
-              <ul class="submenu">
-                <li><a href="<?php echo  FRONT_ROOT."Turn/ShowListTurn"?>">LIST TURN</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/selectCinema "?>">SHOWING ADD</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListRoomView "?>">SHOWINGS LIST</a></li>
               </ul>
             </li>
   

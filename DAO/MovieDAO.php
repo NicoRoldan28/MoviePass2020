@@ -41,12 +41,13 @@ class MovieDAO implements IDAO{
         
         public function Add(Movie $movie){
             try {
-                $query = 'INSERT INTO '.$this->tableName." (id_Movie,title_Movie,image,lenght,lenguage) VALUES(:id_Movie,:title_Movie,:image,:lenght,:lenguage);";
+                $query = 'INSERT INTO '.$this->tableName." (id_Movie,title_Movie,image,lenght ,lenguage) VALUES(:id_Movie,:title_Movie,:image,:runtime,:lenguage);";
 
                 $parameters['id_Movie']=$movie->getId();
                 $parameters['title_Movie']=$movie->getTitle();
                 $parameters['image']=$movie->getImage();
-                $parameters['lenght']=$movie->getLenght();
+                $parameters['runtime']=$movie->getLenght();
+                //echo($parameters->lenght);
                 $parameters['lenguage']=$movie->getLenguage();
 
                 $this->connection = Connection::GetInstance();
@@ -56,6 +57,8 @@ class MovieDAO implements IDAO{
                 throw $ex;
             }
         }
+
+        
 
         public function AddGxM($idmovie,$idgender){
             try {
@@ -87,6 +90,44 @@ class MovieDAO implements IDAO{
                      throw $e;
                  }
         }
+
+        public function returnMovie($idMovie){
+            try{
+                //$movie= new Movie(null,null,null,null,null,null);
+                 $query = "SELECT * FROM ".$this->tableName." WHERE (id_Movie = :id_Movie)";
+                 $parameters["id_Movie"] = $idMovie;
+                 $this->connection = Connection::GetInstance();
+                 $results=$this->connection->Execute($query, $parameters);
+                 //var_dump($results);
+                 foreach($results as $row)
+                 {
+                    //var_dump($row['id_Movie']);
+                    //$movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
+                    $movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
+                    //$movie->setId($row['id_Movie']);
+                    //$movie->setLenght($row['lenght']);
+                    //$movie->setTitle($row['title_Movie']);
+                    //$movie->setImage($row['image']);
+                    //$movie->setLenguage($row['lenguage']);
+                 }
+                 return($movie); 
+                 }
+                 catch(Exception $e)
+                 {
+                     throw $e;
+                 }
+        }
+
+        /*foreach ($resultSet as $row)
+        {                
+            $cinema = new Cinema();
+    
+            $cinema->setId($row["id_cinema"]);
+            $cinema->setAdress($row["adress"]);
+            $cinema->setName($row["name"]);
+            $cinema->setPrice_ticket($row["price_ticket"]);
+        }*/
+
 }
 
 ?>

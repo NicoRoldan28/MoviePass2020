@@ -1,7 +1,8 @@
 <?php 
  include('header.php');
- require_once('nav-admin.php');
  require_once("validate-session.php");
+ require_once('nav-admin.php');
+ 
 ?>
 <div><br>
     <h1 style='color:white;'>LIST OF CINEMAS</h1>

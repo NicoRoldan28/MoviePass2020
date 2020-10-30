@@ -2,7 +2,7 @@
     namespace Models;
     class Movie{
         private $id;
-        private $lenght;
+        private $lenght ;
         private $title;
         private $image;
         private $lenguage;

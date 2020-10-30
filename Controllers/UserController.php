@@ -49,10 +49,12 @@
                 $this->Index("Usuario y/o Contraseña incorrectos");
             }       
         }
+        
         public function admin(){
             require_once(VIEWS_PATH."nav-admin.php");
             require_once(VIEWS_PATH."registerCinema.php");
         }
+
         public function user(){
             require_once(VIEWS_PATH."nav-user2.php");
             $this->ShowMovies();
@@ -68,9 +70,6 @@
         public function logverify($email,$password,$userName,$firstName,$lastName,$dni) {
             if ($this->userDAO->readEmail($email)) {
                 echo '<script language="javascript">alert("Ya hay un usuario registrado con ese Email");</script>';
-                //$this->ShowListView();
-                //$msg = "Ya hay un usuario registrado con ese email.";
-                //echo $msg;
                 require ("views/home.php");
             }
             else {

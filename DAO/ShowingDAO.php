@@ -8,7 +8,7 @@ use DAO\Connection as Connection;
 use DAO\QueryType as QueryType;
 
 
-class MovieDAO implements IDAO{
+class ShowingDAO implements IDAO{
 
     private $connection;
     private $tableName = 'Showings';
@@ -33,12 +33,15 @@ class MovieDAO implements IDAO{
             }
     }
 
-    public function Add(Turn $turn){
-        try {
-            $query = 'INSERT INTO '.$this->tableName." (hr_start,hr_finish) VALUES(:hr_start,:hr_finish)";
+    public function Add(Showing $showing){
+        try {  
+            $query = 'INSERT INTO '.$this->tableName." (day,idMovie,idRoom,hrFinish) VALUES(:day,:idMovie,:idRoom,:hrFinish)";
 
-            $parameters['hr_start']=$turn->getHrStart();
-            $parameters['hr_finish']=$turn->getHrFinish();
+            $parameters['day']=$showing->getDayTime();
+            $parameters['idMovie']=$showing->getidMovie();
+            $parameters['idRoom']=$showing->getRoom()->getId();
+            $parameters['hrFinish']=$showing->getHrFinish();
+
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query,$parameters);
