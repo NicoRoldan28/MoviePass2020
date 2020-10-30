@@ -22,7 +22,7 @@
                $this->cinemaDAO = new CinemaDAO();
                $this->roomDAO = new RoomDAO();
                $this->movieDAO= new MovieDAO();
-               ////$this->showingDAO = new ShowingDAO();
+               $this->showingDAO = new ShowingDAO();
            }
    
            //################ CINEMA ##################
@@ -170,24 +170,41 @@
                require_once(VIEWS_PATH."listCinema2.php");
            }
    
-           public function AddShowing($date,$idMovie,$idRoom)
+           public function AddShowing($dayTime,$idMovie,$idRoom)
            {
-               
             
-            $hsFinish = strtotime ( '+18 minute'  ,strtotime ($date) ) ;
-            //date_default_timezone_set('América/Argentina/Buenos Aires');
-               var_dump($date);
-               var_dump($hsFinish);
+            $date=date_create($dayTime);
+            var_dump($date);
+            $movie= new Movie(null,null,null,null,null,null);
+            $movie=$this->movieDAO->returnMovie($idMovie);
+            //var_dump($movie);
+            $timeMovie=$movie->getLenght();
+            var_dump($timeMovie);
+            $hsFinish=date_modify($date,"+". $timeMovie. "minute");
+               var_dump($dayTime);
+               //var_dump($date);
                //$hrFinsh= date($date);
-               var_dump($hsFinish);
                //$hrFinsh = $date->modify('+100 minute');
                var_dump($hsFinish);
+               $horasssFinish= $hsFinish->date;
                $showing = new Showing();
-               $showing->setDayTime($date);
+               $showing->setDayTime($dayTime);
                $showing->setidMovie($idMovie);
                $showing->setRoom($this->roomDAO->getRoomById($idRoom));
-               //$showing->setHrStart($HrStart);
+               $showing->setHrFinish($horasssFinish);
+
+               //$horasssFinish= $hsFinish->date;
+               var_dump($horasssFinish);
+
+               var_dump($hsFinish->date);
+               var_dump($hsFinish->timezone);
                var_dump($showing);
+
+
+
+               $this->showingDAO->Add($showing);
+               //$showing->setHrStart($HrStart);
+               //var_dump($showing);
                
                /*$result=$this->roomDAO->seachRoom($room->getNombre(),$idCinema);
                if($result==null){

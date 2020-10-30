@@ -58,6 +58,8 @@ class MovieDAO implements IDAO{
             }
         }
 
+        
+
         public function AddGxM($idmovie,$idgender){
             try {
                 $query = 'INSERT INTO '.$this->tableName2." (id_Gender,id_Movie) VALUES(:id_Gender,:id_Movie);";
@@ -88,6 +90,44 @@ class MovieDAO implements IDAO{
                      throw $e;
                  }
         }
+
+        public function returnMovie($idMovie){
+            try{
+                //$movie= new Movie(null,null,null,null,null,null);
+                 $query = "SELECT * FROM ".$this->tableName." WHERE (id_Movie = :id_Movie)";
+                 $parameters["id_Movie"] = $idMovie;
+                 $this->connection = Connection::GetInstance();
+                 $results=$this->connection->Execute($query, $parameters);
+                 //var_dump($results);
+                 foreach($results as $row)
+                 {
+                    //var_dump($row['id_Movie']);
+                    //$movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
+                    $movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
+                    //$movie->setId($row['id_Movie']);
+                    //$movie->setLenght($row['lenght']);
+                    //$movie->setTitle($row['title_Movie']);
+                    //$movie->setImage($row['image']);
+                    //$movie->setLenguage($row['lenguage']);
+                 }
+                 return($movie); 
+                 }
+                 catch(Exception $e)
+                 {
+                     throw $e;
+                 }
+        }
+
+        /*foreach ($resultSet as $row)
+        {                
+            $cinema = new Cinema();
+    
+            $cinema->setId($row["id_cinema"]);
+            $cinema->setAdress($row["adress"]);
+            $cinema->setName($row["name"]);
+            $cinema->setPrice_ticket($row["price_ticket"]);
+        }*/
+
 }
 
 ?>

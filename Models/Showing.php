@@ -8,7 +8,6 @@
         private $dayTime;
         private $idMovie;
         private $room;
-        private $hrStart;
         private $hrFinish;
   
         public function setIdShowing($idShowing){$this->idShowing=$idShowing;}
@@ -22,9 +21,6 @@
 
         public function setRoom(Room $room){$this->room=$room;}
         public function getRoom(){return $this->room;}
-
-        public function setHrStart($hrStart){$this->hrStart=$hrStart;}
-        public function getHrStart(){return $this->hrStart;}
 
         public function setHrFinish($hrFinish){$this->hrFinish=$hrFinish;}
         public function getHrFinish(){return $this->hrFinish;}
