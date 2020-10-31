@@ -26,6 +26,7 @@ class RoomDAO implements IDAO{
 
             foreach($result as $row){
                 $room= new Room($row['idRoom'],$row['nombre'],$row['capacidad'],$row['id_Cine']);
+                
     
                 array_push($roomList,$room);
             }
