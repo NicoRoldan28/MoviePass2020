@@ -2,20 +2,20 @@
     namespace Models;
     class Movie{
         private $id;
-        private $lenght ;
+        private $lenght;
         private $title;
         private $image;
         private $lenguage;
         private $genders = array();
 
-        function __construct($id,$lenght,$title,$image,$lenguage/*,$generos*/){
+        /*function __construct($id,$lenght,$title,$image,$lenguage/*,$generos){
            $this->setId($id);
            $this->setLenght($lenght);
            $this->setTitle($title);
            $this->setImage($image);
            $this->setLenguage($lenguage);
            //$this->setGenders($genders);
-        }
+        }*/
 
         public function setId($id){$this->id=$id;}
         public function getId(){return $this->id;}

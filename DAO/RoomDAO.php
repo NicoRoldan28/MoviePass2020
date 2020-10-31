@@ -29,6 +29,8 @@ class RoomDAO implements IDAO{
                 $room->setId($row['idRoom']);
                 $room->setNombre($row['nombre']);
                 $room->setCapacidad($row['capacidad']);
+                $room->setCinema();
+                $room->getCinema()->setId($row['id_Cine']);
     
                 array_push($roomList,$room);
             }
@@ -118,6 +120,8 @@ class RoomDAO implements IDAO{
                 $room->setId($row["idRoom"]);
                 $room->setNombre($row["nombre"]);
                 $room->setCapacidad($row["capacidad"]);
+                $room->setCinema();
+                $room->getCinema()->setId($row["id_Cine"]);
                 //$room->setPrice_ticket($row["price_ticket"]);
             }
 

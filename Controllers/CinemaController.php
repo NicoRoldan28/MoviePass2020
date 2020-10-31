@@ -126,9 +126,16 @@
            public function ShowListRoomView()
            {
                require_once(VIEWS_PATH."validate-session.php");
-               $cineList =array();
-               $cineList =$this->cinemaDAO->getAll();
-               require_once(VIEWS_PATH."listCinema2.php");
+               $roomList = $this->roomDAO->GetAll();
+               //var_dump($roomList);
+               foreach($roomList as $room){
+                $room2 = $this->cinemaDAO->getCinemaById($room->getCinema()->getId());
+                $room->getCinema()->setName($room2->getName());
+                $room->getCinema()->setAdress($room2->getAdress());
+                $room->getCinema()->setPrice_ticket($room2->getPrice_ticket());
+            }
+            //var_dump($roomList);
+               require_once(VIEWS_PATH."room-list.php");
            }
    
            public function RegisterRoom($name,$capacidad,$idCinema)
@@ -142,7 +149,8 @@
                $result=$this->roomDAO->seachRoom($room->getNombre(),$idCinema);
                if($result==null){
                    $this->roomDAO->Add($room);
-                   $this->ShowListView();
+                   //$this->ShowListRoomView();
+                   var_dump($room);
                }else{
                    echo '<script language="javascript">alert("Ya hay una sala registrada con ese nombre en ese cine");</script>';
                    $this->ShowAddView();
@@ -165,9 +173,32 @@
            public function ShowListShowingView()
            {
                require_once(VIEWS_PATH."validate-session.php");
-               $cineList =array();
-               $cineList =$this->cinemaDAO->getAll();
-               require_once(VIEWS_PATH."listCinema2.php");
+               $showingList =array();
+               $showingList =$this->showingDAO->GetAllForRoom(7);
+
+               foreach($showingList as $showing){
+                $room = $this->roomDAO->getRoomById($showing->getRoom()->getId());
+                $showing->getRoom()->setNombre($room->getNombre());
+                $showing->getRoom()->setCapacidad($room->getCapacidad());
+                $showing->getRoom()->getCinema()->setId($room->getCinema()->getId());
+
+                $cinema = $this->cinemaDAO->getCinemaById($showing->getRoom()->getCinema()->getId());
+                $showing->getRoom()->getCinema()->setName($cinema->getName());
+                $showing->getRoom()->getCinema()->setAdress($cinema->getAdress());
+                $showing->getRoom()->getCinema()->setPrice_ticket($cinema->getPrice_ticket());
+
+                $movie = $this->movieDAO->returnMovie($showing->getMovie()->getId());
+                //var_dump($movie);
+                $showing->getMovie()->setLenght($movie->getLenght());
+                $showing->getMovie()->setTitle($movie->getTitle());
+                $showing->getMovie()->setImage($movie->getImage());
+                $showing->getMovie()->setLenguage($movie->getLenguage());
+                $showing->getMovie()->setGenders($movie->getGenders());
+                }
+
+            //var_dump($showingList);
+              require_once(VIEWS_PATH."showingListAdmin.php");
+              // require_once(VIEWS_PATH."listCinema2.php");
            }
    
            public function AddShowing($dayTime,$idMovie,$idRoom)
@@ -175,7 +206,7 @@
             
             $date=date_create($dayTime);
             var_dump($date);
-            $movie= new Movie(null,null,null,null,null,null);
+            $movie= new Movie();
             $movie=$this->movieDAO->returnMovie($idMovie);
             //var_dump($movie);
             $timeMovie=$movie->getLenght();
@@ -189,8 +220,10 @@
                $horasssFinish= $hsFinish->date;
                $showing = new Showing();
                $showing->setDayTime($dayTime);
-               $showing->setidMovie($idMovie);
-               $showing->setRoom($this->roomDAO->getRoomById($idRoom));
+               $showing->setMovie();
+               $showing->getMovie()->setId($idMovie);
+               $showing->setRoom();
+                $showing->getRoom()->setId($idRoom/*$this->roomDAO->getRoomById($idRoom)*/);
                $showing->setHrFinish($horasssFinish);
 
                //$horasssFinish= $hsFinish->date;

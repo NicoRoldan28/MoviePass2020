@@ -27,8 +27,12 @@ class MovieDAO implements IDAO{
                 $result = $this->connection->Execute($query);
 
                 foreach($result as $row){
-                    $movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
-        
+                $movie= new Movie(/*$row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']*/);
+                    $movie->setId($row['id_Movie']);
+                    $movie->setLenght($row['lenght']);
+                    $movie->setTitle($row['title_Movie']);
+                    $movie->setImage($row['image']);
+                    $movie->setLenguage($row['lenguage']);
                     array_push($movieList,$movie);
                 }
                 return $movieList;
@@ -103,12 +107,12 @@ class MovieDAO implements IDAO{
                  {
                     //var_dump($row['id_Movie']);
                     //$movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
-                    $movie= new Movie($row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']);
-                    //$movie->setId($row['id_Movie']);
-                    //$movie->setLenght($row['lenght']);
-                    //$movie->setTitle($row['title_Movie']);
-                    //$movie->setImage($row['image']);
-                    //$movie->setLenguage($row['lenguage']);
+                 $movie= new Movie(/*$row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']*/);
+                    $movie->setId($row['id_Movie']);
+                    $movie->setLenght($row['lenght']);
+                    $movie->setTitle($row['title_Movie']);
+                    $movie->setImage($row['image']);
+                    $movie->setLenguage($row['lenguage']);
                  }
                  return($movie); 
                  }

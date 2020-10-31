@@ -17,7 +17,7 @@
         public function setCapacidad($capacidad){$this->capacidad=$capacidad;}
         public function getCapacidad(){return $this->capacidad;}
 
-        public function setCinema($cinema){$this->cinema=$cinema;}
+        public function setCinema(){$this->cinema= new Cinema();}
         public function getCinema(){return $this->cinema;}
 
     }
