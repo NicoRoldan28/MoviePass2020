@@ -25,8 +25,12 @@ class RoomDAO implements IDAO{
             $result = $this->connection->Execute($query);
 
             foreach($result as $row){
-                $room= new Room($row['idRoom'],$row['nombre'],$row['capacidad'],$row['id_Cine']);
-                
+                $room= new Room();
+                $room->setId($row['idRoom']);
+                $room->setNombre($row['nombre']);
+                $room->setCapacidad($row['capacidad']);
+                $room->setCinema();
+                $room->getCinema()->setId($row['id_Cine']);
     
                 array_push($roomList,$room);
             }
@@ -78,7 +82,7 @@ class RoomDAO implements IDAO{
     public function seachRoom($name,$idCine){
         try
         {
-            $query = "SELECT nombre, id_Cine FROM ".$this->tableName." WHERE (nombre = :nombre)&&(id_Cine = :id_Cine)";
+            $query = "SELECT nombre, id_Cine FROM ".$this->tableName." WHERE (nombre = :nombre) and (id_Cine = :id_Cine)";
 
             $parameters["nombre"] = $name;
             $parameters["id_Cine"] = $idCine;
@@ -116,6 +120,8 @@ class RoomDAO implements IDAO{
                 $room->setId($row["idRoom"]);
                 $room->setNombre($row["nombre"]);
                 $room->setCapacidad($row["capacidad"]);
+                $room->setCinema();
+                $room->getCinema()->setId($row["id_Cine"]);
                 //$room->setPrice_ticket($row["price_ticket"]);
             }
 

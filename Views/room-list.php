@@ -1,4 +1,4 @@
-<?php require_once('nav-cine.php');?>
+<?php require_once('nav-admin.php');?>
 <br>
 <br>
 <br>
@@ -19,8 +19,7 @@
             <tr> 
               <td style ="color:#DCDCDC" ><?php echo $room->getNombre() ?></td> 
               <td style ="color:#DCDCDC" ><?php echo $room->getCapacidad() ?></td>
-              <?php $name = $this->cineDAO->returnName($room->getIdCine());?>
-              <td style ="color:#DCDCDC" ><?php echo $name ?></td>
+              <td style ="color:#DCDCDC" ><?php echo $room->getCinema()->getName() ?></td>
           </tr>
         <?php 
         }

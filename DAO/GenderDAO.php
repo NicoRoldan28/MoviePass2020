@@ -6,7 +6,7 @@
     use Models\Movie as Movie;
     use DAO\MovieDAO as MovieDAO;
 
-    class GenderDAO {
+    class GenderDAO{
 
         private $connection;
         private $tableName = 'Genders';

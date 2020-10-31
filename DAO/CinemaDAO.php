@@ -2,13 +2,11 @@
 
     namespace DAO;
     use Models\Cinema as Cinema;
-
     use Models\Room as Room;
-
     use \Exception as Exception;
     use DAO\Connection as Connection;
 
-    class CinemaDAO {
+    class CinemaDAO{
 
         private $connection;
         private $tableCinemas = "cinemas";

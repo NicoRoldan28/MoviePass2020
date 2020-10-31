@@ -3,11 +3,10 @@
     namespace DAO;
     use Models\User as User;
     use Models\PerfilUser as PerfilUser;
-
     use \Exception as Exception;
     use DAO\Connection as Connection;
 
-    class UserDAO {
+    class UserDAO{
 
         private $connection;
         private $tableUsers = "users";

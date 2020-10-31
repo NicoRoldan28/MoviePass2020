@@ -88,7 +88,7 @@ create table Movies(
 /*drop table Movies;*/
 select * from movies;
 select * from movies
-where id_Movie=635302;
+where id_Movie=726739;
 
 truncate table movies;
 
@@ -156,12 +156,11 @@ select * from Room;
 -- #######################################  Showings  ##############################################
 
 create table Showings(
-    id_Showing integer auto_increment primary key,
-    day date not null,
+	id_Showing integer auto_increment primary key,
+    day datetime not null,
     idMovie integer,
-	idRoom integer,
-    hrStart time not null,
-    hrFinish time not null,
+    idRoom integer,
+    hrFinish datetime not null,
     constraint fk_id_Room foreign key(idRoom) references Room(idRoom),
     constraint fk_id_Movie foreign key(idMovie) references Movies(id_Movie)
 );
@@ -566,3 +565,7 @@ inner join cinemas c
 on c.id_cinema = r.id_Cine
 where c.id_cinema = 1;
 >>>>>>> Rodrigo
+
+
+select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+inner join room r on s.idRoom = r.idRoom;

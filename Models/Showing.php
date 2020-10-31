@@ -1,12 +1,13 @@
 <?php namespace Models;
 
     use Models\Room as Room;
+    use Models\Movie as Movie;
 
     class Showing
     {
         private $idShowing;
         private $dayTime;
-        private $idMovie;
+        private $movie;
         private $room;
         private $hrFinish;
   
@@ -16,10 +17,10 @@
         public function setDayTime($dayTime){$this->dayTime=$dayTime;}
         public function getDayTime(){return $this->dayTime;}
 
-        public function setidMovie($idMovie){$this->idMovie=$idMovie;}
-        public function getidMovie(){return $this->idMovie;}
+        public function setMovie(){$this->movie= new Movie();}
+        public function getMovie(){return $this->movie;}
 
-        public function setRoom(Room $room){$this->room=$room;}
+        public function setRoom(){$this->room = new Room();}
         public function getRoom(){return $this->room;}
 
         public function setHrFinish($hrFinish){$this->hrFinish=$hrFinish;}

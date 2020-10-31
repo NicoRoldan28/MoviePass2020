@@ -31,7 +31,7 @@
             <li><a href="#">SHOWINGS</a>
               <ul class="submenu">
                 <li><a href="<?php echo  FRONT_ROOT."Cinema/selectCinema "?>">SHOWING ADD</a></li>
-                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListRoomView "?>">SHOWINGS LIST</a></li>
+                <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListShowingView "?>">SHOWINGS LIST</a></li>
               </ul>
             </li>
   

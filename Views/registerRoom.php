@@ -1,5 +1,5 @@
 <?php require_once('nav-admin.php');?>
-<div class="login-box">  
+<div class="login-box">
             <form action="<?php echo FRONT_ROOT?>Cinema/RegisterRoom" method="post">
                 <h1>Add Room</h1>
                 <br>
@@ -20,9 +20,8 @@
                     } ?>
                 </select>
                 <br>
-                
-                <br>
 
+                <br>
                 <input class="btn-login btn" type="submit" name="btnLogin"value='Save'></button>
                 <br>
             </form>
