@@ -173,7 +173,7 @@
            {
                require_once(VIEWS_PATH."validate-session.php");
                $showingList =array();
-               $showingList =$this->showingDAO->GetAllForRoom(7);
+               $showingList =$this->showingDAO->GetAll();
 
                foreach($showingList as $showing){
                 $room = $this->roomDAO->getRoomById($showing->getRoom()->getId());
@@ -234,10 +234,10 @@
                 $horasssFinish= $hsFinish->date;
                 $showing2 = new Showing();
                 $showing2->setDayTime($dayTime);
-                $showing->setMovie();
-                $showing->getMovie()->setId($idMovie);
-                $showing->setRoom();
-                $showing->getRoom()->setId($idRoom/*$this->roomDAO->getRoomById($idRoom)*/);
+                $showing2->setMovie();
+                $showing2->getMovie()->setId($idMovie);
+                $showing2->setRoom();
+                $showing2->getRoom()->setId($idRoom/*$this->roomDAO->getRoomById($idRoom)*/);
                
                 //$showing2->setidMovie($idMovie);
                 //$showing2->setRoom($this->roomDAO->getRoomById($idRoom));
@@ -267,39 +267,45 @@
                 //var_dump($diff);
                 //echo $diff->format("%R%a days");
                 //$this->showingDAO->Add($showing);
-                $showingList=$this->showingDAO->GetAll();
+                $showingList=$this->showingDAO->GetAllForRoom($idRoom);
                 if($showingList==null)
                 {
                     $this->showingDAO->Add($showing2);
                 }
                 else{
                     foreach($showingList as $showing)
-                {
-                    $date3=date_create($showing->getHrFinish());
-                    var_dump("dia y hora de comienzo de la funcion que tenemos en la bdd");
-                    var_dump($showing->getDayTime());
-                    var_dump("dia y hora de finalizacion de la funcion que tenemos en la bdd");
-                    var_dump($showing->getHrFinish());
-                    var_dump("dia y hora de inicio de la funcion que vamos a agregar");
-                    var_dump($date2);
-                    $diff=date_diff($date3,$date2);
-                    var_dump("diferencia entre la nueva funcion y las q ya existen en la bdd");
-                    var_dump($diff->format( '%I minutos'));
-                    //var_dump($diff);
-                    //if($diff->format('%I')>40)
-                    //($diff->format('%D')>40);
-                    //($diff->format('%H')>40);
-                    if(($diff->format('%D')>=0)&&($diff->format('%H')>0)&&($diff->format('%I')>=15)&&($i==0))
                     {
-                        $this->showingDAO->Add($showing2);
-                        var_dump("se ha agregado la funcion a la bdd");
+                        $date3=date_create($showing->getHrFinish());
+                        var_dump("dia y hora de comienzo de la funcion que tenemos en la bdd");
+                        var_dump($showing->getDayTime());
+                        var_dump("dia y hora de finalizacion de la funcion que tenemos en la bdd");
+                        var_dump($showing->getHrFinish());
+                        var_dump("dia y hora de inicio de la funcion que vamos a agregar");
+                        var_dump($date2);
+                        $diff=date_diff($date3,$date2);
+                        var_dump("diferencia entre la nueva funcion y las q ya existen en la bdd");
+                        var_dump($diff->format( '%I minutos'));
+                        var_dump($diff->format( '%H horas'));
+                        //var_dump($diff);
+                        //if($diff->format('%I')>40)
+                        //($diff->format('%D')>40);
+                        //($diff->format('%H')>40);
+                        if(($diff->format('%D')>=0)){
+                            if(($diff->format('%H')>=1) || ($diff->format('%I')>=15) && ($i==0))
+                            {
+                                $this->showingDAO->Add($showing2);
+                            }
+                            else{
+                                $i=14;
+                                var_dump("no se pudo registrar la funcion a la bdd");
+                            }
+                        }
+                        if($i==0)
+                        {
+                            var_dump("se ha agregado la funcion a la bdd");
+                        } 
                     }
-                    else{
-                        $i=14;
-                        var_dump("no se pudo registrar la funcion a la bdd");
-                    }
-                }
-                }
+                }   
                 //var_dump($showingList);
                 
             //}

@@ -46,7 +46,12 @@ class MovieController{
             {
                 $url = API."/".$movie['id'].KEY;
                 $result2 = $this->apiDAO->RetrieveDataMovie2($url);
-                $insert= new Movie($movie['id'],$result2["runtime"],$movie['title'],$movie['poster_path'],$movie['original_language']);
+                $insert= new Movie();
+                $insert->setId($movie['id']);
+                $insert->setLenght($result2["runtime"]);
+                $insert->setTitle($movie['title']);
+                $insert->setImage($movie['poster_path']);
+                $insert->setLenguage($movie['original_language']);
                 $this->movieDAO->Add($insert);
                 foreach ($movie['genre_ids'] as $value) {
                 $this->movieDAO->AddGxM($insert->getId(),$value);
