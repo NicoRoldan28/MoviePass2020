@@ -88,7 +88,7 @@ create table Movies(
 /*drop table Movies;*/
 select * from movies;
 select * from movies
-where id_Movie=726739;
+where id_Movie=413518;
 
 truncate table movies;
 
