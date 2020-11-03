@@ -32,9 +32,9 @@ CodingNepal</div>
       </form>
 </nav>
     <div class="content">
-      <header class="space">Responsive Navbar with Search Box</header>
+      <header class="space"></header>
       <div class="space text">
-using HTML CSS & JavaScript</div>
+</div>
 </div>
 <script>
     const menuBtn = document.querySelector(".menu-icon span");

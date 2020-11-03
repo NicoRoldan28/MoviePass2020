@@ -1,3 +1,4 @@
+<?php require_once(VIEWS_PATH.'nav-user.php');?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 </head>
 <body>
     <br>
-<form action="<?php echo FRONT_ROOT?>User/SearchShowing" method="post">
+<form action="<?php echo FRONT_ROOT?>Cinema/seachShowingsForMovie" method="post">
   <ul class="pricing_table">
       <?php
           foreach($movieList as $movie)
@@ -25,7 +26,7 @@
               <li>Lenguage : <?php echo $movie->getLenguage() ?></li>
           </ul>
           <div class="footer">
-              <a class="action_button">NEXT<button type="submit" name="btnLogin" value=<?php echo $movie->getId();?>></button></a>
+              <button class= "action_button" type="submit" name="btnLogin" value=<?php echo $movie->getId();?>>NEXT</button>
           </div>
       </li>
       <?php } ?>

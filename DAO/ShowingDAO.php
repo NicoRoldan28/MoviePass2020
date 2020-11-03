@@ -94,6 +94,41 @@ class ShowingDAO implements IDAO{
             }
     }
 
+    public function GetAllForMovie($idMovie){
+        try {
+            $showingList = array();
+            $query = 'SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from '.$this->tableName.' as s 
+            inner join room r on r.idRoom = s.idRoom WHERE(s.idMovie = :idMovie);';
+
+            $parameters["idMovie"] = $idMovie;
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query,$parameters);
+            foreach($result as $row){
+                $showing= new Showing();
+                $showing->setIdShowing($row["id_Showing"]);
+                $showing->setDayTime($row["day"]);
+                $showing->setMovie();
+                $showing->getMovie()->setId($row["idMovie"]);
+                $showing->setRoom();
+                $showing->getRoom()->setId($row["idRoom"]);
+                $showing->setHrFinish($row["hrFinish"]);
+
+                $showing->getRoom()->setCinema();
+                $showing->getRoom()->getCinema()->setId($row['id_Cine']);
+                //$room->setCinema($row["id_Cine"]);
+
+                //var_dump($room);
+                array_push($showingList,$showing);
+            }
+            return $showingList;
+            } catch (Exception $ex) {
+                throw $ex;
+            }
+    }
+
+    
+
 
 
         

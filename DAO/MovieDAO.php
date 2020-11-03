@@ -41,6 +41,60 @@ class MovieDAO implements IDAO{
                 }
         }
 
+        public function GetAllForShowing(){
+            try {
+                $movieList = array();
+
+                $query = 'SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM '.$this->tableName. ' as m 
+                inner join showings s on s.idMovie = m.id_Movie
+                group by m.id_Movie;';
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($query);
+
+                foreach($result as $row){
+                $movie= new Movie(/*$row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']*/);
+                    $movie->setId($row['id_Movie']);
+                    $movie->setLenght($row['lenght']);
+                    $movie->setTitle($row['title_Movie']);
+                    $movie->setImage($row['image']);
+                    $movie->setLenguage($row['lenguage']);
+                    array_push($movieList,$movie);
+                }
+                return $movieList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
+        public function GetAllForShowingForGender($idGender){
+            try {
+                $movieList = array();
+
+                $query = 'SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM '.$this->tableName.' as m inner join showings s on s.idMovie = m.id_Movie inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie where(gxm.id_Gender = :id_Gender) group by m.id_Movie;';
+
+                $parameters['id_Gender']=$idGender;
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($query,$parameters);
+
+                foreach($result as $row){
+                $movie= new Movie(/*$row['id_Movie'],$row['lenght'],$row['title_Movie'],$row['image'],$row['lenguage']*/);
+                    $movie->setId($row['id_Movie']);
+                    $movie->setLenght($row['lenght']);
+                    $movie->setTitle($row['title_Movie']);
+                    $movie->setImage($row['image']);
+                    $movie->setLenguage($row['lenguage']);
+                    array_push($movieList,$movie);
+                }
+                return $movieList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
 
         
         public function Add(Movie $movie){

@@ -569,3 +569,17 @@ where c.id_cinema = 1;
 
 select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
 inner join room r on s.idRoom = r.idRoom;
+
+
+select m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage from movies m 
+inner join showings s on s.idMovie = m.id_Movie
+group by m.id_Movie;
+
+SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings as s 
+inner join room r on r.idRoom = s.idRoom 
+inner join cinemas c on c.id_cinema = r.id_Cine 
+WHERE (s.idMovie = 724989);
+
+select * from movie m
+inner join gendersxmovie gxm on gxm.id_Movie = m.id_Movie
+where (gxm.id_Gender = 28);

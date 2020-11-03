@@ -27,6 +27,12 @@
             require_once(VIEWS_PATH."gender-list.php");
         }
 
+        public function ShowListSelectGenderView()
+        {
+            require_once(VIEWS_PATH."validate-session.php");
+            $genderList = $this->genderDAO->GetAll();
+            require_once(VIEWS_PATH."gender-select.php");
+        }
         public function SaveDataBD(){
             
             $decodeGender = $this->apiDAO->RetrieveDataGender();

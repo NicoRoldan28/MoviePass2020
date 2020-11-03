@@ -336,5 +336,18 @@
                    $this->ShowAddView();
                }*/
            }
+
+
+           public function seachShowingsForMovie($idMovie)
+           {
+                $showingList = $this->showingDAO->GetAllForMovie($idMovie);
+                require_once(VIEWS_PATH."showingListUser.php");
+           }
+
+           public function seachShowingsForMovieForGender($idGender)
+           {
+                $movieList = $this->movieDAO->GetAllForShowingForGender($idGender);
+                require_once(VIEWS_PATH."billboardMovie.php");
+           }
        }
 ?>

@@ -56,8 +56,10 @@
         }
 
         public function user(){
-            require_once(VIEWS_PATH."nav-user2.php");
-            $this->ShowMovies();
+            $movieList = $this->movieDAO->GetAllForShowing();
+            require_once(VIEWS_PATH."billboardMovie.php");
+
+
         }
 
         public function ShowMovies(){
