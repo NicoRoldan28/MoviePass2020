@@ -25,7 +25,7 @@
                $this->showingDAO = new ShowingDAO();
            }
    
-           //################ CINEMA ##################
+           //################ CINEMA ######################################################################################################
    
            public function ShowAddCinemaView()
            {
@@ -106,14 +106,14 @@
                $result=$this->cinemaDAO->seachCinema($cinema->getName(),$cinema->getAdress());
                if($result==null){
                    $this->cinemaDAO->Add($cinema);
-                   $this->ShowListView();
+                   $this->ShowListCinemaView();
                }else{
                    echo '<script language="javascript">alert("Ya hay un cine registrado con ese nombre o direccion");</script>';
-                   $this->ShowAddView();
+                   $this->ShowAddCinemaView();
                }
            }
    
-           ################### ROOM #####################
+           ################### ROOM #########################################################################################################
            
            public function ShowAddRoomView()
            {
@@ -149,15 +149,14 @@
                $result=$this->roomDAO->seachRoom($room->getNombre(),$idCinema);
                if($result==null){
                    $this->roomDAO->Add($room);
-                   //$this->ShowListRoomView();
-                   var_dump($room);
+                   $this->ShowListRoomView();
                }else{
                    echo '<script language="javascript">alert("Ya hay una sala registrada con ese nombre en ese cine");</script>';
-                   $this->ShowAddView();
+                   $this->ShowAddRoomView();
                }
            }
    
-           ################### SHOWING #####################
+           ################### SHOWING #########################################################################################################
    
            
            public function ShowAddShowingView()
@@ -165,8 +164,8 @@
                require_once(VIEWS_PATH."validate-session.php");
                $cineList=$this->cinemaDAO->getAll();
                $roomList=$this->roomDAO->GetAll();
-               var_dump($roomList);
-               var_dump($cineList);
+               //var_dump($roomList);
+               //var_dump($cineList);
                require_once(VIEWS_PATH."selectCinema.php");
            }
    
@@ -174,7 +173,7 @@
            {
                require_once(VIEWS_PATH."validate-session.php");
                $showingList =array();
-               $showingList =$this->showingDAO->GetAllForRoom(7);
+               $showingList =$this->showingDAO->GetAll();
 
                foreach($showingList as $showing){
                 $room = $this->roomDAO->getRoomById($showing->getRoom()->getId());
@@ -203,41 +202,130 @@
    
            public function AddShowing($dayTime,$idMovie,$idRoom)
            {
-            
+               $i=0;
             $date=date_create($dayTime);
+            $date2=date_create($dayTime);
+            var_dump("dia y hora de inicio de la funcion que vamos a agregar");
             var_dump($date);
             $movie= new Movie();
             $movie=$this->movieDAO->returnMovie($idMovie);
             //var_dump($movie);
             $timeMovie=$movie->getLenght();
+            var_dump("tiempo de duracion de la pelicula que vamos a agregar");
             var_dump($timeMovie);
             $hsFinish=date_modify($date,"+". $timeMovie. "minute");
                var_dump($dayTime);
                //var_dump($date);
                //$hrFinsh= date($date);
                //$hrFinsh = $date->modify('+100 minute');
+               var_dump("dia y hora de finalizacion de la funcion que vamos a agregar");
                var_dump($hsFinish);
-               $horasssFinish= $hsFinish->date;
-               $showing = new Showing();
-               $showing->setDayTime($dayTime);
-               $showing->setMovie();
-               $showing->getMovie()->setId($idMovie);
-               $showing->setRoom();
-                $showing->getRoom()->setId($idRoom/*$this->roomDAO->getRoomById($idRoom)*/);
-               $showing->setHrFinish($horasssFinish);
-
-               //$horasssFinish= $hsFinish->date;
-               var_dump($horasssFinish);
-
                var_dump($hsFinish->date);
                var_dump($hsFinish->timezone);
-               var_dump($showing);
+
+
+            //$fechaActual=date("Y-m-d");
+            //if($dayTime>=$fechaActual){
+                //$listShowings= array();
+                //$listShowings = $this->showingDAO()->GetAllByRoom($idRoom);
+                /*foreach($listShowings as $row){
+
+                }*/
+                $horasssFinish= $hsFinish->date;
+                $showing2 = new Showing();
+                $showing2->setDayTime($dayTime);
+                $showing2->setMovie();
+                $showing2->getMovie()->setId($idMovie);
+                $showing2->setRoom();
+                $showing2->getRoom()->setId($idRoom/*$this->roomDAO->getRoomById($idRoom)*/);
+               
+                //$showing2->setidMovie($idMovie);
+                //$showing2->setRoom($this->roomDAO->getRoomById($idRoom));
+                $showing2->setHrFinish($horasssFinish);
+                //var_dump($showing->getHrFinish());
+                //$diff = abs(stortime($dayTime)-strtotime($showing->getHrFinish()));
+                //var_dump($diff);
+                //$date_diff11 = date_diff(new DateTime(date('Y-m-d H:i:s', $$hsFinish->date)), new DateTime(date('Y-m-d H:i:s', $dayTime)))->format('%R %y años, %m meses, %d días, %h horas, %i minutos, %s segundos');
+                //$date1=date_create("2013-03-15");
+                //$date2=date_create("2013-12-12");
+                //var_dump($showing->getHrFinish());
+
+                //var_dump($hsFinish);
+                //var_dump($date2);
+                //$diff=date_diff($hsFinish,$date2);
+                //echo $diff->format("%R%a days");
+                //echo $diff->format('%R%Y años, %M meses, %D días, %H horas, %I minutos, %S segundos');
+                /*if($diff->format('%I')>40)
+                {
+                    var_dump($diff->format( '%I minutos'));
+                }
+                else{
+                    echo "es menor a 40";
+                }*/
+                
+                
+                //var_dump($diff);
+                //echo $diff->format("%R%a days");
+                //$this->showingDAO->Add($showing);
+                $showingList=$this->showingDAO->GetAllForRoom($idRoom);
+                if($showingList==null)
+                {
+                    $this->showingDAO->Add($showing2);
+                }
+                else{
+                    foreach($showingList as $showing)
+                    {
+                        $date3=date_create($showing->getHrFinish());
+                        var_dump("dia y hora de comienzo de la funcion que tenemos en la bdd");
+                        var_dump($showing->getDayTime());
+                        var_dump("dia y hora de finalizacion de la funcion que tenemos en la bdd");
+                        var_dump($showing->getHrFinish());
+                        var_dump("dia y hora de inicio de la funcion que vamos a agregar");
+                        var_dump($date2);
+                        $diff=date_diff($date3,$date2);
+                        var_dump("diferencia entre la nueva funcion y las q ya existen en la bdd");
+                        var_dump($diff->format( '%I minutos'));
+                        var_dump($diff->format( '%H horas'));
+                        //var_dump($diff);
+                        //if($diff->format('%I')>40)
+                        //($diff->format('%D')>40);
+                        //($diff->format('%H')>40);
+                        if(($diff->format('%D')>=0)){
+                            if(($diff->format('%H')>=1) || ($diff->format('%I')>=15) && ($i==0))
+                            {
+                                $this->showingDAO->Add($showing2);
+                            }
+                            else{
+                                $i=14;
+                                var_dump("no se pudo registrar la funcion a la bdd");
+                            }
+                        }
+                        if($i==0)
+                        {
+                            var_dump("se ha agregado la funcion a la bdd");
+                        } 
+                    }
+                }   
+                //var_dump($showingList);
+                
+            //}
+            /*else{ %D días, %H horas, %I minutos
+                echo '<script language="javascript">alert("INVALIDATE!! REGISTERED DATE");</script>';
+                require_once(VIEWS_PATH."nav-admin.php");
+                require_once(VIEWS_PATH."registerCinema.php");
+            }*/
+            
+
+               //$horasssFinish= $hsFinish->date;
+            //var_dump($horasssFinish);
+
+            //var_dump($hsFinish->date);
+            //var_dump($hsFinish->timezone);
+            //var_dump($showing);
 
 
 
-               $this->showingDAO->Add($showing);
-               //$showing->setHrStart($HrStart);
-               //var_dump($showing);
+           // $this->showingDAO->Add($showing);
                
                /*$result=$this->roomDAO->seachRoom($room->getNombre(),$idCinema);
                if($result==null){
