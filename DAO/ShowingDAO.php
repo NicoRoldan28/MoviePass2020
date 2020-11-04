@@ -127,6 +127,41 @@ class ShowingDAO implements IDAO{
             }
     }
 
+    public function ShowingForDays($dayTimeStart,$dayTimeFinish)
+        {
+            $showingList=array();
+            try {
+                $procedure = 'call ShowingForDays(:days,:endDay);';
+
+                $parameters['days']=$dayTimeStart;
+                $parameters['endDay']=$dayTimeFinish;
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($procedure,$parameters);
+                //var_dump($result);
+                foreach ($result as $value){
+
+                    $showing= new Showing();
+                $showing->setIdShowing($value["id_Showing"]);
+                $showing->setDayTime($value["day"]);
+                $showing->setMovie();
+                $showing->getMovie()->setId($value["idMovie"]);
+                $showing->setRoom();
+                $showing->getRoom()->setId($value["idRoom"]);
+                $showing->setHrFinish($value["hrFinish"]);
+
+                $showing->getRoom()->setCinema();
+                $showing->getRoom()->getCinema()->setId($value['id_Cine']);
+                    array_push($showingList,$showing);
+                }
+                //var_dump($showingList);
+
+                return $showingList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        } 
     
 
 

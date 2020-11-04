@@ -7,6 +7,7 @@
               <ul class="submenu">
                 <li><a href="<?php echo  FRONT_ROOT."User/user "?>">List All Movie</a></li>
                 <li><a href="<?php echo  FRONT_ROOT."Gender/ShowListSelectGenderView"?>">Select Gender</a></li>
+				<li><a href="<?php echo  FRONT_ROOT."Cinema/SelectDay"?>">Select Days</a></li>
               </ul>
             </li>
             <li><a style="background-color: #3e94ec"  href="<?php echo  FRONT_ROOT."Home/Logout "?>">LOGOUT</a></li>
