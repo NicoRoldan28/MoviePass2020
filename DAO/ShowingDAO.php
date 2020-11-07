@@ -139,7 +139,7 @@ class ShowingDAO implements IDAO{
                 $this->connection = Connection::GetInstance();
 
                 $result = $this->connection->Execute($procedure,$parameters);
-                //var_dump($result);
+                
                 foreach ($result as $value){
 
                     $showing= new Showing();

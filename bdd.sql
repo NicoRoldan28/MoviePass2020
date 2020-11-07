@@ -168,6 +168,8 @@ create table Showings(
 -- drop table Showings;
 select * from showings;
 
+truncate table showings;
+
 --
 select * from users;
 select * from perfilusers;
@@ -314,6 +316,9 @@ select * from genders;
 select * from gendersxmovies;
 select * from cinemas;
 select * from Showings;
+select * from room;
+truncate table Showings;
+
 
 
 
@@ -501,13 +506,16 @@ END //
 call GetAllTicketByIdBuy(28);
 
 DELIMITER //
-Create Procedure `ShowingForDays` (in days date, in endDay date)
+Create Procedure `ShowingForDays` (in days datetime, in endDay datetime)
 BEGIN
-	select * from showings s
+    select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
     where s.day between days and endDay;
 END //
 
-call ShowingForDays('2019-11-20','2019-11-26');
+drop procedure ShowingForDays;
+
+call ShowingForDays('2020-11-04 16:30','2020-11-08 19:15');
 
 
 truncate table cinemas;

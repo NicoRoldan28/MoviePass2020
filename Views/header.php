@@ -7,4 +7,5 @@
      <!-- Bootstrap CSS -->
      <title>MOVIE PASS</title>
      <link rel="stylesheet" href=<?php echo CSS_PATH."style.css"?>>
+     
 </head>

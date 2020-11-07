@@ -3,8 +3,11 @@
           <form action=<?php echo FRONT_ROOT."User/Login"?> method="post">
           <?php 
           require_once(VIEWS_PATH."header.php");?>
-          <h1>Login Here</h1>
 
+          <h1>MOVIE PASS<h1>
+
+          <h3>Login</h3>
+          <br>
           <!-- USERNAME INPUT -->
           <label>Email<input class="input-login" type="text" name="email" placeholder="Enter Email" required></label>
         
