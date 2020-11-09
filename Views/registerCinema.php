@@ -1,8 +1,10 @@
 <?php 
+require_once('head.php');
  require_once('nav-admin.php');
  require_once("validate-session.php");
 ?>
-<div class="login-box">  
+<body class="backgroundDeadPool">
+    <div class="login-box">  
     <h1 class="text-login">CINEMA REGISTER</h1> <br>
     <form action=<?php echo FRONT_ROOT."Cinema/RegisterCine"?> method="post">
         
@@ -15,5 +17,7 @@
         <input type="submit" name="btnLogin" value= 'REGISTER'></button>
     </form>
 </div>
+</body>
+
 
 

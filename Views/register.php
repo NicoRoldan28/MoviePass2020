@@ -1,9 +1,11 @@
 
- <div class="login-box">  
+ <div class="registerUser-box">  
+ <h1 style="font-size: 50px;" ><span style="color:#b80f22;">Movie</span><span>Pass</span></h1>
+ <br>
         <H1>Sign In</H1>
         <form action="<?php echo FRONT_ROOT?>User/logverify" method="post">
 
-            <label><input type="text" name="email" placeholder="Email" requerid></label>
+            <label><input type="email" name="email" placeholder="Email" requerid></label>
             <br>
             <label><input type="password" name="password" placeholder="Password" required></label>
             <br>

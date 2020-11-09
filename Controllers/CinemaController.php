@@ -13,6 +13,9 @@
 
        use \Exception as Exception;
        use \DateTime as DateTime;
+
+       use DAO\GenderDAO as GenderDAO;
+       use Models\Gender as Gender;
    
        class CinemaController{
    
@@ -20,12 +23,14 @@
            private $roomDAO;
            private $showingDAO;
            private $movieDAO;
+           private $genderDAO;
    
            public function __construct(){
                $this->cinemaDAO = new CinemaDAO();
                $this->roomDAO = new RoomDAO();
                $this->movieDAO= new MovieDAO();
                $this->showingDAO = new ShowingDAO();
+               $this->genderDAO = new GenderDAO();
            }
    
            //################ CINEMA ######################################################################################################
@@ -194,10 +199,6 @@
                require_once(VIEWS_PATH."showingListAdmin.php");
            }
 
-
-
-
-
            public function AddShowing($dayTime,$idMovie,$idRoom)
            {
             $i=0;
@@ -266,7 +267,6 @@
                 }     
            }
 
-
            public function seachShowingsForMovie($idMovie)
            {
                 $showingList = $this->showingDAO->GetAllForMovie($idMovie);
@@ -277,6 +277,7 @@
            public function seachShowingsForMovieForGender($idGender)
            {
                 $movieList = $this->movieDAO->GetAllForShowingForGender($idGender);
+                $genderList = $this->genderDAO->GetAll();
                 require_once(VIEWS_PATH."billboardMovie.php");
            }
 
@@ -284,8 +285,8 @@
            {
             require_once(VIEWS_PATH."validate-session.php");
             require_once(VIEWS_PATH."selectDays.php");
-
            }
+           
            public function SearchDate($dayTimeStart,$dayTimeFinish){
             $fechaActual=date("Y-m-d");
                 if(($dayTimeStart>=$fechaActual)&&($dayTimeFinish>=$fechaActual))
