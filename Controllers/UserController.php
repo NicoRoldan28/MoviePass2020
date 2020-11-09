@@ -7,13 +7,24 @@
     use DAO\MovieDAO as MovieDAO;
     use Models\Movie as Movie;
 
+    // AGREGADO
+
+    use DAO\GenderDAO as GenderDAO;
+    use Models\Gender as Gender;
+
+
     class UserController{
 
         private $userDAO;
+        private $movieDAO;
+        //AGREGADO
+        private $genderDAO;
 
         public function __construct(){
             $this->userDAO = new UserDAO();
             $this->movieDAO = new MovieDAO();
+            //AGREGADO
+            $this->genderDAO = new GenderDAO();
         }
 
         public function Index($message = "")
@@ -51,12 +62,12 @@
         }
         
         public function admin(){
-            require_once(VIEWS_PATH."nav-admin.php");
             require_once(VIEWS_PATH."registerCinema.php");
         }
 
         public function user(){
             $movieList = $this->movieDAO->GetAllForShowing();
+            $genderList = $this->genderDAO->GetAll();
             require_once(VIEWS_PATH."billboardMovie.php");
 
 

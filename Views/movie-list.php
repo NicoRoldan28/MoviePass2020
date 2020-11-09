@@ -1,4 +1,6 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'nav-admin.php');?></nav> 
+<nav style='position: fixed'><?php require_once(VIEWS_PATH.'head.php');
+require_once(VIEWS_PATH.'nav-admin.php');?></nav>
+ 
 <br>
   <ul class="pricing_table">
       <?php

@@ -1,5 +1,5 @@
 <?php 
- include('header.php');
+require_once('head.php');
  require_once('nav-admin.php');
  require_once("validate-session.php");
 ?>

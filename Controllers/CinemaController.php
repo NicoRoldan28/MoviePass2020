@@ -10,6 +10,11 @@
        use DAO\RoomDAO as RoomDAO;
        use DAO\ShowingDAO as ShowingDAO;
        use DAO\MovieDAO as MovieDAO;
+
+       // AGREGADO
+
+    use DAO\GenderDAO as GenderDAO;
+    use Models\Gender as Gender;
    
        class CinemaController{
    
@@ -17,12 +22,16 @@
            private $roomDAO;
            private $showingDAO;
            private $movieDAO;
+           //AGREGADO
+           private $genderDAO;
    
            public function __construct(){
                $this->cinemaDAO = new CinemaDAO();
                $this->roomDAO = new RoomDAO();
                $this->movieDAO= new MovieDAO();
                $this->showingDAO = new ShowingDAO();
+               //AGREGADO
+            $this->genderDAO = new GenderDAO();
            }
    
            //################ CINEMA ######################################################################################################
@@ -347,6 +356,7 @@
            public function seachShowingsForMovieForGender($idGender)
            {
                 $movieList = $this->movieDAO->GetAllForShowingForGender($idGender);
+                $genderList = $this->genderDAO->GetAll();
                 require_once(VIEWS_PATH."billboardMovie.php");
            }
        }
