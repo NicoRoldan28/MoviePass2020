@@ -11,9 +11,9 @@
 		alert("'.$message.'");
 		</script>';?></h1>
     <?php
-    //require_once()
+    include_once(VIEWS_PATH."$scrip2");
     ?>
-    <a href="javascript:history.go(-1)">Volver al Formulario</a>
+    
     
 
 </head>
