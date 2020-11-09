@@ -166,11 +166,12 @@ create table Showings(
 );
 
 -- drop table Showings;
-select * from showings;
+select day, hrFinish from showings;
 
 truncate table showings;
 
 --
+select * from showings;
 select * from users;
 select * from perfilusers;
 

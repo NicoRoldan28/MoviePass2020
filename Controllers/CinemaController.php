@@ -254,25 +254,30 @@
            public function AddShowing($dayTime,$idMovie,$idRoom)
            {
             $i=0;
+            //var_dump("dia y hora de inicio de la funcion que vamos a agregar");
             $date=date_create($dayTime);
             $date2=date_create($dayTime);
-            var_dump("dia y hora de inicio de la funcion que vamos a agregar");
-            var_dump($date);
+            $hrFinsh=date_create($dayTime);
+            //var_dump("dia y hora de inicio de la funcion que vamos a agregar");
+            //var_dump($date);
             $movie= new Movie();
             $movie=$this->movieDAO->returnMovie($idMovie);
             //var_dump($movie);
             $timeMovie=$movie->getLenght();
-            var_dump("tiempo de duracion de la pelicula que vamos a agregar");
-            var_dump($timeMovie);
-            $hsFinish=date_modify($date,"+". $timeMovie. "minute");
-               var_dump($dayTime);
+            //var_dump("tiempo de duracion de la pelicula que vamos a agregar");
+            //var_dump($timeMovie);
+            $hrFinsh=date_modify($date,"+". $timeMovie. "minute");
+            //$horassss=$hrFinsh->format('%D , %H , %I , %S ');
+            $horassss=date_format($hrFinsh,'Y-m-d H:i:s');
+            //var_dump($horassss);
+              // var_dump($dayTime);
                //var_dump($date);
                //$hrFinsh= date($date);
                //$hrFinsh = $date->modify('+100 minute');
-               var_dump("dia y hora de finalizacion de la funcion que vamos a agregar");
-               var_dump($hsFinish);
-               var_dump($hsFinish->date);
-               var_dump($hsFinish->timezone);
+               //var_dump("dia y hora de finalizacion de la funcion que vamos a agregar");
+               //var_dump($hsFinish);
+               //var_dump($hsFinish->date);
+               //var_dump($hsFinish->timezone);
 
 
             //$fechaActual=date("Y-m-d");
@@ -282,7 +287,7 @@
                 /*foreach($listShowings as $row){
 
                 }*/
-                $horasssFinish= $hsFinish->date;
+                //$horasssFinish= $hsFinish->date;
                 $showing2 = new Showing();
                 $showing2->setDayTime($dayTime);
                 $showing2->setMovie();
@@ -292,7 +297,8 @@
                
                 //$showing2->setidMovie($idMovie);
                 //$showing2->setRoom($this->roomDAO->getRoomById($idRoom));
-                $showing2->setHrFinish($horasssFinish);
+                $showing2->setHrFinish($horassss);
+                //var_dump($showing2);
                 //$showing2->getHrFinish();
                 //var_dump($showing->getHrFinish());
                 //$diff = abs(stortime($dayTime)-strtotime($showing->getHrFinish()));
@@ -330,6 +336,7 @@
                     {
                         $date3=date_create($showing->getHrFinish());
                         $diff=date_diff($date3,$date2);
+
 
                         if(($diff->format('%D')>=0) && ($i==0))
                         {

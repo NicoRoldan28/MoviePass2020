@@ -1,7 +1,25 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(../img/Background-Narrow.jpg) no-repeat center top fixed;
+    
+    background-size: cover;
+    font-family: sans-serif;
+    height: 100vh;
+  }
+
+  .fondo1{
+    margin: 0;
+    padding: 0;
+    background-color: tomato;
+    background: url(../img/Background-Narrow.jpg);
+    height: 100vh;
+  }
+
+
+  .x2 {
+    margin: 0;
+    padding: 0;
+    background: url(../img/pngtree-film-and-television-film-festival-film-black-atmosphere-poster-image_218867.jpg) no-repeat center top fixed;
     background-size: cover;
     font-family: sans-serif;
     height: 100vh;

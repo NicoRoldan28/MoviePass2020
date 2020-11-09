@@ -16,7 +16,7 @@ class ShowingDAO implements IDAO{
     public function GetAll(){
         try {
             $showingList = array();
-            $query = 'SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from '.$this->tableName.' s inner join room r on r.idRoom = s.idRoom;';
+            $query = 'SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from '.$this->tableName.' s inner join room r on r.idRoom = s.idRoom order By r.id_Cine ;';
 
             //$query = 'SELECT r.capacidad from room r inner join '.$this->tableName.' s on (r.idRoom = :idRoom);';
 

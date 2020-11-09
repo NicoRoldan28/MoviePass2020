@@ -1,4 +1,4 @@
-<body>
+<body class="fondo1">
        <div class="login-box">
           <form action=<?php echo FRONT_ROOT."User/Login"?> method="post">
           <?php 
