@@ -8,7 +8,7 @@ require_once('nav-admin.php');?>
                 <br>
                 <label>NAME<input class="input-login" type="text" name="name" placeholder="Enter Name" required ></label>
                 <br>
-                <label>CAPACITY<input class="input-login" type="text" name="capacity" placeholder="Enter Capacity" required></label>
+                <label>CAPACITY<input class="input-login" type="text" name="capacity" placeholder="Enter Capacity" min=0 required></label>
                 <br>
                 <label>CINEMA <br><br>
                 <select name="nombreCine" required>
