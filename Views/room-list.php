@@ -1,16 +1,17 @@
+<div>
 <?php 
 require_once('head.php');
 require_once('nav-admin.php');?>
-<br>
-<br>
-<br>
-<div class="TableStyles">
-  <table style="text-align:center;">
+</div>
+<body class='Roomlist'>
+  
+<div class="TableStylesRooms">
+  <table>
     <thead>
       <tr>
-        <th style="width: 30%;">Name</th>
-        <th style="width: 30%;">Capacity</th>
-        <th style="width: 15%;">Cine</th>
+        <th>Name</th>
+        <th>Capacity</th>
+        <th>Cine</th>
       </tr>
     </thead>
     <tbody>
@@ -30,3 +31,5 @@ require_once('nav-admin.php');?>
     </tbody>
   </table>
 </div>
+</body>
+

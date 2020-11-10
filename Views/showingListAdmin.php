@@ -1,11 +1,12 @@
-<nav style='position: fixed'>
-<?php
-require_once('head.php'); 
-require_once(VIEWS_PATH.'nav-admin.php');
-?>
-</nav> 
-<div class="TableStyles">
-            <table style="text-align:center;">
+<div>
+    <?php
+    require_once("head.php");
+    require_once("nav-admin.php");
+    ?>
+    
+</div>
+    <div class="TableStyles">
+            <table>
             <thead>
                 <tr>
                     <th>Id</th>
@@ -17,9 +18,6 @@ require_once(VIEWS_PATH.'nav-admin.php');
                     <th>Pelicula</th>
                     <th>Duracion</th>
                     <th>Lenguaje</th>
-                    <th>Imagen</th>
-
-
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +37,6 @@ require_once(VIEWS_PATH.'nav-admin.php');
                             <td><?php echo $showing->getMovie()->getTitle();?></td>
                             <td><?php echo $showing->getMovie()->getLenght();?></td>
                             <td><?php echo $showing->getMovie()->getLenguage();?></td>
-                            <td><?php echo $showing->getMovie()->getImage();?></td>
                         </tr>
                     <?php 
                     }
@@ -47,3 +44,4 @@ require_once(VIEWS_PATH.'nav-admin.php');
             </tbody>
             </table>
     </div>  
+

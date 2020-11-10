@@ -63,7 +63,7 @@
         }
 
         public function user(){
-            $movieList = $this->movieDAO->GetAllForShowing();
+            $movieList = $this->movieDAO->GetAllForShowingActivas();
             $genderList = $this->genderDAO->GetAll();
             require_once(VIEWS_PATH."billboardMovie.php");
 

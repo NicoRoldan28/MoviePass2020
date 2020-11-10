@@ -166,12 +166,9 @@ create table Showings(
 );
 
 -- drop table Showings;
-select day, hrFinish from showings;
-
-truncate table showings;
+select * from showings;
 
 --
-select * from showings;
 select * from users;
 select * from perfilusers;
 
@@ -316,11 +313,7 @@ select * from movies;
 select * from genders;
 select * from gendersxmovies;
 select * from cinemas;
-select * from Showings
-where idRoom=7;
-select * from room;
-truncate table Showings;
-
+select * from Showings;
 
 
 
@@ -508,7 +501,7 @@ END //
 call GetAllTicketByIdBuy(28);
 
 DELIMITER //
-Create Procedure `ShowingForDays` (in days datetime, in endDay datetime)
+Create Procedure `ShowingForDays` (in days date, in endDay date)
 BEGIN
     select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
 	inner join room r on s.idRoom = r.idRoom
@@ -529,10 +522,6 @@ truncate table ticket;
 truncate table paytc;
 truncate table buy;
 
-<<<<<<< HEAD
-DELIMITER //
-CREATE PROCEDURE CargarUserClient (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
-=======
 select email from users where email = 'sssss';
 select email from users where email = 'nico@outlook.com';
 
@@ -576,7 +565,6 @@ select * from room r
 inner join cinemas c 
 on c.id_cinema = r.id_Cine
 where c.id_cinema = 1;
->>>>>>> Rodrigo
 
 
 select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
@@ -592,6 +580,25 @@ inner join room r on r.idRoom = s.idRoom
 inner join cinemas c on c.id_cinema = r.id_Cine 
 WHERE (s.idMovie = 724989);
 
-select * from movie m
-inner join gendersxmovie gxm on gxm.id_Movie = m.id_Movie
+select * from movies m
+inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
 where (gxm.id_Gender = 28);
+
+select * from movies m
+inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
+inner join showings s on s.idMovie = m.id_Movie
+where (gxm.id_Gender = 35)
+group by m.id_Movie;
+
+
+
+
+SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM movies as m inner join showings s on s.idMovie = m.id_Movie inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie where (gxm.id_Gender = 28) group by m.id_Movie;
+
+select showings.day select * from showings
+SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM movies as m 
+                inner join showings s on s.idMovie = m.id_Movie
+                where s.day >= (select NOW())
+ group by m.id_Movie;
+ 
+ select * from users;

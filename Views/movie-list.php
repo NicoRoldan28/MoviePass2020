@@ -1,8 +1,12 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'head.php');
-require_once(VIEWS_PATH.'nav-admin.php');?></nav>
- 
+
+ <div style='z-index: -1;'>
+<?php require_once(VIEWS_PATH.'head.php');
+require_once(VIEWS_PATH.'nav-admin.php');?>
+ </div>
 <br>
-  <ul class="pricing_table">
+<div>
+    <body class="bodyCinemaList">
+        <ul class="pricing_table">
       <?php
           foreach($movieList as $movie)
           {  ?>
@@ -22,7 +26,9 @@ require_once(VIEWS_PATH.'nav-admin.php');?></nav>
       <?php } ?>
   </ul>
   <script src="prefixfree.min.js" type="text/javascript"></script>
-  <div>
+    </body>
+
+
   
-  </div>
+</div>
   

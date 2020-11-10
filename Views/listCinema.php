@@ -9,7 +9,7 @@
 </div>
 <br>
 <form action="<?php echo FRONT_ROOT?>Cinema/ShowAddRoomView" method="post">
-<div class="TableStyles">
+<div class="TableStylesRooms">
 <table>
     <thead>
       <tr>
