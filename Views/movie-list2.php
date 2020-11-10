@@ -1,3 +1,4 @@
+<body class="bodyCinemaList">
 <ul class="pricing_table">
       <?php
           foreach($movieList as $movie)
@@ -16,4 +17,5 @@
           <?php } 
           ?>
   </ul>
+</body>
   <!--<script src="prefixfree.min.js" type="text/javascript"></script>-->

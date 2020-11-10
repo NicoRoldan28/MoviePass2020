@@ -73,7 +73,6 @@
                     $message="Error, este cinema no tiene salas";
                     $scrip2="selectCinema.php";
                     include_once(VIEWS_PATH."Errors.php");
-                    //$this->SelectCinema();
                 }
            }
            
@@ -91,7 +90,7 @@
                    $this->ShowListCinemaView();
                }
                else{
-                    $message="Error, Ya se encuentra un cine con ese nombre";
+                    $message="Error, Ya se encuentra un cine con ese nombre o direccion";
                     $scrip2="registerCinema.php";
                     include_once(VIEWS_PATH."Errors.php");
                }          
@@ -227,6 +226,7 @@
                 if($showingList==null)
                 {
                     $this->showingDAO->Add($showing2);
+                    $i=1;
                 }
                 else{
                     foreach($showingList as $showing)
@@ -243,28 +243,30 @@
                                 if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
                                 $this->showingDAO->Add($showing2);
                                 $i=1;
+                                var_dump("estamos en el primer if (la hora que vamos a agregar es menor que la hora que tiene la funcion cargada)");
                                 }
                             }
                              if( ( $showing2->getHrFinish()>$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() )   ){
                                 if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
                                     $this->showingDAO->Add($showing2);
                                     $i=1;
+                                    var_dump("estamos en el segundo if (la hora que vamos a agregar es mayor que la hora que tiene la funcion cargada");
                                 }
-
                             } 
                         }
-                    }
-                    if($i==1)
-                            {
-                                $this->ShowListShowingView2();
-                            } 
-                            else{
-                                $cinemaList = $this->cinemaDAO->getAll();
-                                $message="Error, no se ha podido agregar la funcion";
-                                $scrip2="selectCinema.php";
-                                include_once(VIEWS_PATH."Errors.php");
-                            }
-                }     
+                    }  
+                } 
+                if($i==1)
+                        {
+                           //var_dump($i);
+                           $this->ShowListShowingView2();
+                         } 
+                else{
+                       $cinemaList = $this->cinemaDAO->getAll();
+                       $message="Error, no se ha podido agregar la funcion";
+                       $scrip2="selectCinema.php";
+                       include_once(VIEWS_PATH."Errors.php");
+                }    
            }
 
            public function seachShowingsForMovie($idMovie)
@@ -287,14 +289,22 @@
             //$genderList = $this->genderDAO->GetAll();
             require_once(VIEWS_PATH."selectDays.php");
            }
-           
+
            public function SearchDate($dayTimeStart,$dayTimeFinish){
             $fechaActual=date("Y-m-d");
                 if(($dayTimeStart>=$fechaActual)&&($dayTimeFinish>=$fechaActual))
                 {
                 $showingList=$this->showingDAO->ShowingForDays($dayTimeStart,$dayTimeFinish);
                 $showingList=$this->cargarShowings($showingList);
-                require_once(VIEWS_PATH."showingListUser.php");
+                    if($showingList!=null)
+                    {
+                        require_once(VIEWS_PATH."showingListUser.php");
+                    }
+                    else{
+                        $message="Error, no se ha podido encontrar funciones entre las fechas indicadas";
+                        $scrip2="selectDays.php";
+                        require_once(VIEWS_PATH."Errors.php");
+                    }
                 }
             }
     }

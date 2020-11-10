@@ -317,7 +317,7 @@ select * from Showings;
 
 
 
-select * from Cine;
+select * from cinemas;
 select * from Salas;
 
 
@@ -503,11 +503,16 @@ call GetAllTicketByIdBuy(28);
 DELIMITER //
 Create Procedure `ShowingForDays` (in days date, in endDay date)
 BEGIN
-	select * from showings s
-    where s.day between days and endDay;
+    select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
+    where s.day between days and endDay
+    order By s.day;
 END //
 
-call ShowingForDays('2019-11-20','2019-11-26');
+drop procedure ShowingForDays;
+
+
+call ShowingForDays('2020-11-04 16:30','2020-11-08 19:15');
 
 
 truncate table cinemas;
@@ -517,10 +522,6 @@ truncate table ticket;
 truncate table paytc;
 truncate table buy;
 
-<<<<<<< HEAD
-DELIMITER //
-CREATE PROCEDURE CargarUserClient (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
-=======
 select email from users where email = 'sssss';
 select email from users where email = 'nico@outlook.com';
 
@@ -564,7 +565,6 @@ select * from room r
 inner join cinemas c 
 on c.id_cinema = r.id_Cine
 where c.id_cinema = 1;
->>>>>>> Rodrigo
 
 
 select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s

@@ -18,8 +18,6 @@ class ShowingDAO implements IDAO{
             $showingList = array();
             $query = 'SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from '.$this->tableName.' s inner join room r on r.idRoom = s.idRoom order By r.id_Cine ;';
 
-            //$query = 'SELECT r.capacidad from room r inner join '.$this->tableName.' s on (r.idRoom = :idRoom);';
-
             $this->connection = Connection::GetInstance();
 
             $result = $this->connection->Execute($query);
@@ -83,9 +81,7 @@ class ShowingDAO implements IDAO{
 
                 $showing->getRoom()->setCinema();
                 $showing->getRoom()->getCinema()->setId($row['id_Cine']);
-                //$room->setCinema($row["id_Cine"]);
 
-                //var_dump($room);
                 array_push($showingList,$showing);
             }
             return $showingList;
@@ -116,9 +112,7 @@ class ShowingDAO implements IDAO{
 
                 $showing->getRoom()->setCinema();
                 $showing->getRoom()->getCinema()->setId($row['id_Cine']);
-                //$room->setCinema($row["id_Cine"]);
 
-                //var_dump($room);
                 array_push($showingList,$showing);
             }
             return $showingList;
@@ -142,7 +136,7 @@ class ShowingDAO implements IDAO{
                 
                 foreach ($result as $value){
 
-                    $showing= new Showing();
+                $showing= new Showing();
                 $showing->setIdShowing($value["id_Showing"]);
                 $showing->setDayTime($value["day"]);
                 $showing->setMovie();
@@ -150,23 +144,16 @@ class ShowingDAO implements IDAO{
                 $showing->setRoom();
                 $showing->getRoom()->setId($value["idRoom"]);
                 $showing->setHrFinish($value["hrFinish"]);
-
                 $showing->getRoom()->setCinema();
                 $showing->getRoom()->getCinema()->setId($value['id_Cine']);
-                    array_push($showingList,$showing);
+                   
+                array_push($showingList,$showing);
                 }
-                //var_dump($showingList);
 
                 return $showingList;
                 } catch (Exception $ex) {
                     throw $ex;
                 }
         } 
-    
-
-
-
-        
 }
-
 ?>

@@ -10,14 +10,14 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Dia y Horario inicio</th>
-                    <th>Horario fin</th>
+                    <th>Pelicula</th>
                     <th>Cine</th>
                     <th>SALA</th>
-                    <th>capacidad</th>
-                    <th>Pelicula</th>
+                    <th>Dia y Horario inicio</th>
+                    <th>Horario fin</th>
                     <th>Duracion</th>
-                    <th>Lenguaje</th>
+                    <th>capacidad</th>
+                    <th>Lenguaje</th>                   
                 </tr>
             </thead>
             <tbody>
@@ -28,14 +28,13 @@
                         ?>
                         <tr> 
                             <td><?php echo $showing->getIdShowing() ?></td>
-                            <td><?php echo $showing->getDayTime() ?></td>
-                            <td><?php echo $showing->getHrFinish() ?></td>
+                            <td><?php echo $showing->getMovie()->getTitle();?></td>
                             <td><?php echo $showing->getRoom()->getCinema()->getName();?></td>
                             <td><?php echo $showing->getRoom()->getNombre();?></td>
-                            <td><?php echo $showing->getRoom()->getCapacidad();?></td>
-
-                            <td><?php echo $showing->getMovie()->getTitle();?></td>
+                            <td><?php echo $showing->getDayTime() ?></td>
+                            <td><?php echo $showing->getHrFinish() ?></td>
                             <td><?php echo $showing->getMovie()->getLenght();?></td>
+                            <td><?php echo $showing->getRoom()->getCapacidad();?></td>
                             <td><?php echo $showing->getMovie()->getLenguage();?></td>
                         </tr>
                     <?php 

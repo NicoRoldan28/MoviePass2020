@@ -1,19 +1,24 @@
-<?php 
-require_once('head.php');
-//require_once('nav-user2.php');?>
+<?php
+    require_once('head.php');
+    //require_once('nav-user2.php');
+    date_default_timezone_set('America/Argentina/Buenos_Aires');
+    ?>
+<body class= "backgroundDeadPool">
+    
 <div class="login-box">  
             <form action="<?php echo FRONT_ROOT?>Cinema/SearchDate" method="post">
                 <h1>Select Day for Showing</h1>
                 <br>
                 <br>
                 <br>
-                <label>Date && Hs Start <input type="datetime-local" name="dayTimeStart" requerid></label>
+                <label>Date && Hs Start <input type="datetime-local" name="dayTimeStart" min="<?php echo date('Y-m-d\TH:i'); ?>" requerid></label>
                 <br>
                 <br>
-                <label>Date && Hs Finish <input type="datetime-local" name="dayTimeFinish" requerid></label>
+                <label>Date && Hs Finish <input type="datetime-local" name="dayTimeFinish" min="<?php echo date('Y-m-d\TH:i') ; ?>" requerid></label>
                 <br>
                 <br>
                 <input class="btn-login btn" type="submit" name="btnLogin"value='Save'></button>
                 <br>
             </form>
 </div>
+</body>

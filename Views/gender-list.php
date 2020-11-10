@@ -1,4 +1,5 @@
-<?php require_once("validate-session.php");?>
+<?php require_once("validate-session.php");
+require_once("head.php");?>
 
 <nav style='position: fixed'><?php 
 require_once('head.php');
