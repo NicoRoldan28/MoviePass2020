@@ -243,14 +243,15 @@
                                 if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
                                 $this->showingDAO->Add($showing2);
                                 $i=1;
+                                var_dump("estamos en el primer if (la hora que vamos a agregar es menor que la hora que tiene la funcion cargada)");
                                 }
                             }
                              if( ( $showing2->getHrFinish()>$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() )   ){
                                 if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
                                     $this->showingDAO->Add($showing2);
                                     $i=1;
+                                    var_dump("estamos en el segundo if (la hora que vamos a agregar es mayor que la hora que tiene la funcion cargada");
                                 }
-
                             } 
                         }
                     }  
