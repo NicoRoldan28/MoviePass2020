@@ -1,7 +1,9 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'nav-admin.php');?></nav> 
-  <div class="div-login"><br><br>
-    <h3 class="text-login" style='color:white;'>SHOWINGS</h3>
-</div>
+<nav style='position: fixed'>
+<?php
+require_once('head.php'); 
+require_once(VIEWS_PATH.'nav-admin.php');
+?>
+</nav> 
 <div class="TableStyles">
             <table style="text-align:center;">
             <thead>
@@ -39,7 +41,6 @@
                             <td><?php echo $showing->getMovie()->getLenguage();?></td>
                             <td><?php echo $showing->getMovie()->getImage();?></td>
                         </tr>
-                        <br>
                     <?php 
                     }
                     ?>

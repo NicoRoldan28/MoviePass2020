@@ -228,6 +228,7 @@
                 if($showingList==null)
                 {
                     $this->showingDAO->Add($showing2);
+                    $i=1;
                 }
                 else{
                     foreach($showingList as $showing)
@@ -253,18 +254,19 @@
                                 }
                             } 
                         }
-                    }
-                    if($i==1)
-                            {
-                                $this->ShowListShowingView2();
-                            } 
-                            else{
-                                $cinemaList = $this->cinemaDAO->getAll();
-                                $message="Error, no se ha podido agregar la funcion";
-                                $scrip2="selectCinema.php";
-                                include_once(VIEWS_PATH."Errors.php");
-                            }
-                }     
+                    }  
+                } 
+                if($i==1)
+                        {
+                           var_dump($i);
+                           $this->ShowListShowingView2();
+                         } 
+                else{
+                       $cinemaList = $this->cinemaDAO->getAll();
+                       $message="Error, no se ha podido agregar la funcion";
+                       $scrip2="selectCinema.php";
+                       include_once(VIEWS_PATH."Errors.php");
+                }    
            }
 
            public function seachShowingsForMovie($idMovie)
@@ -286,14 +288,22 @@
             require_once(VIEWS_PATH."validate-session.php");
             require_once(VIEWS_PATH."selectDays.php");
            }
-           
+
            public function SearchDate($dayTimeStart,$dayTimeFinish){
             $fechaActual=date("Y-m-d");
                 if(($dayTimeStart>=$fechaActual)&&($dayTimeFinish>=$fechaActual))
                 {
                 $showingList=$this->showingDAO->ShowingForDays($dayTimeStart,$dayTimeFinish);
                 $showingList=$this->cargarShowings($showingList);
-                require_once(VIEWS_PATH."showingListUser.php");
+                    if($showingList!=null)
+                    {
+                        require_once(VIEWS_PATH."showingListUser.php");
+                    }
+                    else{
+                        $message="Error, no se ha podido encontrar funciones entre las fechas indicadas";
+                        $scrip2="selectDays.php";
+                        require_once(VIEWS_PATH."Errors.php");
+                    }
                 }
             }
     }

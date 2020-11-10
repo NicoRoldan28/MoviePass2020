@@ -1,4 +1,6 @@
-<?php require_once('nav-admin.php');?>
+<?php 
+require_once('head.php');
+require_once('nav-admin.php');?>
 <br>
 <br>
 <br>

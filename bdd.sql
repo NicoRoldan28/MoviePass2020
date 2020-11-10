@@ -316,14 +316,15 @@ select * from movies;
 select * from genders;
 select * from gendersxmovies;
 select * from cinemas;
-select * from Showings;
+select * from Showings
+where idRoom=7;
 select * from room;
 truncate table Showings;
 
 
 
 
-select * from Cine;
+select * from cinemas;
 select * from Salas;
 
 
@@ -511,10 +512,12 @@ Create Procedure `ShowingForDays` (in days datetime, in endDay datetime)
 BEGIN
     select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
 	inner join room r on s.idRoom = r.idRoom
-    where s.day between days and endDay;
+    where s.day between days and endDay
+    order By s.day;
 END //
 
 drop procedure ShowingForDays;
+
 
 call ShowingForDays('2020-11-04 16:30','2020-11-08 19:15');
 

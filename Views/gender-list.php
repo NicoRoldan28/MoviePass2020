@@ -1,9 +1,7 @@
-<?php require_once("validate-session.php");?>
+<?php require_once("validate-session.php");
+require_once("head.php");?>
 
 <nav style='position: fixed'><?php include('nav-admin.php');?></nav> 
-  <div class="div-login"><br>
-    <h1 class="text-login">LISTA DE GENEROS</h1>
-  </div>  
 <div class='TableStyles'>
   <table>
     <thead>

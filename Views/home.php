@@ -8,10 +8,6 @@
           <br>
           <h1>Login</h1>
 
-          <h1>MOVIE PASS<h1>
-
-          <h3>Login</h3>
-          <br>
           <!-- USERNAME INPUT -->
           <label>Email<input class="input-login" type="email" name="email" placeholder="Enter Email" required></label>
         

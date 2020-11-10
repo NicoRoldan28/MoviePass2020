@@ -1,10 +1,13 @@
-<?php require_once('nav-admin.php');?>
+<?php require_once('head.php');
+require_once('nav-admin.php');
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+?>
 <div class="login-box">  
             <form action="<?php echo FRONT_ROOT?>Cinema/AddShowing" method="post">
                 <h1>Add Showing</h1>
                 <br>
                 <br>
-                <label>Date && Hs Start <input type="datetime-local" name="dayTime" requerid></label>
+                <label>Date && Hs Start <input type="datetime-local" name="dayTime" min="<?php echo date('Y-m-d\TH:i');?>" requerid></label>
                 <br>
                 <label>Movie Name <select name="nombreMovie" required ></label>
                 <br>

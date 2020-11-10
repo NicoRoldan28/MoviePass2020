@@ -26,7 +26,7 @@ body {
     height: 420px;
     background: transparent;
     color: #fff;
-    top: 45%;
+    top: 55%;
     left: 80%;
     position: absolute;
     transform: translate(-50%, -50%);
@@ -257,7 +257,7 @@ body {
   .menu > li > a{
     font-size: 11px;
     display: block;
-    padding: 15px 132.45px;
+    padding: 15px 112.65px;
     background-color: #1a1b1f;
     color: #fff;
     font-family: 'Open sans';
@@ -325,6 +325,10 @@ body {
      display:block;
    }
 
+   
+
+
+
    .backgroundDeadPool{
     background: url(../img/deadpool-2-fondo.jpg) no-repeat center top fixed;
     background-size: cover;
@@ -341,6 +345,7 @@ body {
     box-sizing: border-box;
     padding: 70px 30px;
    }
+
    .TableStyles th {
     color:#D5DDE5;;
     background:#b80f22;
@@ -443,14 +448,12 @@ body {
   
   
 
-
-
   .sidebar{
     z-index: 1;
     top: 0;
     background: #2f323a;
     margin-top: 70px;
-    padding-top: 30px;
+    padding-top: 10px;
     position: fixed;
     left: 0;
     width: 250px;
@@ -478,6 +481,10 @@ body {
   .sidebar i{
     padding-right: 10px;
   }
+  .sidebar div{
+    style= "margin-top 1px";
+  }
+
   
   label #sidebar_btn{
     z-index: 1;
@@ -517,7 +524,7 @@ body {
     margin: 0 auto; 
     width: 75%; 
     max-width: 1000px;
-    padding: 100px 110px; 
+    padding: 800px 300px; 
     padding-top: 10px;
     margin-top: 100px;
 }
@@ -568,12 +575,14 @@ body {
 .features {
   background: rgb(22, 20, 20); 
   color: rgb(212, 202, 202);
+  padding-left: 0px;
 }
 .features li {
   padding: 8px 15px;
   border-bottom: 1px solid rgb(80, 78, 78); 
   font-size: 11px; 
   list-style-type: none;
+  
 }
 .footer {
   padding: 15px; 

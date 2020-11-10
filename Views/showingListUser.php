@@ -1,4 +1,7 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'nav-user.php');?></nav> 
+<nav style='position: fixed'>
+<?php //require_once(VIEWS_PATH.'nav-user2.php');
+ require_once(VIEWS_PATH.'head.php');
+?></nav> 
   <div class="div-login"><br><br>
     <h3 class="text-login" style='color:white;'>SHOWINGS</h3>
 </div>
@@ -6,7 +9,6 @@
             <table style="text-align:center;">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Dia y Horario inicio</th>
                     <th>Horario fin</th>
                     <th>Cine</th>
@@ -27,8 +29,7 @@
                     foreach($showingList as $showing)
                     {   
                         ?>
-                        <tr> 
-                            <td><?php echo $showing->getIdShowing() ?></td>
+                        <tr>
                             <td><?php echo $showing->getDayTime() ?></td>
                             <td><?php echo $showing->getHrFinish() ?></td>
                             <td><?php echo $showing->getRoom()->getCinema()->getName();?></td>
@@ -44,8 +45,6 @@
           </div> </td>
                             
                         </tr>
-                        <br>
-                        
                     <?php 
                     }
                     ?>
