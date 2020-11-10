@@ -1,4 +1,4 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'nav-user.php');?></nav> 
+<nav style='position: fixed'><?php require_once(VIEWS_PATH.'head.php');?></nav> 
   <div class="div-login"><br><br>
     <h3 class="text-login" style='color:white;'>SHOWINGS</h3>
 </div>

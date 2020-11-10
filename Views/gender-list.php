@@ -1,10 +1,10 @@
 <?php require_once("validate-session.php");?>
 
-<nav style='position: fixed'><?php include('nav-admin.php');?></nav> 
-  <div class="div-login"><br>
-    <h1 class="text-login">LISTA DE GENEROS</h1>
-  </div>  
-<div class='TableStyles'>
+<nav style='position: fixed'><?php 
+require_once('head.php');
+include('nav-admin.php');?></nav> 
+<body class="genderlist">
+  <div class='TableStyles'>
   <table>
     <thead>
       <tr>
@@ -27,4 +27,6 @@
     </tbody>
   </table>
 </div>
+</body> 
+
 

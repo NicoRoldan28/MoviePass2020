@@ -1,11 +1,9 @@
 <?php
 require_once('head.php'); 
 require_once(VIEWS_PATH.'nav-user2.php');?>
-<body >
-
-<div class="bodypeli">
+<body class="bod">
 <form action="<?php echo FRONT_ROOT?>Cinema/seachShowingsForMovie" method="post">
-  <ul class="pricing_table">
+  <ul class="pricing_table2">
       <?php
           foreach($movieList as $movie)
           {  ?>
@@ -28,7 +26,4 @@ require_once(VIEWS_PATH.'nav-user2.php');?>
   </ul>
   <script src="prefixfree.min.js" type="text/javascript"></script>
 </form>
-</div>
-    
-</body>
-</html>
+          </body>

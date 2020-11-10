@@ -194,7 +194,6 @@
                require_once(VIEWS_PATH."validate-session.php");
                $showingList =array();
                $showingList =$this->showingDAO->GetAll();
-
                $showingList=$this->cargarShowings($showingList);
                require_once(VIEWS_PATH."showingListAdmin.php");
            }
@@ -251,6 +250,7 @@
                                     $this->showingDAO->Add($showing2);
                                     $i=1;
                                 }
+
                             } 
                         }
                     }
@@ -281,9 +281,10 @@
                 require_once(VIEWS_PATH."billboardMovie.php");
            }
 
-           public function SelectDay()
+           public function SelectDays()
            {
             require_once(VIEWS_PATH."validate-session.php");
+            //$genderList = $this->genderDAO->GetAll();
             require_once(VIEWS_PATH."selectDays.php");
            }
            

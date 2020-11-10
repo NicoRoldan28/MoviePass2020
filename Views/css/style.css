@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(../img/fondoRojo.jpg) no-repeat center top fixed;
+    background: url(../img/images.jpg) no-repeat center top fixed;
     background-size: cover;
     font-family: sans-serif;
     height: 100vh;
@@ -26,7 +26,7 @@ body {
     height: 420px;
     background: transparent;
     color: #fff;
-    top: 45%;
+    top: 55%;
     left: 80%;
     position: absolute;
     transform: translate(-50%, -50%);
@@ -210,6 +210,21 @@ body {
     color: #fff;
   }
 
+  .right_area span{
+    padding: 5px;
+    text-decoration: none;
+    float: right;
+    margin-top: -30px;
+    margin-right: 110px;
+    border-radius: 2px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    transition: 0.5s;
+    transition-property: background;
+  }
+
+
   .logout_btn{
     padding: 5px;
     background: #b80f22;
@@ -330,25 +345,27 @@ body {
     background-size: cover;
    }
 
-   .TableStyles {
-
-    width: 320px;
-    height: 420px;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    box-sizing: border-box;
-    padding: 70px 30px;
+   .TableStyles{
+     width: 320px;
+    height: 420px;  
+    padding: 100px 1px;
    }
-   .TableStyles th {
-    color:#D5DDE5;;
+   
+   .TableStylesRooms{
+    width: 320px;
+   height: 420px;  
+   padding: 100px 1px;
+  }
+
+
+  .TableStyles th {
+    color:#D5DDE5;
     background:#b80f22;
     border-bottom:4px solid #9ea7af;
     border-right: 1px solid #343a45;
     font-size:23px;
     font-weight: 100;
-    padding:30px 200px;
+    padding:24px;
     text-align:left;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align:middle;
@@ -441,6 +458,112 @@ body {
     text-align: right;
   }
   
+  .TableStylesRooms{
+    width: 3000px;
+   height: 420px;  
+   padding: 120px 550px;
+  }
+
+  .TableStylesRooms th {
+    color:#D5DDE5;
+    background:#b80f22;
+    border-bottom:4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size:23px;
+    font-weight: 100;
+    padding:24px;
+    text-align:left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align:middle;
+  }
+  
+  .TableStylesRooms th:first-child {
+    border-top-left-radius:3px;
+  }
+   
+  .TableStylesRooms th:last-child {
+    border-top-right-radius:3px;
+    border-right:none;
+  }
+    
+  .TableStylesRooms tr {
+    border-top: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+    color:rgb(255, 255, 255);
+    font-size:16px;
+    font-weight:normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+  }
+   
+  .TableStylesRooms tr:hover td {
+    background:#4E5066;
+    color:#FFFFFF;
+    border-top: 1px solid #22262e;
+  }
+   
+  .TableStylesRooms tr:first-child {
+    border-top:none;
+  }
+  
+  .TableStylesRooms tr:last-child {
+    border-bottom:none;
+  }
+   
+  .TableStylesRooms tr:nth-child(odd) td {
+    background:rgb(22, 20, 20);
+  }
+   
+  .TableStylesRooms tr:nth-child(odd):hover td {
+    background:#4E5066;
+  }
+  
+  .TableStylesRooms tr:last-child td:first-child {
+    border-bottom-left-radius:3px;
+  }
+   
+  .TableStylesRooms tr:last-child td:last-child {
+    border-bottom-right-radius:3px;
+  }
+   
+  .TableStylesRooms td {
+    background:rgb(15, 14, 14);
+    padding:20px;
+    text-align:left;
+    vertical-align:middle;
+    font-weight:300;
+    font-size:18px;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgb(0, 0, 0);
+  }
+  
+  .TableStylesRooms td:last-child {
+    border-right: 0px;
+  }
+  
+  .TableStylesRooms th.text-left {
+    text-align: left;
+  }
+  
+  .TableStylesRooms th.text-center {
+    text-align: center;
+  }
+  
+  .TableStylesRooms th.text-right {
+    text-align: right;
+  }
+  
+  .TableStylesRooms td.text-left {
+    text-align: left;
+  }
+  
+  .TableStylesRooms td.text-center {
+    text-align: center;
+  }
+  
+  .TableStylesRooms td.text-right {
+    text-align: right;
+  }
+  
   
 
 
@@ -450,7 +573,7 @@ body {
     top: 0;
     background: #2f323a;
     margin-top: 70px;
-    padding-top: 30px;
+    padding-top: 0px;
     position: fixed;
     left: 0;
     width: 250px;
@@ -458,6 +581,8 @@ body {
     transition: 0.5s;
     transition-property: left;
     overflow-y: auto;
+    color: #fff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
   .sidebar a{
     color: #fff;
@@ -465,7 +590,7 @@ body {
     width: 100%;
     line-height: 60px;
     text-decoration: none;
-    padding-left: 40px;
+    padding-left: 65px;
     box-sizing: border-box;
     transition: 0.5s;
     transition-property: background;
@@ -521,6 +646,30 @@ body {
     padding-top: 10px;
     margin-top: 100px;
 }
+
+  .pricing_table2 {
+    line-height: 150%; 
+    font-size: 12px; 
+    margin: 0 auto; 
+    width: 75%; 
+    max-width: 1000px;
+    padding: 800px 300px; 
+    padding-top: 10px;
+    margin-top: 100px;
+}
+
+  .pricing_table2 h3 {
+    text-transform: uppercase; 
+    padding: 15px 0; 
+    background: #b80f22; 
+    margin: -10px 0 1px 0;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+
+
+  }
  
 .price_block {
     width: 100%; 
@@ -568,6 +717,7 @@ body {
 .features {
   background: rgb(22, 20, 20); 
   color: rgb(212, 202, 202);
+  padding-left: 0px;
 }
 .features li {
   padding: 8px 15px;
@@ -667,12 +817,12 @@ body {
   display: block;
 }
 
-.RegisterRoom-box input,select {
+.RegisterRoom-box input {
   width: 100%;
   margin-bottom: 20px;
 }
 
-.RegisterRoom-box input[type="text"], .RegisterRoom-box input[type="password"], .RegisterRoom-box input[type="email"], .RegisterRoom-box input[type="number"], .RegisterRoom-box select {
+.RegisterRoom-box input[type="text"], .RegisterRoom-box input[type="password"], .RegisterRoom-box input[type="email"], .RegisterRoom-box input[type="number"] {
   border: none;
   border-bottom: 1px solid #fff;
   background: transparent;
@@ -680,10 +830,6 @@ body {
   height: 40px;
   color: #fff;
   font-size: 16px;
-}
-
-.RegisterRoom-box select option{
-  background-color: transparent;
 }
 
 
@@ -713,4 +859,140 @@ body {
 
 .RegisterRoom-box a:hover {
   color: #fff;
+}
+
+.Roomlist{
+  background: url(../img/fondosalalista.jpg) no-repeat center top fixed;
+  background-size: cover;
+}
+
+.genderlist{
+  background: url(../img/fondogenderlist.png) no-repeat center top fixed;
+  background-size: cover;
+}
+
+.TableStylesCinema{
+  width: 1000 px;
+ height: 200px;  
+ padding: 120px 10px;
+}
+
+.TableStylesCinema table{
+  width: 500px;
+  padding-left: 0px;
+}
+
+ 
+.TableStylesCinema th {
+  color:#D5DDE5;
+  background:#b80f22;
+  /*border-bottom:4px solid #9ea7af;*/
+  border-right: 1px solid #343a45;
+  font-size:23px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+.TableStylesCinema th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+.TableStylesCinema th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+.TableStylesCinema tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom: 1px solid #C1C3D1;
+  color:rgb(255, 255, 255);
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+.TableStylesCinema tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+ 
+.TableStylesCinema tr:first-child {
+  border-top:none;
+}
+
+.TableStylesCinema tr:last-child {
+  border-bottom:none;
+}
+ 
+.TableStylesCinema tr:nth-child(odd) td {
+  background:rgb(22, 20, 20);
+}
+ 
+.TableStylesCinema tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+.TableStylesCinema tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+.TableStylesCinema tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+.tdImg{
+  width:100px;
+  height: 100px; ;
+}
+ 
+.TableStylesCinema td {
+  background:rgb(15, 14, 14);
+  padding:20px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgb(0, 0, 0);
+}
+
+.TableStylesCinema td:last-child {
+  border-right: 0px;
+}
+
+.TableStylesCinema th.text-left {
+  text-align: left;
+}
+
+.TableStylesCinema th.text-center {
+  text-align: center;
+}
+
+.TableStylesCinema th.text-right {
+  text-align: right;
+}
+
+.TableStylesCinema td.text-left {
+  text-align: left;
+}
+
+.TableStylesCinema td.text-center {
+  text-align: center;
+}
+
+.TableStylesCinema td.text-right {
+  text-align: right;
+}
+
+.bodyCinemaList{
+  background: url(../img/Background-Narrow.jpg) no-repeat center top fixed;
+  background-size: cover;
+}
+
+.bod{
+  background: url(../img/fondoRojo.jpg) no-repeat center top fixed;
+  background-size: cover;
 }

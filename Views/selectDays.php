@@ -1,4 +1,6 @@
-<?php require_once('nav-user.php');?>
+<?php 
+require_once('head.php');
+//require_once('nav-user2.php');?>
 <div class="login-box">  
             <form action="<?php echo FRONT_ROOT?>Cinema/SearchDate" method="post">
                 <h1>Select Day for Showing</h1>

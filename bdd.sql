@@ -166,12 +166,9 @@ create table Showings(
 );
 
 -- drop table Showings;
-select day, hrFinish from showings;
-
-truncate table showings;
+select * from showings;
 
 --
-select * from showings;
 select * from users;
 select * from perfilusers;
 
@@ -317,9 +314,6 @@ select * from genders;
 select * from gendersxmovies;
 select * from cinemas;
 select * from Showings;
-select * from room;
-truncate table Showings;
-
 
 
 
@@ -507,16 +501,13 @@ END //
 call GetAllTicketByIdBuy(28);
 
 DELIMITER //
-Create Procedure `ShowingForDays` (in days datetime, in endDay datetime)
+Create Procedure `ShowingForDays` (in days date, in endDay date)
 BEGIN
-    select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
-	inner join room r on s.idRoom = r.idRoom
+	select * from showings s
     where s.day between days and endDay;
 END //
 
-drop procedure ShowingForDays;
-
-call ShowingForDays('2020-11-04 16:30','2020-11-08 19:15');
+call ShowingForDays('2019-11-20','2019-11-26');
 
 
 truncate table cinemas;
@@ -589,6 +580,25 @@ inner join room r on r.idRoom = s.idRoom
 inner join cinemas c on c.id_cinema = r.id_Cine 
 WHERE (s.idMovie = 724989);
 
-select * from movie m
-inner join gendersxmovie gxm on gxm.id_Movie = m.id_Movie
+select * from movies m
+inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
 where (gxm.id_Gender = 28);
+
+select * from movies m
+inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
+inner join showings s on s.idMovie = m.id_Movie
+where (gxm.id_Gender = 35)
+group by m.id_Movie;
+
+
+
+
+SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM movies as m inner join showings s on s.idMovie = m.id_Movie inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie where (gxm.id_Gender = 28) group by m.id_Movie;
+
+select showings.day select * from showings
+SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM movies as m 
+                inner join showings s on s.idMovie = m.id_Movie
+                where s.day >= (select NOW())
+ group by m.id_Movie;
+ 
+ select * from users;

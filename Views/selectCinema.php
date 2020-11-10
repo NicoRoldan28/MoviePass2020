@@ -1,4 +1,6 @@
-<?php require_once('nav-admin.php');?>
+<?php 
+require_once("head.php");
+require_once('nav-admin.php');?>
 <div class="login-box">
 <h1>Select Cinema</h1>  
 <form action="<?php echo FRONT_ROOT?>Cinema/ShowFilmTabView" method="post">  
