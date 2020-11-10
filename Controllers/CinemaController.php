@@ -73,7 +73,6 @@
                     $message="Error, este cinema no tiene salas";
                     $scrip2="selectCinema.php";
                     include_once(VIEWS_PATH."Errors.php");
-                    //$this->SelectCinema();
                 }
            }
            
@@ -91,7 +90,7 @@
                    $this->ShowListCinemaView();
                }
                else{
-                    $message="Error, Ya se encuentra un cine con ese nombre";
+                    $message="Error, Ya se encuentra un cine con ese nombre o direccion";
                     $scrip2="registerCinema.php";
                     include_once(VIEWS_PATH."Errors.php");
                }          
@@ -258,7 +257,7 @@
                 } 
                 if($i==1)
                         {
-                           var_dump($i);
+                           //var_dump($i);
                            $this->ShowListShowingView2();
                          } 
                 else{

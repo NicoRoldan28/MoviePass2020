@@ -3,6 +3,8 @@
     //require_once('nav-user2.php');
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     ?>
+<body class= "backgroundDeadPool">
+    
 <div class="login-box">  
             <form action="<?php echo FRONT_ROOT?>Cinema/SearchDate" method="post">
                 <h1>Select Day for Showing</h1>
@@ -19,3 +21,4 @@
                 <br>
             </form>
 </div>
+</body>
