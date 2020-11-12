@@ -167,7 +167,7 @@ create table Showings(
 
 -- drop table Showings;
 select * from showings;
-
+truncate showings;
 --
 select * from users;
 select * from perfilusers;
@@ -315,6 +315,20 @@ select * from gendersxmovies;
 select * from cinemas;
 select * from Showings;
 
+select * from Showings s
+where CAST(s.day AS DATE) = '2020-11-24 ';
+
+SELECT * FROM test
+WHERE fecha >= CAST('2018-11-26' AS datetime)
+//$procedure = 'call ShowingForDay(:days);';
+
+DELIMITER //
+
+CREATE PROCEDURE `ShowingForDay` (in dayTime datetime)
+BEGIN
+	select * from Showings s
+	WHERE CAST(dayTime AS datetime) = CAST(s.day AS datetime);
+END //
 
 
 select * from cinemas;
@@ -337,6 +351,8 @@ from ticket t
 inner join showings s
 on s.id_Showing = t.id_Showing
 where s.id_Showing =2;
+
+
 
 drop procedure `CountQuantityForMovie`;
 

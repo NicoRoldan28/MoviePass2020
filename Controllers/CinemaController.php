@@ -203,6 +203,9 @@
             $date=date_create($dayTime);
             $date2=date_create($dayTime);
             $hrFinsh=date_create($dayTime);
+            $hrInicio=date_create($dayTime);
+            $hrInicio=date_format($hrInicio,'Y-m-d H:i:s');
+
             $movie= new Movie();
             $movie=$this->movieDAO->returnMovie($idMovie);
 
@@ -213,52 +216,70 @@
             $horassss=date_format($hrFinsh,'Y-m-d H:i:s');
 
                 $showing2 = new Showing();
-                $showing2->setDayTime($dayTime);
+                $showing2->setDayTime($hrInicio);
                 $showing2->setMovie();
                 $showing2->getMovie()->setId($idMovie);
                 $showing2->setRoom();
                 $showing2->getRoom()->setId($idRoom);
-               
+
                 $showing2->setHrFinish($horassss);
-                
-                $showingList=$this->showingDAO->GetAllForRoom($idRoom);
-                
+
+                $showingList=$this->showingDAO->GetShowingForDay($showing2->getDayTime());
+
                 if($showingList==null)
                 {
-                    $this->showingDAO->Add($showing2);
                     $i=1;
                 }
-                else{
+                else if(!($this->buscarMovieInShowing($showingList,$idMovie) ) ) {
+
                     foreach($showingList as $showing)
-                    {
-                        $date3=date_create($showing->getHrFinish());
-                        $diff=date_diff($date3,$date2);
+                    {   
+                            $date3=date_create($showing->getHrFinish());
 
+                            $diff=date_diff($date3,$date2);
+                            
+                            $hora2=date_create($showing->getDayTime());
 
-                        if(($diff->format('%D')>=0) && ($i==0))
-                        {
-                            $boleann=(( ( $showing2->getHrFinish()<$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() ) ) );
-                            if ($boleann)
+                            $hora2=date_format($hora2,'Y-m-d H:i:s');
+
+                            $boleano= ( ($showing2->getDayTime() > $showing->getDayTime()) && ($showing2->getDayTime() < $showing->getHrFinish()) );
+                            
+                            if((!$boleano))
                             {
-                                if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
-                                $this->showingDAO->Add($showing2);
-                                $i=1;
-                                var_dump("estamos en el primer if (la hora que vamos a agregar es menor que la hora que tiene la funcion cargada)");
-                                }
+                                    if(($showing2->getDayTime()<$showing->getDayTime())&&($showing2->getHrFinish()<$showing->getDayTime()))
+                                    {
+                                        
+                                        $date15=date_create($showing->getDayTime());
+                                        $date16=date_create($showing2->getHrFinish());
+
+                                        $diff=date_diff($date15,$date16);
+
+                                        if(($diff->format('%H')>=1) || ($diff->format('%I')>=15))
+                                            {
+                                                $i=1;
+                                            }
+                                            else{
+                                                $i=0;
+                                            }    
+                                    } 
+                                    else if($showing2->getDayTime() > $showing->getHrFinish()){
+                                        if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
+                                            $i=1;
+                                        }
+                                        else{
+                                            $i=0;
+                                        } 
+                                    }
+                                    else{
+                                        $i=0;
+                                    }     
                             }
-                             if( ( $showing2->getHrFinish()>$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() )   ){
-                                if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
-                                    $this->showingDAO->Add($showing2);
-                                    $i=1;
-                                    var_dump("estamos en el segundo if (la hora que vamos a agregar es mayor que la hora que tiene la funcion cargada");
-                                }
-                            } 
-                        }
-                    }  
+                             
+                    }
                 } 
                 if($i==1)
                         {
-                           //var_dump($i);
+                            $this->showingDAO->Add($showing2);
                            $this->ShowListShowingView2();
                          } 
                 else{
@@ -286,7 +307,6 @@
            public function SelectDays()
            {
             require_once(VIEWS_PATH."validate-session.php");
-            //$genderList = $this->genderDAO->GetAll();
             require_once(VIEWS_PATH."selectDays.php");
            }
 
@@ -306,6 +326,19 @@
                         require_once(VIEWS_PATH."Errors.php");
                     }
                 }
+            }
+
+            public function buscarMovieInShowing($showingList,$idMovie)
+            {
+            $i=null;
+            foreach($showingList as $showing)
+            {
+                if($showing->getMovie()->getId()==$idMovie)
+                {
+                    $i=true;
+                }
+            }
+            return $i;
             }
     }
 ?>
