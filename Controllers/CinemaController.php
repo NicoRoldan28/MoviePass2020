@@ -218,11 +218,12 @@
                 $showing2->getMovie()->setId($idMovie);
                 $showing2->setRoom();
                 $showing2->getRoom()->setId($idRoom);
-               
+
                 $showing2->setHrFinish($horassss);
-                
-                $showingList=$this->showingDAO->GetAllForRoom($idRoom);
-                
+
+                //var_dump($showing2->getDayTime());
+                $showingList=$this->showingDAO->GetShowingForDay($showing2->getDayTime());
+                //var_dump($showingList);
                 if($showingList==null)
                 {
                     $this->showingDAO->Add($showing2);
@@ -234,8 +235,31 @@
                         $date3=date_create($showing->getHrFinish());
                         $diff=date_diff($date3,$date2);
 
+                        $boleann5= ( ($showing2->getDayTime() > $showing->getDayTime() ) &&  ($showing->getHrFinish() < $showing2->getDayTime()) );
 
-                        if(($diff->format('%D')>=0) && ($i==0))
+                        if(($i==0) && ((!$boleann5)))
+                        {
+                            if(($showing2->getDayTime()> $showing->getDayTime())&&($showing2->getDayTime()<$showing->getHrFinish()))
+                            {
+                               $boleann=(( ( $showing2->getHrFinish()<$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() ) ) );
+                                if ($boleann)
+                                {
+                                    if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
+                                    $this->showingDAO->Add($showing2);
+                                 $i=1;
+                                 }
+                                } 
+                            }   
+                             if( ( $showing2->getHrFinish()>$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() )   ){
+                                if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
+                                    $this->showingDAO->Add($showing2);
+                                    $i=1;
+                                }
+                            } 
+                        }
+                    }
+                    /*
+                    if(($diff->format('%D')>=0) && ($i==0))
                         {
                             $boleann=(( ( $showing2->getHrFinish()<$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() ) ) );
                             if ($boleann)
@@ -250,14 +274,12 @@
                                     $this->showingDAO->Add($showing2);
                                     $i=1;
                                 }
-
                             } 
                         }
-                    }  
+                        */
                 } 
                 if($i==1)
                         {
-                           //var_dump($i);
                            $this->ShowListShowingView2();
                          } 
                 else{
@@ -285,7 +307,6 @@
            public function SelectDays()
            {
             require_once(VIEWS_PATH."validate-session.php");
-            //$genderList = $this->genderDAO->GetAll();
             require_once(VIEWS_PATH."selectDays.php");
            }
 
