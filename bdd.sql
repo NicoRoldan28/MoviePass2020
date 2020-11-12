@@ -326,10 +326,12 @@ DELIMITER //
 
 CREATE PROCEDURE `ShowingForDay` (in dayTime datetime)
 BEGIN
-	select * from Showings s
+	select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+    inner join room r on s.iShowingForDaysShowingForDaysdRoom = r.idRoom
 	WHERE CAST(dayTime AS datetime) = CAST(s.day AS datetime);
 END //
 
+drop procedure ShowingForDay;
 
 select * from cinemas;
 select * from Salas;
