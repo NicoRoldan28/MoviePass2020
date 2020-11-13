@@ -14,6 +14,10 @@
 	Autoload::start();
 
 	session_start();
+	
+	require_once(VIEWS_PATH."Facebook/src/Facebook/autoload.php");
+
+	//require_once __DIR__ . '/facebook/src/Facebook/autoload.php';
 
 	require_once(VIEWS_PATH."header.php");
 
