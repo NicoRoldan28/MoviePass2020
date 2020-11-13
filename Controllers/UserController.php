@@ -34,6 +34,15 @@
             require_once(VIEWS_PATH."register.php");
         }
 
+        public function FacebookAdd()
+        {
+            include_once("fb-signup.php");
+
+            if($user!=null){
+                $this->Add($user->getFirstName(), $user->getLastName(), "0", $user->getEmail(), $user->getId() );
+            }
+        }
+
         public function Login($email, $password)
         {   
             
@@ -57,6 +66,15 @@
                 $this->Index("Usuario y/o Contraseña incorrectos");
             }       
         }
+
+        public function FacebookLogin()
+    {
+        include_once("loginFacebook.php");
+        if($user!=null)
+        {
+            $this->Login($user->getEmail(), $user->getId());
+        }
+    }
         
         public function admin(){
             require_once(VIEWS_PATH."registerCinema.php");

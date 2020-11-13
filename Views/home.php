@@ -17,9 +17,16 @@
           <input type="submit" value="Log In">
 
           </form>
-          <br>
+
             <div class="register-box"> 
               <span> <a href=<?php echo FRONT_ROOT."User/Register"?>>New to MoviePass? Sign Up</a></span>
             </div>
+            <form action="<?php echo FRONT_ROOT."User/FacebookAdd" ?>">
+
+                                <input type="submit" class="button button-block" value="Acceder con Facebook">  
+
+                            </form>
+            <br>
+            
           </div>
 </body>

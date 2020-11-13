@@ -17,7 +17,18 @@
 
 //	require_once(VIEWS_PATH."Facebook/src/Facebook/autoload.php");
 
-	require_once __DIR__ . '/Facebook/src/Facebook/autoload.php';
+	//require_once __DIR__ . '/Facebook/src/Facebook/autoload.php';
+	//$loginUrl = $helper->getLoginUrl('http://localhost/MoviePass2020/loginFacebook.php', $permissions);
+	
+	//$fb = nuevo Facebook \ Facebook ([ 'app_id' => '{app-id}' , 'app_secret' => '{app-secret}' , 'default_graph_version' => 'v2.3' , //. . ]);
+	/*$fb = new Facebook\Facebook([
+		'app_id' => '355702065636406',
+		'app_secret' => 'c3140716d1860625b2eacb4736eafa46',
+		'default_graph_version' => 'v2.4',
+	  ]);*/
+
+		/* Debemos modificar segun el directorio de instalación*/
+	
 
 	require_once(VIEWS_PATH."header.php");
 

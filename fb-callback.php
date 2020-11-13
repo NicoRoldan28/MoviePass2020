@@ -1,55 +1,20 @@
-<card>
-# Facebook Login Example
+<?php
 
-This example covers Facebook Login with the Facebook SDK for PHP.
-</card>
-
-<card>
-## Example {#example}
-
-Although it's common to see examples of Facebook Login being implemented in one PHP script, is best to use two separate PHP scripts for more separation and more control over the responses.
-
-In this example, the PHP script that generates the login link is called `/login.php`. The callback URL that Facebook redirects the user to after login dialog is called `/fb-callback.php`.
-</card>
-
-<card>
-## /login.php {#login}
-
-~~~~
 $fb = new Facebook\Facebook([
-  'app_id' => '{app-id}',
-  'app_secret' => '{app-secret}',
-  'default_graph_version' => 'v2.2',
-  ]);
-
-$helper = $fb->getRedirectLoginHelper();
-
-$permissions = ['email']; // Optional permissions
-$loginUrl = $helper->getLoginUrl('https://example.com/fb-callback.php', $permissions);
-
-echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';
-~~~~
-</card>
-
-<card>
-## /fb-callback.php {#fbcallback}
-
-~~~~
-$fb = new Facebook\Facebook([
-  'app_id' => '{app-id}',
-  'app_secret' => '{app-secret}',
-  'default_graph_version' => 'v2.2',
+    'app_id' => '355702065636406',
+    'app_secret' => 'c3140716d1860625b2eacb4736eafa46',
+    'default_graph_version' => 'v8.0',
   ]);
 
 $helper = $fb->getRedirectLoginHelper();
 
 try {
   $accessToken = $helper->getAccessToken();
-} catch(Facebook\Exceptions\FacebookResponseException $e) {
+} catch(Facebook\Exception\ResponseException $e) {
   // When Graph returns an error
   echo 'Graph returned an error: ' . $e->getMessage();
   exit;
-} catch(Facebook\Exceptions\FacebookSDKException $e) {
+} catch(Facebook\Exception\SDKException $e) {
   // When validation fails or other local issues
   echo 'Facebook SDK returned an error: ' . $e->getMessage();
   exit;
@@ -91,8 +56,8 @@ if (! $accessToken->isLongLived()) {
   // Exchanges a short-lived access token for a long-lived one
   try {
     $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-  } catch (Facebook\Exceptions\FacebookSDKException $e) {
-    echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
+  } catch (Facebook\Exception\SDKException $e) {
+    echo "<p>Error getting long-lived access token: " . $e->getMessage() . "</p>\n\n";
     exit;
   }
 
@@ -101,9 +66,3 @@ if (! $accessToken->isLongLived()) {
 }
 
 $_SESSION['fb_access_token'] = (string) $accessToken;
-
-// User is logged in with a long-lived access token.
-// You can redirect them to a members-only page.
-//header('Location: https://example.com/members.php');
-~~~~
-</card>
