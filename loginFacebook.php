@@ -1,6 +1,6 @@
 <?php 
 
-require_once __DIR__ . '/Facebook/src/Facebook/autoload.php';
+require_once __DIR__ . '/Facebook/autoload.php';
 
  session_start();
 
