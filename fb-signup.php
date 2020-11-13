@@ -8,7 +8,7 @@
 $fb = new Facebook\Facebook([
       'app_id' => '3079459188747276',
       'app_secret' => '74ec50347eb89037ca8a697ac5d8e437',
-      'default_graph_version' => 'v5.0',
+      'default_graph_version' => 'v8.0',
       //'default_access_token' => '', // optional
 ]);
 
