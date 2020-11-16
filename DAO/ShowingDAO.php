@@ -158,7 +158,9 @@ class ShowingDAO implements IDAO{
         
         public function GetShowingForDay($dayTime){
             try {
+                //var_dump($dayTime);
                 $showingList = array();
+                
                 $procedure = 'call ShowingForDay(:dayTime);';
     
                 $parameters["dayTime"] = $dayTime;
@@ -177,9 +179,9 @@ class ShowingDAO implements IDAO{
     
                     $showing->getRoom()->setCinema();
                     $showing->getRoom()->getCinema()->setId($row['id_Cine']);
-    
                     array_push($showingList,$showing);
                 }
+                
                 return $showingList;
                 } catch (Exception $ex) {
                     throw $ex;

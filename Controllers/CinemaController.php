@@ -200,6 +200,7 @@
            public function AddShowing($dayTime,$idMovie,$idRoom)
            {
             $i=0;
+            $f=0;
             $date=date_create($dayTime);
             $date2=date_create($dayTime);
             $hrFinsh=date_create($dayTime);
@@ -228,13 +229,14 @@
 
                 //var_dump($showing2->getDayTime());
                 $showingList=$this->showingDAO->GetShowingForDay($showing2->getDayTime());
-
+                //var_dump($showingList);
                 //var_dump($showingList);
                 if($showingList==null)
                 {
                     //$this->showingDAO->Add($showing2);
                     //var_dump("se agrega de una");
-                    $i=1;
+                    $this->showingDAO->Add($showing2);
+                    //var_dump("hola");
                 }
                 //else if(!($this->buscarMovieInShowing($showingList,$idMovie) ) )
                 //{
@@ -245,6 +247,7 @@
                     foreach($showingList as $showing)
                     {   
                             $date3=date_create($showing->getHrFinish());
+                            //var_dump("hola");
                             //var_dump($date3);
                             //var_dump($date2);
 
@@ -290,19 +293,9 @@
                             //var_dump(($i==0) && (!$boleann5));
                             if((!$boleano))
                             {
-                                //var_dump("estamos aca x2" );
-                                //if(($showing2->getDayTime()> $showing->getDayTime())&&($showing2->getDayTime()<$showing->getHrFinish()))
-                                //{
-                                    //var_dump("estamos aca x3" );
-                                    //var_dump($date6);
-                                    //var_dump($showing2->getDayTime());
-                                    //var_dump($showing->getDayTime());
-                                    //var_dump($showing->getHrFinish());
-                                    //var_dump("se agrega cuando ");
-                                    //var_dump($showing2->getHrFinish());
+
                                     if(($showing2->getDayTime()<$showing->getDayTime())&&($showing2->getHrFinish()<$showing->getDayTime()))
                                     {
-                                        //var_dump("se puede agrega cuando la hora de comienzo y finish de la nueva funcion ha agregar es menor a la hora de inico de una funcion de la bdd");
                                         
                                         $date15=date_create($showing->getDayTime());
                                         //var_dump($date15);
@@ -314,53 +307,49 @@
 
                                         if(($diff->format('%H')>=1) || ($diff->format('%I')>=15))
                                             {
-                                                //var_dump($date15);
-                                                //var_dump($date16);
-                                                //var_dump("hola?");
-                                                //$this->showingDAO->Add($showing2);
-                                                $i=1;
+                                                $i++;;
                                             }
                                             else{
-                                                $i=0;
+                                                $i--;
                                                 //var_dump("confirmamos q entra aca???");
                                             }    
                                     }
-                                /*$boleann=(( ( $showing2->getHrFinish()<$showing->getDayTime() ) &&( $showing2->getHrFinish()>$showing->getHrFinish() ) ) );
-
-                                    if ($boleann)
-                                    {
-                                        if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
-                                        $this->showingDAO->Add($showing2);
-                                        //var_dump("se agrega cuando ");
-                                    $i=1;
-                                    }
-                                    }*/ 
-                                //}   
+ 
                                     else if($showing2->getDayTime() > $showing->getHrFinish()){
                                         //var_dump("estamos aca x4");
                                         if(($diff->format('%H')>=1) || ($diff->format('%I')>=15)){
                                             //$this->showingDAO->Add($showing2);
-                                            $i=1;
+                                            $i++;;
+                                            //var_dump("holax2");
                                         }
                                         else{
-                                            $i=0;
+                                            $i--;
                                             //var_dump("confirmamos q entra aca???");
                                         } 
                                     }
                                     else{
-                                        $i=0;
+                                        $i--;
                                         //var_dump("estamos aca x5" );
                                     }     
                             }
-                             
+                       $f++;      
                     }
-                } 
-                if($i==1)
+                    
+                }
+                else{
+                    $i++;;
+                }
+                if($f==$i)
                         {
+                            //var_dump($i);
+                            //var_dump($f);
                             $this->showingDAO->Add($showing2);
-                           $this->ShowListShowingView2();
+                           //$this->ShowListShowingView2();
                          } 
                 else{
+                    //var_dump($i);
+                    //var_dump("peliculas cargas en la bdd");
+                    //var_dump($f);
                        $cinemaList = $this->cinemaDAO->getAll();
                        $message="Error, no se ha podido agregar la funcion";
                        $scrip2="selectCinema.php";
@@ -414,6 +403,7 @@
                 if($showing->getMovie()->getId()==$idMovie)
                 {
                     $i=true;
+                    //var_dump($i);
                 }
             }
             return $i;
