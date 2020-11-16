@@ -185,6 +185,29 @@ class ShowingDAO implements IDAO{
                     throw $ex;
                 }
         }
+
+        public function GetPrice($id){
+            try {
+            
+                $query = 'SELECT c.price_ticket from '.$this->tableName.' as s 
+                inner join room r on r.idRoom = s.idRoom 
+                inner join cinemas c on c.id_cinema = r.id_Cine
+                WHERE(s.id_Showing = :id);';
+    
+                $parameters["id"] = $id;
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($query,$parameters);
+                
+                var_dump($result[0]["price_ticket"]);
+                
+                return $result[0]["price_ticket"];
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
+
         
         
 }

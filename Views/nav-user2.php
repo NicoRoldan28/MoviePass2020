@@ -6,6 +6,8 @@
             <form action="<?php echo FRONT_ROOT?>Cinema/seachShowingsForMovieForGender" method="post">
                   <div>
                         <?php
+                        if ($genderList!=null) {
+                        
                         foreach($genderList as $gender)
                         {   ?>  
                         <div>
@@ -13,8 +15,12 @@
                         </div> 
                         <br>
                         <?php }
+                        
                         ?>
                         <button class= "action_button" type="submit" name="btnLogin" value="<?php echo $gender->getId();?>">NEXT</button>
+                        <?php
+                        }
+                        ?>
                   </div>  
             </form>  
       </div>

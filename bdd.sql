@@ -4,6 +4,7 @@ use MP;
 
 drop database MP;
 
+#######################################  perfilUsers  ##############################################
 
 create table perfilUsers(
     id_perfil integer auto_increment primary key,
@@ -13,33 +14,21 @@ create table perfilUsers(
     dni integer unique not null
 );
 
--- drop table perfilUsers;
+drop table perfilUsers;
 select * from perfilusers;
 
 
--- #######################################  ROL  ##############################################
+#######################################  ROL  ##############################################
 
 create table rol(
     id_rol int primary key,
     name_description varchar(20) unique not null
 );
 
-/*drop table rol;*/
+drop table rol;
 select * from rol;
 
--- #######################################  PERFILUSERS  ##############################################
-
-create table perfilUsers(
-    id_perfil integer auto_increment primary key,
-    user_name varchar(50) unique not null,
-    firstName varchar(50) not null,
-    lastName varchar(50) not null,
-    dni integer unique not null
-);
-/*drop table perfilUsers;*/
-select * from perfilusers;
-
--- #######################################  USERS  ##############################################
+#######################################  USERS  ##############################################
 
 create table users(
 id_user integer auto_increment primary key,
@@ -50,32 +39,11 @@ id_rol integer not null,
 constraint fk_id_perfilUser foreign key(id_perfilUser) references perfilUsers(id_perfil),
 constraint fk_id_rol foreign key(id_rol) references rol(id_rol));
 
-/*drop table users;*/
+drop table users;
 select * from users;
 
-select * from users u
-inner join perfilusers p
-on u.id_perfilUser = p.id_perfil;
 
-	select count(t.nro_entrada) from Ticket t
-	inner join Showings s
-	on s.id_Showing = t.id_Showing 
-	where s.id_turno = Valuee;
-
-delete from perfilusers
-where perfilusers.id_perfil=4;
-
-insert into rol(id_rol,name_description) values(1,'CLIENTE'),(2,'ADMINISTRADOR');
-select * from rol;
-insert into perfilusers(user_name,firstName,lastName,dni) value('Rodri_07','Rodrigo','Villarroel',39809917);
-insert into users(email,password,id_perfilUser,id_rol) value('rodrigo_villarroel@outlook.com',123456,1,2);
-
-select * from perfilusers;
-select * from users;
-
-delete from perfilusers;
-
--- #######################################  Movies  ##############################################
+#######################################  Movies  ##############################################
 
 create table Movies(
     id_Movie integer primary key,
@@ -85,29 +53,26 @@ create table Movies(
     lenguage varchar(20)
 );
 
-/*drop table Movies;*/
+drop table Movies;
 select * from movies;
+
 select * from movies
 where id_Movie=413518;
 
 truncate table movies;
 
--- #######################################  Genders  ##############################################
+######################################  Genders  ##############################################
 
 create table Genders(
     id_Gender integer primary key,
     name_Gender varchar(20)
 );
 
-/*drop table Genders;*/
+drop table Genders;
 select * from Genders;
-
-truncate table Genders;
-
 truncate table genders;
 
-
--- #######################################  GendersXMovies  ##############################################
+#######################################  GendersXMovies  ##############################################
 
 create table GendersXMovies(
     id_Gender integer,
@@ -117,11 +82,11 @@ create table GendersXMovies(
     constraint fk_id_Movie foreign key(id_Movie) references Movies(id_Movie)
 );
 
-/*drop table GendersXMovies;*/
+drop table GendersXMovies;
 select * from GendersXMovies;
 truncate table gendersxmovies;
 
--- #######################################  Cinemas  ##############################################
+#######################################  Cinemas  ##############################################
 
 Create table Cinemas(
     id_cinema integer auto_increment primary key,
@@ -130,17 +95,12 @@ Create table Cinemas(
     price_ticket integer not null
 );
 
-/*drop table Cinemas;*/
+drop table Cinemas;
 select * from Cinemas;
 
 truncate table cinemas;
 
-select count(id_cinema) from Cinemas;
-
-
-/*SELECT c.capacity from cinemas c - count(t.nro_entrada) FROM Ticket t JOIN Showings s ON s.id_Showing = t.id_Showing WHERE (s.id_Showing = :id_Showing);*/
-
--- #######################################  Room  ##############################################
+#######################################  Room  ##############################################
 
 create table Room(
 idRoom integer auto_increment primary key,
@@ -150,10 +110,10 @@ id_Cine integer not null,
 constraint foreign key fk_id_Cine(id_Cine) references Cinemas(id_cinema)
 );
 
--- drop table room;
+drop table room;
 select * from Room;
 
--- #######################################  Showings  ##############################################
+#######################################  Showings  ##############################################
 
 create table Showings(
 	id_Showing integer auto_increment primary key,
@@ -165,15 +125,11 @@ create table Showings(
     constraint fk_id_Movie foreign key(idMovie) references Movies(id_Movie)
 );
 
--- drop table Showings;
+drop table Showings;
 select * from showings;
 truncate showings;
---
-select * from users;
-select * from perfilusers;
 
-
--- #######################################  Ticket  ##############################################
+#######################################  Ticket  ##############################################
 
 create table Ticket(
 nro_entrada integer auto_increment primary key,
@@ -184,50 +140,40 @@ constraint fk_id_Showing foreign key(id_Showing) references showings(id_Showing)
 constraint fk_id_Buy foreign key(id_Buy) references Buy(id_Buy)
 );
 
--- drop table ticket;
+drop table ticket;
 select * from ticket;
-select count(nro_entrada) from ticket where ticket.id_Showing =1;
 
--- #######################################  Buy  ##############################################
+truncate table ticket;
+
+######################################  Buy  ##############################################
 
 
 create table Buy(
 id_Buy integer auto_increment primary key,
-quantity_ticket int not null,
 discount float not null,
 days date,
 total integer,
-id_Pay integer,
+-- id_Pay integer,
 id_User integer not null,
-constraint fk_id_Pay foreign key(id_Pay) references PayTC(id_Pay),
+-- constraint fk_id_Pay foreign key(id_Pay) references PayTC(id_Pay),
 constraint fk_id_User foreign key(id_User) references users(id_user)
 );
 
--- drop table buy;
-
+drop table buy;
 select *from buy b;
+truncate table buy;
 
-select sum(select b.total from buy b
-inner join ticket t
-on b.id_Buy = t.id_Buy
-where t.id_Showing = 1
-group by b.id_Buy) as suma from t; 
-
-select * from Buy b
- inner join ticket t
- on b.id_Buy = t.id_Buy
- inner join showings s
- on s.id_Showing = t.id_Showing
-where s.id_Showing = 1;
-
--- #######################################  CreditAccount  ##############################################
+#######################################  CreditAccount  ##############################################
 
 create table CreditAccount(
 id_CreditAccount integer primary key,
 company varchar(50));
 
 drop table CreditAccount;
--- #######################################  PayTC  ##############################################
+select *from CreditAccount;
+truncate table CreditAccount;
+
+#######################################  PayTC  ##############################################
 
 
 create table PayTC(
@@ -239,13 +185,94 @@ id_CreditAccount integer not null,
 constraint fk_id_CreditAccount foreign key(id_CreditAccount) references CreditAccount(id_CreditAccount)
 );
 
-select * from paytc;
+drop table PayTC;
+select *from PayTC;
+truncate table PayTC;
 
-drop table paytc;
 
 
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% QUERYS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-drop procedure `CountQuantityForMovieXTurnXCinema`;
+insert into rol(id_rol,name_description) values(1,'CLIENTE'),(2,'ADMINISTRADOR');
+insert into perfilusers(user_name,firstName,lastName,dni) value('Rodri_07','Rodrigo','Villarroel',39809917);
+insert into users(email,password,id_perfilUser,id_rol) value('rodrigo_villarroel@outlook.com',123456,1,2);
+
+
+select * from users u
+inner join perfilusers p
+on u.id_perfilUser = p.id_perfil;
+
+select count(t.nro_entrada) from Ticket t
+inner join Showings s
+on s.id_Showing = t.id_Showing 
+where s.id_turno = Valuee;
+
+
+select count(id_cinema) from Cinemas;
+
+select count(t.nro_entrada) 
+from ticket t
+inner join showings s
+on s.id_Showing = t.id_Showing
+where s.id_Showing =2;
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% STORE PROCEDURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DELIMITER //
+CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
+
+BEGIN
+    insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
+    -- set id = last_insert_id();select @id;
+    insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
+
+END //
+
+call `CargarUserClient`();
+
+drop procedure `CargarUserClient`;
+
+
+DELIMITER //
+CREATE PROCEDURE `CargarRoomCinema` (in nombre varchar(50),in capacidad int,in id int)
+BEGIN
+    insert into room(nombre,capacidad,id_Cine) value(nombre,capacidad,id);
+END //
+
+call `CargarRoomCinema`();
+
+drop procedure `CargarRoomCinema`;
+
+DELIMITER //
+CREATE PROCEDURE `ShowingForDay` (in dayTime datetime)
+BEGIN
+	select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
+	WHERE CAST(dayTime AS date) = CAST(s.day AS date);
+END //
+
+call `ShowingForDay`();
+
+drop procedure `ShowingForDay`;
+
+DELIMITER //
+Create Procedure `ShowingForDays` (in days date, in endDay date)
+BEGIN
+    select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
+    where s.day between days and endDay
+    order By s.day;
+END //
+
+call `ShowingForDays`();
+
+drop procedure `ShowingForDays`;
+
+
 DELIMITER //
 CREATE PROCEDURE `CountQuantityForMovieXTurnXCinema` (in movie int,in turn int,in roomm int)
 BEGIN
@@ -257,7 +284,9 @@ BEGIN
 	where s.idMovie = movie and s.id_turno = turn and s.idRoom = roomm;
 END //
 
-call CountQuantityForMovieXTurnXCinema(475557,1,1);
+call `CountQuantityForMovieXTurnXCinema`(475557,1,1);
+
+drop procedure `CountQuantityForMovieXTurnXCinema`;
 
 
 DELIMITER //
@@ -271,6 +300,10 @@ BEGIN
 	where s.id_Showing = 1;
 END //
 
+call `CountQuantity`();
+
+drop procedure `CountQuantity`;
+
 
 DELIMITER //
 CREATE PROCEDURE `Total` (in idShowing int)
@@ -281,80 +314,12 @@ BEGIN
 	where t.id_Showing = 1;
 END //
 
+call `Total`();
 
-
-call CountQuantity(2);
-
-
-select ifnull(m.id_Movie,'a') as id from Movies m
-where m.id_Movie = 475557;
-
-select r.capacidad - count(t.nro_entrada) as cant from Showings s
-	inner join Ticket t
-	on s.id_Showing = t.id_Showing
-    inner join room r
-    on r.idRoom = s.idRoom
-	where s.idMovie = 475557 and s.id_turno = 1 and s.idRoom = 1;
-
-call CountQuantityForMovieXTurnXCinema(475557,1,1);
-
-select * from Showings;
-
-insert into rol(id_rol,name_description) values (1,'CLIENT'),(2,'ADMINISTRATOR');
-
-insert into perfilusers(user_name,firstName,lastName,dni) value('ADMIN','Rodrigo','Villarroel',39809917);
-insert into users(email,password,id_rol,id_perfilUser) value('rodrigo_villarroel@outlook.com',123456,2,2);
-
-select * from users;
-select * from perfilUsers;
-select * from rol;
-
-select * from movies;
-select * from genders;
-select * from gendersxmovies;
-select * from cinemas;
-select * from Showings;
-
-select * from Showings s
-where CAST(s.day AS DATE) = '2020-11-24 ';
-
-SELECT * FROM test
-WHERE fecha >= CAST('2018-11-26' AS datetime)
-//$procedure = 'call ShowingForDay(:days);';
-
-DELIMITER //
-
-CREATE PROCEDURE `ShowingForDay` (in dayTime datetime)
-BEGIN
-	select * from Showings s
-	WHERE CAST(dayTime AS datetime) = CAST(s.day AS datetime);
-END //
-
-
-select * from cinemas;
-select * from Salas;
+drop procedure `Total`;
 
 
 
-/*drop table movies;*/
-/*drop table genders;*/
-/*drop table gendersxmovies;*/
-
-select * from Movies;
-select * from Genders;
-select * from GendersXMovies;
-
-select c.capacity from cinemas c;
-
-select count(t.nro_entrada) 
-from ticket t
-inner join showings s
-on s.id_Showing = t.id_Showing
-where s.id_Showing =2;
-
-
-
-drop procedure `CountQuantityForMovie`;
 
 DELIMITER //
 CREATE PROCEDURE `CountQuantityForMovie` (in Valuee int)
@@ -365,6 +330,11 @@ BEGIN
 	where s.idMovie = Valuee;
 END //
 
+call `CountQuantityForMovie`();
+
+drop procedure `CountQuantityForMovie`;
+
+
 DELIMITER //
 CREATE PROCEDURE `CountQuantityForCinema` (in Valuee int)
 BEGIN
@@ -373,6 +343,11 @@ BEGIN
 	on s.id_Showing = t.id_Showing 
 	where s.idCine = Valuee;
 END //
+
+call `CountQuantityForCinema`();
+
+drop procedure `CountQuantityForCinema`;
+
 
 DELIMITER //
 CREATE PROCEDURE `CountQuantityForTurn` (in Valuee int)
@@ -383,11 +358,10 @@ BEGIN
 	where s.id_turno = Valuee;
 END //
 
+call `CountQuantityForTurn`();
 
+drop procedure `CountQuantityForTurn`;
 
-call CountQuantityForMovie(475557);
-call CountQuantityForCinema(1);
-call CountQuantityForTurn(1);
 
 DELIMITER //
 CREATE PROCEDURE `CountMoneyForMovie` (in Valuee int)
@@ -399,15 +373,11 @@ BEGIN
 	on t.id_Showing = s.id_Showing
 	where s.idMovie = valuee;
 END //
--- --------------------------------------------------------------------------------
 
+call `CountMoneyForMovie`();
 
--- ---------------------------------------------------------------------------------
+drop procedure `CountMoneyForMovie`;
 
-call CountQuantityForMovieXTurnXCinema(475557,1,1);
-		select * from ticket;
-        
-        
 DELIMITER //
 CREATE PROCEDURE `CountMoneyForCinema` (in Valuee int)
 BEGIN
@@ -418,6 +388,10 @@ BEGIN
 	on t.id_Showing = s.id_Showing
 	where s.idCine = valuee;
 END //
+
+call `CountMoneyForTurn`();
+
+drop procedure `CountMoneyForTurn`;
 
 DELIMITER //
 CREATE PROCEDURE `CountMoneyForTurn` (in Valuee int)
@@ -430,58 +404,32 @@ BEGIN
 	where s.id_turno = valuee;
 END //
 
+call `CountMoneyForTurn`();
 
-call CountMoneyForMovie(475557);
-call CountMoneyForCinema(1);
-call CountMoneyForTurn(4);
+drop procedure `CountMoneyForTurn`;
 
-select count(t.nro_entrada) from ticket t
+DELIMITER //
+create procedure `GetAllTicketByIdBuy`(in id integer)
+BEGIN
+select c.namee, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
 inner join showings s
-on s.id_Showing = t.id_Showing 
-where s.idMovie = 475557;
-
-select count(t.nro_entrada) from ticket t
-inner join showings s
-on s.id_Showing = t.id_Showing 
-where s.idCine = 2;
-
-select count(t.nro_entrada) from ticket t
-inner join showings s
-on s.id_Showing = t.id_Showing 
-where s.id_turno = 3;
-
-select sum(b.total) from buy b
-inner join ticket t
-on t.id_Buy = b.id_Buy 
-inner join showings s
-on t.id_Showing = s.id_Showing
-where s.idMovie = 475557;
-
-select sum(b.total) from buy b
-inner join ticket t
-on t.id_Buy = b.id_Buy 
-inner join showings s
-on t.id_Showing = s.id_Showing
-where s.idCine = 1;
-
-select sum(b.total) from buy b
-inner join ticket t
-on t.id_Buy = b.id_Buy 
-inner join showings s
-on t.id_Showing = s.id_Showing
-where s.id_turno = 1;
-
-select t.nro_entrada,t.qr,s.day,c.namee,c.adress,m.title_Movie,tur.hr_start 
-from ticket t
-inner join showings s 
-on s.id_Showing = t.id_Showing
-inner join cinemas c
-on s.idCine = c.id_cinema
+on s.id_Showing = ti.id_Showing
 inner join movies m
 on m.id_Movie = s.idMovie
-inner join turns tur 
-on tur.id_turno = s.id_turno;
-drop procedure `GetAllByIdUser`;
+inner join room r
+on s.idRoom = r.idRoom
+inner join cinemas c
+on r.id_Cine = c.id_cinema
+where ti.id_Buy = id;
+END //
+
+call `GetAllTicketByIdBuy`();
+
+drop procedure `GetAllTicketByIdBuy`;
+
+
+
+
 DELIMITER // 
 create procedure `GetAllByIdUser`(in id integer)
 BEGIN
@@ -492,43 +440,20 @@ where id_User = id
 group by t.id_Buy;
 END //
 
-call GetAllByIdUser(2);
+call `GetAllByIdUser`();
 
-select * from Buy;
-
-drop procedure GetAllTicketByIdBuy;
-DELIMITER //
-create procedure `GetAllTicketByIdBuy`(in id integer)
-BEGIN
-select c.namee, r.nombre, m.title_Movie, s.day ,t.hr_start,ti.id_Buy, ti.nro_entrada from ticket ti
-inner join showings s
-on s.id_Showing = ti.id_Showing
-inner join turns t
-on s.id_turno = t.id_turno
-inner join movies m
-on m.id_Movie = s.idMovie
-inner join room r
-on s.idRoom = r.idRoom
-inner join cinemas c
-on r.id_Cine = c.id_cinema
-where ti.id_Buy = id;
-END //
-
-call GetAllTicketByIdBuy(28);
+drop procedure `GetAllByIdUser`;
 
 DELIMITER //
-Create Procedure `ShowingForDays` (in days date, in endDay date)
-BEGIN
-    select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
-	inner join room r on s.idRoom = r.idRoom
-    where s.day between days and endDay
-    order By s.day;
-END //
-
-drop procedure ShowingForDays;
+create procedure `AddTicket`(in )
 
 
-call ShowingForDays('2020-11-04 16:30','2020-11-08 19:15');
+
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SELECTS Y TRUNCATES%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 
 truncate table cinemas;
@@ -538,83 +463,47 @@ truncate table ticket;
 truncate table paytc;
 truncate table buy;
 
-select email from users where email = 'sssss';
-select email from users where email = 'nico@outlook.com';
 
-insert into perfilusers(user_name,firstName,lastName,dni) value('ADMIN2','juan','perez',3923432);
-insert into users(email,password,id_rol,id_perfilUser) value('juan_perez@outlook.com',123456,2,6);
 
--- ########################################################## PROCEDURES #############################################################
-
--- =================================================== CARGAR USUARIO =====================================
+-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PRUEBAS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DELIMITER //
-CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
-
+CREATE PROCEDURE `ShowingForDayOrderBy` (in dayTime datetime)
 BEGIN
-    insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
-    -- set id = last_insert_id();select @id;
-    insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
-
+	select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
+	WHERE CAST(dayTime AS date) = CAST(s.day AS date)
+    order by s.day desc;
 END //
 
+drop procedure ShowingForDayOrderBy;
 
-/*drop procedure `CargarUserClient`; */
-
-=======
--- call `CargarUser`('u','u','u',12215,'u@outlook.com',123456,2);
-
--- =================================================== CARGAR USUARIO =====================================
--- =================================================== CARGAR USUARIO =====================================
--- =================================================== CARGAR USUARIO =====================================
--- =================================================== CARGAR USUARIO =====================================
 DELIMITER //
-CREATE PROCEDURE `CargarRoomCinema` (in nombre varchar(50),in capacidad int,in id int)
+CREATE PROCEDURE `CheckAvailability` (in id int)
 BEGIN
-    insert into room(nombre,capacidad,id_Cine) value(nombre,capacidad,id);
+select ((SELECT r.capacidad from showings as s 
+inner join room r on r.idRoom = s.idRoom WHERE(s.id_Showing = id))-(select count(t.nro_entrada) from ticket t
+where id_Showing = id)) as AVAILABILITY;
 END //
 
-drop procedure `CargarRoomCinema`;
+call `CheckAvailability`(1);
 
-
-select * from room r 
-inner join cinemas c 
-on c.id_cinema = r.id_Cine
-where c.id_cinema = 1;
-
-
-select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
-inner join room r on s.idRoom = r.idRoom;
-
-
-select m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage from movies m 
-inner join showings s on s.idMovie = m.id_Movie
-group by m.id_Movie;
-
-SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings as s 
-inner join room r on r.idRoom = s.idRoom 
-inner join cinemas c on c.id_cinema = r.id_Cine 
-WHERE (s.idMovie = 724989);
-
-select * from movies m
-inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
-where (gxm.id_Gender = 28);
-
-select * from movies m
-inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
-inner join showings s on s.idMovie = m.id_Movie
-where (gxm.id_Gender = 35)
-group by m.id_Movie;
+INSERT INTO buy(id_User,discount,days,total)
+            VALUES (1,0.25,'2020-03-03 22:00:00',1500);
 
 
 
+DELIMITER //
+CREATE PROCEDURE `CargarBuy` (in id_User int,in discount float,in days date,in total int)
+BEGIN
+	INSERT INTO buy(id_User,discount,days,total)
+	VALUES (id_User,discount,days,total);
+SELECT @@identity as id_Buyticket;
+END //
 
-SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM movies as m inner join showings s on s.idMovie = m.id_Movie inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie where (gxm.id_Gender = 28) group by m.id_Movie;
+call `CargarBuy`(1,0.25,'2020-03-03',1500);
 
-select showings.day select * from showings
-SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM movies as m 
-                inner join showings s on s.idMovie = m.id_Movie
-                where s.day >= (select NOW())
- group by m.id_Movie;
- 
- select * from users;
+select * from ticket;
+select * from buy

@@ -52,7 +52,7 @@
             foreach($results as $row)
             {
                 $user = new User();
-                //$user->setId_user($row["id"]);
+                $user->setId($row["id_user"]);
                 $user->setEmail($row["email"]);
                 $user->setPassword($row["password"]);
             }
@@ -83,7 +83,7 @@
             foreach($results as $row)
             {
                 $perfilUser = new PerfilUser();
-                //$user->setId_user($row["id"]);
+                $user->setId($row["id_user"]);
                 $perfilUser->setDni($row["dni"]);
             }
             if($perfilUser==null)
@@ -103,7 +103,7 @@
             try {
                 $user = null;
 
-            $query = "SELECT email, password,id_rol FROM ".$this->tableUsers." WHERE (email = :email)";
+            $query = "SELECT * FROM ".$this->tableUsers." WHERE (email = :email)";
 
             $parameters["email"] = $email;
 
@@ -114,7 +114,7 @@
             foreach($results as $row)
             {
                 $user = new User();
-                //$user->setId_user($row["id"]);
+                $user->setId($row["id_user"]);
                 $user->setEmail($row["email"]);
                 $user->setPassword($row["password"]);
                 $user->setRol($row["id_rol"]);
