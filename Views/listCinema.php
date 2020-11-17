@@ -16,7 +16,6 @@
         <th>id</th>
         <th>Name</th>
         <th>Address</th>
-        <th>Value</th>
         <th></th>
       </tr>
     </thead>
@@ -29,7 +28,6 @@
         <td><?php echo $cinema->getId() ?></td>
           <td><?php echo $cinema->getName() ?></td>
           <td><?php echo $cinema->getAdress() ?></td>
-          <td><?php echo $cinema->getPrice_ticket() ?></td>
           <td><button type="submit" name="idCinema" value=<?php echo $cinema->getId();?>>AGREGAR SALA </button></td>
         </tr>
       <?php 

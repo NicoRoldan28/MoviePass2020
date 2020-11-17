@@ -16,12 +16,11 @@
 
             try
             {
-                $query1 = "INSERT INTO ".$this->tableCinemas."(adress,name,price_ticket) 
-                VALUES (:adress,:name,:price_ticket)";
+                $query1 = "INSERT INTO ".$this->tableCinemas."(adress,name) 
+                VALUES (:adress,:name)";
 
                 $parameters["adress"] = $cinema->getAdress();
                 $parameters["name"] = $cinema->getName();
-                $parameters["price_ticket"] = $cinema->getPrice_ticket();
 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query1,$parameters);
@@ -48,7 +47,7 @@
                     $cinema->setId($row["id_cinema"]);
                     $cinema->setName($row["name"]);
                     $cinema->setAdress($row["adress"]);
-                    $cinema->setPrice_ticket($row["price_ticket"]);
+                    //$cinema->setPrice_ticket($row["price_ticket"]);
                     
                     array_push($cineList, $cinema);
                 }
@@ -76,7 +75,7 @@
                     $cinema->setId($row["id_cinema"]);
                     $cinema->setAdress($row["adress"]);
                     $cinema->setName($row["name"]);
-                    $cinema->setPrice_ticket($row["price_ticket"]);
+                    //$cinema->setPrice_ticket($row["price_ticket"]);
                 }
 
                 return $cinema;
@@ -102,7 +101,7 @@
                     $cinema->setId($row["id_cinema"]);
                     $cinema->setAdress($row["adress"]);
                     $cinema->setName($row["name"]);
-                    $cinema->setPrice_ticket($row["price_ticket"]);
+                    //$cinema->setPrice_ticket($row["price_ticket"]);
                 }
 
                 return $cinema;

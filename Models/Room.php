@@ -5,6 +5,7 @@
     class Room{
         private $id;
         private $nombre;
+        private $price_ticket;
         private $capacidad;
         private $cinema;
 
@@ -13,6 +14,9 @@
 
         public function setNombre($nombre){$this->nombre=$nombre;}
         public function getNombre(){return $this->nombre;}
+
+        public function setPrice_ticket($price_ticket){$this->price_ticket=$price_ticket;}
+        public function getPrice_ticket(){return $this->price_ticket;}
 
         public function setCapacidad($capacidad){$this->capacidad=$capacidad;}
         public function getCapacidad(){return $this->capacidad;}

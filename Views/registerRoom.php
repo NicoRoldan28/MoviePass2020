@@ -8,6 +8,8 @@ require_once('nav-admin.php');?>
                 <br>
                 <label>NAME<input class="input-login" type="text" name="name" placeholder="Enter Name" required ></label>
                 <br>
+                <label>PRICE TICKET<input class="input-login" type="number" name="price_ticket" placeholder="Enter Price Ticket" min=0 required ></label>
+                <br>
                 <label>CAPACITY<input class="input-login" type="number" name="capacity" placeholder="Enter Capacity" min=0 equired></label>
                 <br>
                 <label>CINEMA <br><br>

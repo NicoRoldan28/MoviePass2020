@@ -76,7 +76,7 @@
                 }
 
             }
-            var_dump($this->ticketDAO->getAll());
+            //var_dump($this->ticketDAO->getAll());
 
             /*$idUser = $this->userDAO->GetIdByEmail($_SESSION["loggedUser"]->getEmail());
             $buy->setUser();

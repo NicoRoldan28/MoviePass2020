@@ -28,6 +28,7 @@ class RoomDAO implements IDAO{
                 $room= new Room();
                 $room->setId($row['idRoom']);
                 $room->setNombre($row['nombre']);
+                $room->setPrice_ticket($row["price_ticket"]);
                 $room->setCapacidad($row['capacidad']);
                 $room->setCinema();
                 $room->getCinema()->setId($row['id_Cine']);
@@ -52,6 +53,7 @@ class RoomDAO implements IDAO{
                 $room= new Room();
                 $room->setId($row["idRoom"]);
                 $room->setNombre($row["nombre"]);
+                $room->setPrice_ticket($row["price_ticket"]);
                 $room->setCapacidad($row["capacidad"]);
                 //$room->setCinema($row["id_Cine"]);
 
@@ -66,9 +68,10 @@ class RoomDAO implements IDAO{
 
     public function Add(Room $room){
         try {
-            $query = 'INSERT INTO '.$this->tableName." (nombre,capacidad,id_Cine) VALUES(:nombre,:capacidad,:id_Cine)";
+            $query = 'INSERT INTO '.$this->tableName." (nombre,price_ticket,capacidad,id_Cine) VALUES(:nombre,:price_ticket,:capacidad,:id_Cine)";
 
             $parameters['nombre']=$room->getNombre();
+            $parameters["price_ticket"] = $room->getPrice_ticket();
             $parameters['capacidad']=$room->getCapacidad();
             $parameters['id_Cine']=$room->getCinema()->getId();
 
@@ -119,6 +122,7 @@ class RoomDAO implements IDAO{
         
                 $room->setId($row["idRoom"]);
                 $room->setNombre($row["nombre"]);
+                $room->setPrice_ticket($row["price_ticket"]);
                 $room->setCapacidad($row["capacidad"]);
                 $room->setCinema();
                 $room->getCinema()->setId($row["id_Cine"]);

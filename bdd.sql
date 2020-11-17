@@ -90,8 +90,7 @@ truncate table gendersxmovies;
 Create table Cinemas(
     id_cinema integer auto_increment primary key,
     adress varchar(50) not null,
-    name varchar(50) not null,
-    price_ticket integer not null
+    name varchar(50) not null
 );
 
 drop table Cinemas;
@@ -104,6 +103,7 @@ truncate table cinemas;
 create table Room(
 idRoom integer auto_increment primary key,
 nombre varchar(20) not null,
+price_ticket integer not null,
 capacidad integer not null,
 id_Cine integer not null,
 constraint foreign key fk_id_Cine(id_Cine) references Cinemas(id_cinema)

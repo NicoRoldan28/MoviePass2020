@@ -76,13 +76,13 @@
                 }
            }
            
-           public function RegisterCine($name,$adress,$price_ticket)
+           public function RegisterCine($name,$adress)
            {
                $cinema = new Cinema();
                
                $cinema->setName($name);
                $cinema->setAdress($adress);
-               $cinema->setPrice_ticket($price_ticket);
+               //$cinema->setPrice_ticket($price_ticket);
    
                $result=$this->cinemaDAO->seachCinema($cinema->getName(),$cinema->getAdress());
                if($result==null){
@@ -115,18 +115,19 @@
                 $room2 = $this->cinemaDAO->getCinemaById($room->getCinema()->getId());
                 $room->getCinema()->setName($room2->getName());
                 $room->getCinema()->setAdress($room2->getAdress());
-                $room->getCinema()->setPrice_ticket($room2->getPrice_ticket());
+                //$room->getCinema()->setPrice_ticket($room2->getPrice_ticket());
             }
                require_once(VIEWS_PATH."room-list.php");
            }
    
-           public function RegisterRoom($name,$capacidad,$idCinema)
+           public function RegisterRoom($name,$price_ticket,$capacidad,$idCinema)
            {
                $room = new Room();
                $room->setNombre($name);
+               $room->setPrice_ticket($price_ticket);
                $room->setCapacidad($capacidad);
                $room->setCinema($this->cinemaDAO->getCinemaById($idCinema));
-   
+               
                $cinema=$this->cinemaDAO->getCinemaById($idCinema);
                $room->setCinema($cinema);
                $room->getCinema()->setId($cinema->getId());
@@ -169,13 +170,14 @@
                 foreach($showingList as $showing){
                 $room = $this->roomDAO->getRoomById($showing->getRoom()->getId());
                 $showing->getRoom()->setNombre($room->getNombre());
+                $showing->getRoom()->setPrice_ticket($room->getPrice_ticket());
                 $showing->getRoom()->setCapacidad($room->getCapacidad());
                 $showing->getRoom()->getCinema()->setId($room->getCinema()->getId());
 
                 $cinema = $this->cinemaDAO->getCinemaById($showing->getRoom()->getCinema()->getId());
                 $showing->getRoom()->getCinema()->setName($cinema->getName());
                 $showing->getRoom()->getCinema()->setAdress($cinema->getAdress());
-                $showing->getRoom()->getCinema()->setPrice_ticket($cinema->getPrice_ticket());
+                //$showing->getRoom()->getCinema()->setPrice_ticket($cinema->getPrice_ticket());
 
                 $movie = $this->movieDAO->returnMovie($showing->getMovie()->getId());
         
@@ -236,12 +238,10 @@
                     //$this->showingDAO->Add($showing2);
                     //var_dump("se agrega de una");
                     $this->showingDAO->Add($showing2);
+                    //require_once(VIEWS_PATH."showingListAdmin.php");
+                    $i++;
                     //var_dump("hola");
                 }
-                //else if(!($this->buscarMovieInShowing($showingList,$idMovie) ) )
-                //{
-                    //var_dump("ya existe esa pelicula en una funcion de ese dia");
-                //}
                 else if(!($this->buscarMovieInShowing($showingList,$idMovie) ) ) {
 
                     foreach($showingList as $showing)
@@ -340,15 +340,14 @@
                 }
                 if($f==$i)
                         {
-                            //var_dump($i);
-                            //var_dump($f);
-                            $this->showingDAO->Add($showing2);
-                           //$this->ShowListShowingView2();
+                           $this->showingDAO->Add($showing2);
+                           $this->ShowListShowingView2();
                          } 
+                elseif($showingList==null)
+                {
+                    $this->ShowListShowingView2();
+                }         
                 else{
-                    //var_dump($i);
-                    //var_dump("peliculas cargas en la bdd");
-                    //var_dump($f);
                        $cinemaList = $this->cinemaDAO->getAll();
                        $message="Error, no se ha podido agregar la funcion";
                        $scrip2="selectCinema.php";

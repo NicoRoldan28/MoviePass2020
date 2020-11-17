@@ -62,7 +62,7 @@
                     $this->admin();
                 }else
                 {
-                    $this->user($user);
+                    $this->user();
                 }
             
             }else{
@@ -74,12 +74,12 @@
             require_once(VIEWS_PATH."registerCinema.php");
         }
 
-        public function user($user){
+        public function user(){
             //$this->user();
             //$this->CargarCorreo($user->getEmail());
             $movieList = $this->movieDAO->GetAllForShowingActivas();
             $genderList = $this->genderDAO->GetAll();
-            //require_once(VIEWS_PATH."billboardMovie.php");
+            require_once(VIEWS_PATH."billboardMovie.php");
 
 
         }

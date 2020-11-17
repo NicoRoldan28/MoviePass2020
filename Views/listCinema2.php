@@ -25,7 +25,7 @@ require_once('head.php');
                     <td><?php echo $cinema->getAdress() ?></td>
                 </tr>
                 <tr>
-                    <td><?php echo $cinema->getPrice_ticket() ?></td>
+                    <td><?php echo $cinema->getId() ?></td>
                 </tr>
             </tbody>
         </table><?php 
