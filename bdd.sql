@@ -142,6 +142,8 @@ constraint fk_id_Buy foreign key(id_Buy) references Buy(id_Buy)
 drop table ticket;
 select * from ticket;
 
+truncate table ticket;
+
 ######################################  Buy  ##############################################
 
 
@@ -150,9 +152,9 @@ id_Buy integer auto_increment primary key,
 discount float not null,
 days date,
 total integer,
-id_Pay integer,
+-- id_Pay integer,
 id_User integer not null,
-constraint fk_id_Pay foreign key(id_Pay) references PayTC(id_Pay),
+-- constraint fk_id_Pay foreign key(id_Pay) references PayTC(id_Pay),
 constraint fk_id_User foreign key(id_User) references users(id_user)
 );
 
@@ -252,9 +254,7 @@ BEGIN
 	WHERE CAST(dayTime AS date) = CAST(s.day AS date);
 END //
 
-
-
-call `ShowingForDay`('2020-11-20 23:39:00');
+call `ShowingForDay`();
 
 drop procedure `ShowingForDay`;
 
@@ -303,6 +303,14 @@ call `CountQuantity`();
 
 drop procedure `CountQuantity`;
 
+DELIMITER //
+CREATE PROCEDURE `Total` (in idShowing int)
+BEGIN
+    select sum(b.total) as total from buy b
+	inner join Ticket t
+	on b.id_Buy = t.id_Buy
+	where t.id_Showing = 1;
+END //
 
 DELIMITER //
 CREATE PROCEDURE `Total` (in idShowing int)
@@ -410,11 +418,9 @@ drop procedure `CountMoneyForTurn`;
 DELIMITER //
 create procedure `GetAllTicketByIdBuy`(in id integer)
 BEGIN
-select c.namee, r.nombre, m.title_Movie, s.day ,t.hr_start,ti.id_Buy, ti.nro_entrada from ticket ti
+select c.namee, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
 inner join showings s
 on s.id_Showing = ti.id_Showing
-inner join turns t
-on s.id_turno = t.id_turno
 inner join movies m
 on m.id_Movie = s.idMovie
 inner join room r
@@ -445,6 +451,9 @@ call `GetAllByIdUser`();
 
 drop procedure `GetAllByIdUser`;
 
+DELIMITER //
+create procedure `AddTicket`(in )
+
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -466,3 +475,48 @@ truncate table buy;
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PRUEBAS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DELIMITER //
+CREATE PROCEDURE `ShowingForDayOrderBy` (in dayTime datetime)
+BEGIN
+	select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
+	WHERE CAST(dayTime AS date) = CAST(s.day AS date)
+    order by s.day desc;
+END //
+
+drop procedure ShowingForDayOrderBy;
+
+DELIMITER //
+CREATE PROCEDURE `CheckAvailability` (in id int)
+BEGIN
+select ((SELECT r.capacidad from showings as s 
+inner join room r on r.idRoom = s.idRoom WHERE(s.id_Showing = id))-(select count(t.nro_entrada) from ticket t
+where id_Showing = id)) as AVAILABILITY;
+END //
+
+call `CheckAvailability`(1);
+
+INSERT INTO buy(id_User,discount,days,total)
+            VALUES (1,0.25,'2020-03-03 22:00:00',1500);
+
+
+truncate table cinemas;
+truncate table room;
+truncate table showings;
+truncate table ticket;
+truncate table paytc;
+truncate table buy;
+
+DELIMITER //
+CREATE PROCEDURE `CargarBuy` (in id_User int,in discount float,in days date,in total int)
+BEGIN
+	INSERT INTO buy(id_User,discount,days,total)
+	VALUES (id_User,discount,days,total);
+SELECT @@identity as id_Buyticket;
+END //
+
+call `CargarBuy`(1,0.25,'2020-03-03',1500);
+
+select * from ticket;
+select * from buy

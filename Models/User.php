@@ -5,14 +5,14 @@
 
     class User extends PerfilUser{
         
-        //private $id;
+        private $id;
         private $email;
         private $password;
         private $rol;
         //private $id_PerfilUser;
         
-        //public function setId($id){$this->id = $id;}
-        //public function getId(){return $this->id;}
+        public function setId($id){$this->id = $id;}
+        public function getId(){return $this->id;}
 
         public function setEmail($email){$this->email=$email;}
         public function getEmail(){return $this->email;}
