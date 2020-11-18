@@ -203,7 +203,7 @@ class ShowingDAO implements IDAO{
                 var_dump($result[0]["price_ticket"]);
                 
                 return $result[0]["price_ticket"];
-                } catch (Exception $ex) {-
+                } catch (Exception $ex) {
                     throw $ex;
                 }
         }

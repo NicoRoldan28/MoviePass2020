@@ -16,6 +16,8 @@
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 
+    use Endroid\QrCode\QrCode;
+
     //require 'PHPMailer/Exception.php';
     //require 'PHPMailer/PHPMailer.php';
     //require 'PHPMailer/SMTP.php';
@@ -77,9 +79,13 @@
         public function user(){
             //$this->user();
             //$this->CargarCorreo($user->getEmail());
+            $qrCode = new QrCode('Life is too short to be generating QR codes');
+
+            header('Content-Type: '.$qrCode->getContentType());
+            echo $qrCode->writeString();
             $movieList = $this->movieDAO->GetAllForShowingActivas();
             $genderList = $this->genderDAO->GetAll();
-            require_once(VIEWS_PATH."billboardMovie.php");
+            //require_once(VIEWS_PATH."billboardMovie.php");
 
 
         }
@@ -182,5 +188,8 @@
     }
     //var_dump($mail);
     }
+
+
+
 }
 ?>
