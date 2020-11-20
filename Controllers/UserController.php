@@ -15,12 +15,22 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
+    require_once("vendor/autoload.php");
+    //use Qr\scr\QrCode\QrCode;
+    //use Endroid\QrCode\QrCode;
 
+
+    use Endroid\QrCode\ErrorCorrectionLevel;
+    use Endroid\QrCode\LabelAlignment;
     use Endroid\QrCode\QrCode;
+    use Endroid\QrCode\Response\QrCodeResponse;
 
     //require 'PHPMailer/Exception.php';
     //require 'PHPMailer/PHPMailer.php';
     //require 'PHPMailer/SMTP.php';
+    
+    //require_once("Qr/scr/QrCode.php");
+
     require_once("PHPMailer/Exception.php");
     require_once("PHPMailer/PHPMailer.php");
     require_once("PHPMailer/SMTP.php");
@@ -64,7 +74,9 @@
                     $this->admin();
                 }else
                 {
-                    $this->user();
+                 //   $hola='hola';
+                   $this->user();
+//                    $this->IngresarTarjeta();
                 }
             
             }else{
@@ -76,17 +88,138 @@
             require_once(VIEWS_PATH."registerCinema.php");
         }
 
-        public function user(){
-            //$this->user();
-            //$this->CargarCorreo($user->getEmail());
-            $qrCode = new QrCode('Life is too short to be generating QR codes');
+        public function generateQr($hola)
+        {
+            var_dump($hola);
+            $qrCode = new QrCode($hola);
+            
+            //$qrCode->setText($hola);
+            $qrCode->setSize(300);
+            $qrCode->setMargin(10); 
 
-            header('Content-Type: '.$qrCode->getContentType());
+            // Set advanced options
+            $qrCode->setWriterByName('png');
+            $qrCode->setEncoding('UTF-8');
+            $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
+            $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+            $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+            $qrCode->setLabel('Scan the code', 12, 'Qr/assets/fonts/noto_sans.otf', LabelAlignment::CENTER());
+            $qrCode->setLogoPath('Qr\img\qr.png');
+            $qrCode->setLogoSize(150, 200);
+            $qrCode->setValidateResult(false);
+
+            // Round block sizes to improve readability and make the blocks sharper in pixel based outputs (like png).
+            // There are three approaches:
+            $qrCode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_MARGIN); // The size of the qr code is shrinked, if necessary, but the size of the final image remains unchanged due to additional margin being added (default)
+            $qrCode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_ENLARGE); // The size of the qr code and the final image is enlarged, if necessary
+            $qrCode->setRoundBlockSize(true, QrCode::ROUND_BLOCK_SIZE_MODE_SHRINK); // The size of the qr code and the final image is shrinked, if necessary
+
+            // Set additional writer options (SvgWriter example)
+            $qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
+
+            // Directly output the QR code
+            //header('Content-Type: '.$qrCode->getContentType());
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+            var_dump($qrCode->setValidateResult(true));
+            //var_dump($qrCode->getText());
             echo $qrCode->writeString();
+            //var_dump($algo);
+
+            // Save it to a file
+            //'Qr/assets/fonts/noto_sans.otf
+            //Qr/assets/fonts/noto_sans.otf
+            $qrCode->writeFile('Qr/img/qrcode.png');
+            //$qrCode->writeFile(__DIR__.'/qrcode.png');
+
+            // Generate a data URI to include image data inline (i.e. inside an <img> tag)
+            $dataUri = $qrCode->writeDataUri();
+        }
+
+
+
+        public function GenerateQrx2(){
+            $qrCode = new QrCode('se cargo el codigo qr por la compra de la entrada para la funcionx2');
+            $qrCode->setSize(300);
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL);
+            $qrCode->setValidateResult(true);       
+            $qrCode->writeFile('Qr/img/qrcode.png');
+        }
+
+        public function IngresarTarjeta(){
+            require_once(VIEWS_PATH.'IngresarTarjeta.php');
+        }
+        public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$año,$type)
+        {
+           var_dump($nombre);
+            var_dump($cvv);
+            var_dump($cardNumber);
+            var_dump($mes);
+            var_dump($año);
+            var_dump($type);
+
+            
+            $this->validateCC($cardNumber, $type);  
+            //var_dump($denum);
+        }
+
+        function validateCC($cardNumber, $type) {  
+            if($type == "Master")  
+            { $denum = "Master Card";
+              if (preg_match("/([5]{1})([0-9])/",$cardNumber) && ($this->calculateLenght($cardNumber) == 16  )  ) 
+              { $verified = true; } 
+              else { $verified = false; }
+             } 
+            elseif($type == "Visa") 
+            {   
+                $denum = "Visa";
+                if (preg_match("/([4]{1})([0-9])/",$cardNumber) && (($this->calculateLenght($cardNumber) == 16 ) or  ($this->calculateLenght($cardNumber) == 13 )  ))
+                { $verified = true; } 
+                else { $verified = false; } 
+                }
+                if($verified == false)
+                {  echo "Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card "; } 
+                else {  echo "Your " . $denum . " credit card is valid"; } 
+            }
+            
+            function calculateLenght($cardNumber){
+                $number = (string)$cardNumber;
+                $length = strlen($number);
+                return $length;
+            }
+        public function user(){
+            //$this->user(); 
+            //header('Content-Type: Qr\img\qr.png');
+            //$this->CargarCorreo($user->getEmail());
+            
+            //$qrCode = new QrCode('se cargo el codigo qr por la compra de la entrada para la funcionx2');
+            //$qrCode->setText('hola gatoooo');
+            //$qrCode->setPadding(10);
+            //$qrCode->setSize(300);
+            //$qrCode->setImageType(QrCode::IMAGE_TYPE_PNG);
+
+            
+           
+            //Views\img\pngwing.com.png
+            //header('Content-Type: '.$qrCode->getContentType());
+            //ini_set('display_errors', 1);
+            //error_reporting(E_ALL);
+            //$qrCode->setValidateResult(true);
+            
+            //$qrCode->writeFile('Qr/img/qrcode.png');
+
+            
+            // Save it to a file
+            //$qrCode->writeFile(__DIR__.'/qrcode.png');
+                //echo $qrCode->writeString();
+
             $movieList = $this->movieDAO->GetAllForShowingActivas();
             $genderList = $this->genderDAO->GetAll();
             //require_once(VIEWS_PATH."billboardMovie.php");
-
+            $this->IngresarTarjeta();
+            $correo="nicolasroldan31@gmail.com";
+           //$this->CargarCorreo($correo);
 
         }
 
@@ -165,8 +298,8 @@
         //echo FRONT_ROOT.VIEWS_PATH."img\pngwing.com.png"
         //
         // Attachments
-        $mail->addAttachment('Views\img\pngwing.com.png');         // Add attachments
-        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+        $mail->addAttachment('Qr\img\qrcode.png', 'new2.jpg');         // Add attachments
+        $mail->addAttachment('Views\img\pngwing.com.png', 'new.jpg');    // Optional name
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML

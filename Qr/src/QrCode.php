@@ -100,7 +100,7 @@ class QrCode implements QrCodeInterface
     private $validateResult = false;
 
     public function __construct(string $text = '')
-    {
+    {   
         $this->text = $text;
 
         $this->errorCorrectionLevel = ErrorCorrectionLevel::LOW();
@@ -112,6 +112,7 @@ class QrCode implements QrCodeInterface
     public function setText(string $text): void
     {
         $this->text = $text;
+        var_dump($this->text);
     }
 
     public function getText(): string
