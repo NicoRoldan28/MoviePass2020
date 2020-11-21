@@ -1,6 +1,6 @@
 
 use MP;
-
+create database MP;
 drop database MP;
 
 #######################################  perfilUsers  ##############################################
@@ -132,7 +132,6 @@ truncate showings;
 
 create table Ticket(
 nro_entrada integer auto_increment primary key,
-qr varchar(30) not null,
 id_Showing integer not null,
 id_Buy integer not null,
 constraint fk_id_Showing foreign key(id_Showing) references showings(id_Showing),
@@ -149,6 +148,7 @@ truncate table ticket;
 
 create table Buy(
 id_Buy integer auto_increment primary key,
+quantityTickets integer not null,
 discount float not null,
 days date,
 total integer,
@@ -166,6 +166,11 @@ truncate table buy;
 
 create table CreditAccount(
 id_CreditAccount integer primary key,
+name varchar(50),
+cvv int not null,
+expiration varchar(50),
+cardNumber integer not null,
+type varchar(50),
 company varchar(50));
 
 drop table CreditAccount;
@@ -325,8 +330,15 @@ call `Total`();
 
 drop procedure `Total`;
 
+SELECT r.price_ticket from Showings as s 
+                inner join room r on r.idRoom = s.idRoom 
+                
+                WHERE(s.id_Showing = 4);
 
-
+'SELECT c.price_ticket from '.$this->tableName.' as s 
+                inner join room r on r.idRoom = s.idRoom 
+                inner join cinemas c on c.id_cinema = r.id_Cine
+                WHERE(s.id_Showing = :id);';
 
 DELIMITER //
 CREATE PROCEDURE `CountQuantityForMovie` (in Valuee int)
@@ -509,14 +521,14 @@ truncate table paytc;
 truncate table buy;
 
 DELIMITER //
-CREATE PROCEDURE `CargarBuy` (in id_User int,in discount float,in days date,in total int)
+CREATE PROCEDURE `CargarBuy` (in id_User int,in quantityTickets int ,in discount float,in days date,in total int)
 BEGIN
-	INSERT INTO buy(id_User,discount,days,total)
-	VALUES (id_User,discount,days,total);
+	INSERT INTO buy(id_User,quantityTickets,discount,days,total)
+	VALUES (id_User,quantityTickets,discount,days,total);
 SELECT @@identity as id_Buyticket;
 END //
 
 call `CargarBuy`(1,0.25,'2020-03-03',1500);
-
+drop procedure `CargarBuy`;
 select * from ticket;
 select * from buy

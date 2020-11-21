@@ -5,7 +5,7 @@
 
     class Buy{
         private $idBuy;
-        //private $quantityTicket;
+        private $quantityTickets;
         private $date;
         private $discount;
         private $total;
@@ -17,8 +17,8 @@
         public function setIdBuy($idBuy){$this->idBuy=$idBuy;}
         public function getIdBuy(){return $this->idBuy;}
 
-        //public function setQuantityTicket($quantityTicket){$this->quantityTicket=$quantityTicket;}
-        //public function getQuantityTicket(){return $this->quantityTicket;}
+        public function setQuantityTickets($quantityTickets){$this->quantityTickets=$quantityTickets;}
+        public function getQuantityTickets(){return $this->quantityTickets;}
 
         public function setDate($date){$this->date=$date;}
         public function getDate(){return $this->date;}

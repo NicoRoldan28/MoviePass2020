@@ -26,4 +26,4 @@ require_once(VIEWS_PATH.'nav-user2.php');?>
   </ul>
   <script src="prefixfree.min.js" type="text/javascript"></script>
 </form>
-          </body>
+</body>

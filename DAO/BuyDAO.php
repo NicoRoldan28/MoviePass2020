@@ -12,8 +12,9 @@
         public function Add(Buy $buy){
             try
             {
-                $procedure = 'call CargarBuy(:id_User,:discount,:days,:total);';
+                $procedure = 'call CargarBuy(:id_User,:quantityTickets,:discount,:days,:total);';
                 $parameters["id_User"]=$buy->getUser()->getId();
+                $parameters["quantityTickets"]=$buy->getQuantityTickets();
                 $parameters["discount"]=$buy->getDiscount();
                 $parameters["days"]=$buy->getDate();
                 $parameters["total"]=$buy->getTotal();

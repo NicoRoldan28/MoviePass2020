@@ -40,13 +40,13 @@
 
             $buy = new Buy();
            
-            
             $buy->setUser();
             $buy->getUser()->setId($_SESSION['loggedUser']->getId());
+            $buy->setQuantityTickets($quantity);
             $buy->setDate(date('Y-m-d'));
 
             $price = $this->showingDAO->GetPrice($idShowing);
-            var_dump($price);
+            //var_dump($price);
 
             if((date("D")=='Tue'||date("D")=='Wed')&&$quantity>=2){
 
@@ -54,18 +54,21 @@
                 $buy->setTotal(($price*$quantity)*(1-($buy->getDiscount())));
             }
             else{
-
                 $buy->setDiscount(0);
                 $buy->setTotal(($price*$quantity));
             }
             $capacidad = $this->ticketDAO->CheckAvailability($idShowing);
-            var_dump($capacidad);
+            //var_dump($capacidad);
 
             if(($this->ticketDAO->CheckAvailability($idShowing))>=$quantity){
+                $this->redirigirForm($buy);
+                $i=true;
+            }
+                if($i)
+                {
                 $idBuy = $this->buyDAO->Add($buy);
                 for ($i=0; $i < $quantity; $i++) { 
                     $ticket = new Ticket();
-                    $ticket->setQr('xD');
                     $ticket->setShowing();
                     $ticket->getShowing()->setIdShowing($idShowing);
 
@@ -74,8 +77,9 @@
 
                     $this->ticketDAO->Add($ticket);
                 }
-
             }
+
+            
             //var_dump($this->ticketDAO->getAll());
 
             /*$idUser = $this->userDAO->GetIdByEmail($_SESSION["loggedUser"]->getEmail());
@@ -103,7 +107,59 @@
             }*/
             
         }
+        public function redirigirForm($buy){
+            require_once(VIEWS_PATH.'receip.php');
+        }
+        public function registerCard(){
+            require_once(VIEWS_PATH.'IngresarTarjeta.php');
+        }
+        public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$año,$type)
+        {
 
+            $vencimiento=array($mes,$año);
+            $vencimiento=implode("/",$vencimiento);
+            var_dump($vencimiento);
+            //var_dump($nombre);
+            //var_dump($cvv);
+            //var_dump($cardNumber);
+            //var_dump($mes);
+            //var_dump($año);
+            //var_dump($type);
+
+            
+            if($this->validateCC($cardNumber, $type))
+            {
+                $message=$this->validateCC($cardNumber, $type);
+
+            }
+            //var_dump($denum);
+        }
+
+        function validateCC($cardNumber, $type) {  
+            if($type == "Master")  
+            { $denum = "Master Card";
+              if (preg_match("/([5]{1})([0-9])/",$cardNumber) && ($this->calculateLenght($cardNumber) == 16  )  ) 
+              { $verified = true; } 
+              else { $verified = false; }
+             } 
+            elseif($type == "Visa") 
+            {   
+                $denum = "Visa";
+                if (preg_match("/([4]{1})([0-9])/",$cardNumber) && (($this->calculateLenght($cardNumber) == 16 ) or  ($this->calculateLenght($cardNumber) == 13 )  ))
+                { $verified = true; } 
+                else { $verified = false; } 
+                }
+                if($verified == false)
+                {  $message= "Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card "; } 
+                else { $message= "Your " . $denum . " credit card is valid"; } 
+                return $message;
+            }
+            
+            function calculateLenght($cardNumber){
+                $number = (string)$cardNumber;
+                $length = strlen($number);
+                return $length;
+            }
 
     }
 

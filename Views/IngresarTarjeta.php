@@ -14,7 +14,7 @@ require_once('head.php');
         <h1>Confirm Purchase</h1>
     </div>
     <div class="payment">
-        <form action=<?php echo FRONT_ROOT."User/ValidateCard"?> method="post">
+        <form action=<?php echo FRONT_ROOT."Buy/ValidateCard"?> method="post">
             <div class="form-group owner">
                 <label for="owner">Nombre</label>
                 <input type="text" class="form-control" name="nombre">

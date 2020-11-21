@@ -152,7 +152,11 @@
         }
         public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$año,$type)
         {
-           var_dump($nombre);
+
+            $vencimiento=array($mes,$año);
+            $vencimiento=implode("/",$vencimiento);
+            var_dump($vencimiento);
+            var_dump($nombre);
             var_dump($cvv);
             var_dump($cardNumber);
             var_dump($mes);
@@ -188,6 +192,8 @@
                 $length = strlen($number);
                 return $length;
             }
+
+
         public function user(){
             //$this->user(); 
             //header('Content-Type: Qr\img\qr.png');
@@ -216,8 +222,8 @@
 
             $movieList = $this->movieDAO->GetAllForShowingActivas();
             $genderList = $this->genderDAO->GetAll();
-            //require_once(VIEWS_PATH."billboardMovie.php");
-            $this->IngresarTarjeta();
+            require_once(VIEWS_PATH."billboardMovie.php");
+            //$this->IngresarTarjeta();
             $correo="nicolasroldan31@gmail.com";
            //$this->CargarCorreo($correo);
 

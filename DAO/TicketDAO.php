@@ -12,9 +12,8 @@
         public function Add(Ticket $ticket){
 
             try {
-                $query = 'INSERT INTO '.$this->tableName." (qr,id_Showing,id_Buy) VALUES(:qr,:id_Showing,:id_Buy);";
+                $query = 'INSERT INTO '.$this->tableName." (id_Showing,id_Buy) VALUES(:id_Showing,:id_Buy);";
 
-                $parameters['qr']=$ticket->getQr();
                 $parameters['id_Showing']=$ticket->getShowing()->getIdShowing();
                 $parameters['id_Buy']=$ticket->getBuy()->getIdBuy();
 
