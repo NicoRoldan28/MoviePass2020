@@ -149,12 +149,13 @@ truncate table ticket;
 
 create table Buy(
 id_Buy integer auto_increment primary key,
+quantityTickets int not null,
 discount float not null,
 days date,
 total integer,
--- id_Pay integer,
+id_Pay integer,
 id_User integer not null,
--- constraint fk_id_Pay foreign key(id_Pay) references PayTC(id_Pay),
+constraint fk_id_Pay foreign key(id_Pay) references PayTC(id_Pay),
 constraint fk_id_User foreign key(id_User) references users(id_user)
 );
 
@@ -177,11 +178,11 @@ truncate table CreditAccount;
 
 create table PayTC(
 id_Pay integer auto_increment primary key,
-cod_aut integer not null,
+cod_aut integer,
 days date not null,
-total float not null,
-id_CreditAccount integer not null,
-constraint fk_id_CreditAccount foreign key(id_CreditAccount) references CreditAccount(id_CreditAccount)
+total float not null
+-- id_CreditAccount integer not null,
+-- constraint fk_id_CreditAccount foreign key(id_CreditAccount) references CreditAccount(id_CreditAccount)
 );
 
 drop table PayTC;
@@ -509,14 +510,37 @@ truncate table paytc;
 truncate table buy;
 
 DELIMITER //
-CREATE PROCEDURE `CargarBuy` (in id_User int,in discount float,in days date,in total int)
+CREATE PROCEDURE `CargarBuy` (in id_User int,in discount float,in days date,in total int, in quantityTickets int)
 BEGIN
-	INSERT INTO buy(id_User,discount,days,total)
-	VALUES (id_User,discount,days,total);
+	INSERT INTO buy(id_User,discount,days,total,quantityTickets)
+	VALUES (id_User,discount,days,total,quantityTickets);
 SELECT @@identity as id_Buyticket;
 END //
 
+
+
 call `CargarBuy`(1,0.25,'2020-03-03',1500);
+drop procedure `CargarBuy`;
 
 select * from ticket;
-select * from buy
+select * from buy;
+select * from paytc;
+
+select b.id_Buy from buy b
+where b.id_User = 2
+order by b.id_Buy desc limit 1;
+
+DELIMITER //
+CREATE PROCEDURE `AcreditePay` (in days date,in total int, in idBuy int)
+BEGIN
+	INSERT INTO paytc(days,total)
+	VALUES (days,total);
+	UPDATE buy b
+	SET id_Pay = last_insert_id()
+	WHERE b.id_Buy = idBuy;
+END //
+
+drop procedure `AcreditePay`;
+call `AcreditePay`("2020-12-20",1800,1);
+
+

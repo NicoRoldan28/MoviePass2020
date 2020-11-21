@@ -1011,11 +1011,14 @@ body {
 
 .creditCardForm {
   max-width: 700px;
-  background-color: #fff;
+  background-color: #22242A;
   margin: 100px auto;
   overflow: hidden;
   padding: 25px;
-  color: #4c4e56;
+  color: #fff;
+  background: linear-gradient(180deg, black 0%, #1a1b1f 85%, #22242A 100%);
+  box-sizing: border-box;
+
 }
 .creditCardForm label {
   width: 100%;
@@ -1024,7 +1027,7 @@ body {
 .creditCardForm .heading h1 {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
-  color: #4c4e56;
+  color: #fff;
 }
 .creditCardForm .payment {
   float: left;
@@ -1068,8 +1071,12 @@ body {
   width: 100%;
   margin-top: 3px;
   font-size: 24px;
-  background-color: #2ec4a5;
+  background-color: #b80f22;
+  border-radius: 20px;
   color: white;
+}
+.creditCardForm .payment .btn:hover{
+  background: #0B87A6;
 }
 .creditCardForm .payment select {
   padding: 10px;

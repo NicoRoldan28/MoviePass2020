@@ -147,47 +147,8 @@
             $qrCode->writeFile('Qr/img/qrcode.png');
         }
 
-        public function IngresarTarjeta(){
-            require_once(VIEWS_PATH.'IngresarTarjeta.php');
-        }
-        public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$año,$type)
-        {
-           var_dump($nombre);
-            var_dump($cvv);
-            var_dump($cardNumber);
-            var_dump($mes);
-            var_dump($año);
-            var_dump($type);
-
-            
-            $this->validateCC($cardNumber, $type);  
-            //var_dump($denum);
-        }
-
-        function validateCC($cardNumber, $type) {  
-            if($type == "Master")  
-            { $denum = "Master Card";
-              if (preg_match("/([5]{1})([0-9])/",$cardNumber) && ($this->calculateLenght($cardNumber) == 16  )  ) 
-              { $verified = true; } 
-              else { $verified = false; }
-             } 
-            elseif($type == "Visa") 
-            {   
-                $denum = "Visa";
-                if (preg_match("/([4]{1})([0-9])/",$cardNumber) && (($this->calculateLenght($cardNumber) == 16 ) or  ($this->calculateLenght($cardNumber) == 13 )  ))
-                { $verified = true; } 
-                else { $verified = false; } 
-                }
-                if($verified == false)
-                {  echo "Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card "; } 
-                else {  echo "Your " . $denum . " credit card is valid"; } 
-            }
-            
-            function calculateLenght($cardNumber){
-                $number = (string)$cardNumber;
-                $length = strlen($number);
-                return $length;
-            }
+    
+        
         public function user(){
             //$this->user(); 
             //header('Content-Type: Qr\img\qr.png');
@@ -216,9 +177,9 @@
 
             $movieList = $this->movieDAO->GetAllForShowingActivas();
             $genderList = $this->genderDAO->GetAll();
-            //require_once(VIEWS_PATH."billboardMovie.php");
-            $this->IngresarTarjeta();
-            $correo="nicolasroldan31@gmail.com";
+            require_once(VIEWS_PATH."billboardMovie.php");
+            //$this->IngresarTarjeta();
+            //$correo="nicolasroldan31@gmail.com";
            //$this->CargarCorreo($correo);
 
         }
