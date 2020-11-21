@@ -2,9 +2,12 @@
 
     use Models\Buy as Buy;
     use Models\Ticket as Ticket;
+    use Models\Pay as Pay;
 
     use DAO\TicketDAO as TicketDAO;
     use DAO\BuyDAO as BuyDAO;
+    use DAO\PayDAO as PayDAO;
+
 
     use DAO\ShowingDAO as ShowingDAO;
     /*use Models\Cinema as Cinema;
@@ -29,11 +32,13 @@
         private $ticketDAO;
         private $buyDAO;
         private $showingDAO;
+        private $payDAO;
 
         public function __construct(){
             $this->ticketDAO = new TicketDAO();
             $this->buyDAO = new BuyDAO();
             $this->showingDAO = new ShowingDAO();
+            $this->payDAO = new PayDAO();
         }
 
         public function buyTicket($quantity,$idShowing){
@@ -44,6 +49,7 @@
             $buy->getUser()->setId($_SESSION['loggedUser']->getId());
             $buy->setQuantityTickets($quantity);
             $buy->setDate(date('Y-m-d'));
+            $buy->setQuantityTicket($quantity);
 
             $price = $this->showingDAO->GetPrice($idShowing);
             //var_dump($price);
@@ -61,13 +67,10 @@
             //var_dump($capacidad);
 
             if(($this->ticketDAO->CheckAvailability($idShowing))>=$quantity){
-                $this->redirigirForm($buy);
-                $i=true;
-            }
-                if($i)
-                {
                 $idBuy = $this->buyDAO->Add($buy);
-                for ($i=0; $i < $quantity; $i++) { 
+
+                //var_dump($idBuy);
+                /*for ($i=0; $i < $quantity; $i++) { 
                     $ticket = new Ticket();
                     $ticket->setShowing();
                     $ticket->getShowing()->setIdShowing($idShowing);
@@ -75,7 +78,11 @@
                     $ticket->setBuy();
                     $ticket->getBuy()->setIdBuy($idBuy);
 
-                    $this->ticketDAO->Add($ticket);
+                    $this->ticketDAO->Add($ticket);*/
+                
+                    $z = $this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId());
+                    var_dump($z);
+                    $this->showAddInfoTarjetaView();
                 }
             }
 
@@ -105,34 +112,45 @@
                 require_once(VIEWS_PATH.'nav-user.php');
                 echo("<br><br><br><br><br><br><H1 style='color:white;'>no quantity available!!</H1>");
             }*/
-            
-        }
-        public function redirigirForm($buy){
-            require_once(VIEWS_PATH.'receip.php');
-        }
-        public function registerCard(){
-            require_once(VIEWS_PATH.'IngresarTarjeta.php');
-        }
-        public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$año,$type)
+        public function showAddInfoTarjetaView(){
+                require_once(VIEWS_PATH."IngresarTarjeta.php");
+            }  
+
+            /*public function payBuy(){
+                
+                $pay = new Pay();
+
+            }  */ 
+
+            public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$type)
         {
-
-            $vencimiento=array($mes,$año);
-            $vencimiento=implode("/",$vencimiento);
-            var_dump($vencimiento);
-            //var_dump($nombre);
-            //var_dump($cvv);
-            //var_dump($cardNumber);
-            //var_dump($mes);
-            //var_dump($año);
-            //var_dump($type);
-
             
-            if($this->validateCC($cardNumber, $type))
-            {
-                $message=$this->validateCC($cardNumber, $type);
+            var_dump(date("Y-m-d"));
+            
+            if($this->validateCC($cardNumber, $type)){
+                $pay = new Pay();
+                $pay->setDate(date("Y-m-d"));
+                
+                $buy = $this->buyDAO->GetBuyForId($this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId())); 
+                $pay->setTotal($buy->getTotal());
 
+                $this->payDAO->AcreditPay($pay,$buy->getIdBuy());
+                for ($i=0; $i < $buy->getQuantityTicket(); $i++) { 
+                    $ticket = new Ticket();
+                    $ticket->setShowing();
+                    $ticket->getShowing()->setIdShowing($idShowing);
+
+                    $ticket->setBuy();
+                    $ticket->getBuy()->setIdBuy($idBuy);
+
+                    $this->ticketDAO->Add($ticket);
+                }
+
+            }else{
+                $message="Error, Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card";
+                $scrip2="IngresarTarjeta.php";
+                   include_once(VIEWS_PATH."Errors.php");
             }
-            //var_dump($denum);
         }
 
         function validateCC($cardNumber, $type) {  
@@ -149,10 +167,7 @@
                 { $verified = true; } 
                 else { $verified = false; } 
                 }
-                if($verified == false)
-                {  $message= "Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card "; } 
-                else { $message= "Your " . $denum . " credit card is valid"; } 
-                return $message;
+                return $verified;
             }
             
             function calculateLenght($cardNumber){
@@ -160,8 +175,13 @@
                 $length = strlen($number);
                 return $length;
             }
-
+            
     }
+        
+        
+
+
+    
 
 
 

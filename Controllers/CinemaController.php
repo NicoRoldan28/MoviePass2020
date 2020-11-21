@@ -358,7 +358,7 @@
            public function seachShowingsForMovie($idMovie)
            {
                 $showingList = $this->showingDAO->GetAllForMovie($idMovie);
-                $showingList=$this->cargarShowings($showingList);
+                $showingList = $this->cargarShowings($showingList);
                 require_once(VIEWS_PATH."showingListUser.php");
            }
 

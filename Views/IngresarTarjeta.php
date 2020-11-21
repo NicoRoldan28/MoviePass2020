@@ -7,8 +7,6 @@ require_once('head.php');
 
 
 
-
-
 <div class="creditCardForm">
     <div class="heading">
         <h1>Confirm Purchase</h1>
@@ -17,44 +15,21 @@ require_once('head.php');
         <form action=<?php echo FRONT_ROOT."Buy/ValidateCard"?> method="post">
             <div class="form-group owner">
                 <label for="owner">Nombre</label>
-                <input type="text" class="form-control" name="nombre">
+                <input type="text" class="form-control" name="nombre" required>
             </div>
             
             <div class="form-group CVV">
                 <label for="cvv">CVV</label>
-                <input type="text" class="form-control" name="cvv">
+                <input type="text" class="form-control" name="cvv" required>
             </div>
             <div class="form-group" id="card-number-field">
                 <label for="cardNumber">Card Number</label>
-                <input type="text" class="form-control" name="cardNumber">
+                <input type="text" maxlength="16" minlength="16" min=0 class="form-control" name="cardNumber" autocomplete="off">
             </div>
             <div class="form-group" id="expiration-date">
-                <label>Expiration Date</label> <select name="mes" required >
-                    <option value="01">01</option>
-                    <option value="02">02 </option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                </div>
-                <div class="form-group" id="expiration-date">
-                <label>Expiration Date</label> <select name="año" required >
-                    <option value="20"> 2020</option>
-                    <option value="21"> 2021</option>
-                    <option value="22"> 2022</option>
-                    <option value="23"> 2023</option>
-                    <option value="24"> 2024</option>
-                    <option value="25"> 2025</option>
-                    <option value="26"> 2026</option>
-                </select>
-            </div>
+                <label for="bdaymonth">Expiration Date (month and year):</label>
+                <input type="month" id="bdaymonth" name="bdaymonth">
+            
 
             <label class="form-group CVV">                   
                     <input type="radio" name="type" value="Visa" required>
@@ -71,3 +46,7 @@ require_once('head.php');
         </form>
     </div>
 </div>
+
+
+
+
