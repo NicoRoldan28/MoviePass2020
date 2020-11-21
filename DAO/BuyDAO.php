@@ -66,7 +66,7 @@
             {
                 $buyList = array();
                 $procedure = 'call GetAllByIdUser(:id);';
-                $parameters['id']=$id;
+                $parameters['id']=$idUser;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($procedure,$parameters);
                 
@@ -74,13 +74,14 @@
                 {                
                     $buy = new Buy();
                     
-                    $buy->setUser();
-                    $buy->getUser()->setId($row["id_User"]);
                     $buy->setIdBuy($row["id_Buy"]);
                     $buy->setQuantityTicket($row["quantityTickets"]);
                     $buy->setDate($row["days"]);
                     $buy->setDiscount($row["discount"]);
                     $buy->setTotal($row["total"]);
+                    $buy->setPay();
+                    $buy->getPay()->setIdPay($row["id_Pay"]);
+                    
                     array_push($buyList, $buy);
                 }
 

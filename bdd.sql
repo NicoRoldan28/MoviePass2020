@@ -132,7 +132,7 @@ truncate showings;
 
 create table Ticket(
 nro_entrada integer auto_increment primary key,
-qr varchar(30) not null,
+-- qr varchar(30) not null,
 id_Showing integer not null,
 id_Buy integer not null,
 constraint fk_id_Showing foreign key(id_Showing) references showings(id_Showing),
@@ -141,7 +141,6 @@ constraint fk_id_Buy foreign key(id_Buy) references Buy(id_Buy)
 
 drop table ticket;
 select * from ticket;
-
 truncate table ticket;
 
 ######################################  Buy  ##############################################
@@ -419,7 +418,7 @@ drop procedure `CountMoneyForTurn`;
 DELIMITER //
 create procedure `GetAllTicketByIdBuy`(in id integer)
 BEGIN
-select c.namee, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
+select c.name, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
 inner join showings s
 on s.id_Showing = ti.id_Showing
 inner join movies m
@@ -441,14 +440,15 @@ drop procedure `GetAllTicketByIdBuy`;
 DELIMITER // 
 create procedure `GetAllByIdUser`(in id integer)
 BEGIN
-select * from ticket t
-inner join buy b
+select b.id_Buy, b.quantityTickets, b.discount, b.days,b.total, b.id_Pay from buy b
+inner join ticket t
 on b.id_Buy = t.id_Buy
-where id_User = id
+where id_User = 2
 group by t.id_Buy;
 END //
 
-call `GetAllByIdUser`();
+
+call `GetAllByIdUser`(2);
 
 drop procedure `GetAllByIdUser`;
 

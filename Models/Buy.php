@@ -1,6 +1,7 @@
 <?php namespace Models;
 
     use Models\User as User;
+    use Models\Pay as Pay;
 
 
     class Buy{
@@ -10,9 +11,13 @@
         private $discount;
         private $total;
         private $User;
+        private $Pay;
 
         public function setUser(){$this->User= new User();}
         public function getUser(){return $this->User;}
+
+        public function setPay(){$this->Pay= new Pay();}
+        public function getPay(){return $this->Pay;}
 
         public function setIdBuy($idBuy){$this->idBuy=$idBuy;}
         public function getIdBuy(){return $this->idBuy;}

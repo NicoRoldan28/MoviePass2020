@@ -3,6 +3,8 @@ require_once('head.php');
  //require_once('nav-admin.php');
  ///<label>CAPACITY<input class="input-login" type="number" name="capacity" placeholder="Enter Capacity" min=0 equired></label>
  require_once("validate-session.php");
+
+
 ?>
 
 
@@ -41,7 +43,8 @@ require_once('head.php');
                     </label>
 
             <div class="form-group" id="pay-now">
-                <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>
+            <button class= "btn btn-default" type="submit" name="idShowing" value=<?php echo $idShowing;?>>Confirm</button>
+
             </div>
         </form>
     </div>

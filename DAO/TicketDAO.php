@@ -12,9 +12,8 @@
         public function Add(Ticket $ticket){
 
             try {
-                $query = 'INSERT INTO '.$this->tableName." (qr,id_Showing,id_Buy) VALUES(:qr,:id_Showing,:id_Buy);";
+                $query = 'INSERT INTO '.$this->tableName." (id_Showing,id_Buy) VALUES(:id_Showing,:id_Buy);";
 
-                $parameters['qr']=$ticket->getQr();
                 $parameters['id_Showing']=$ticket->getShowing()->getIdShowing();
                 $parameters['id_Buy']=$ticket->getBuy()->getIdBuy();
 
@@ -71,12 +70,12 @@
                     $ticket = new Ticket();
                     $ticket->setIdTicket($row['nro_entrada']);
                     $ticket->setShowing();
-                    $ticket->getShowing()->setDay($row['day']);
+                    $ticket->getShowing()->setDayTime($row['day']);
                     $ticket->setBuy();
-                    $ticket->getBuy()->setId($row['id_Buy']);
+                    $ticket->getBuy()->setIdBuy($row['id_Buy']);
                     $ticket->getShowing()->setRoom();
                     $ticket->getShowing()->getRoom()->setCinema();
-                    $ticket->getShowing()->getRoom()->getCinema()->setName($row['namee']);
+                    $ticket->getShowing()->getRoom()->getCinema()->setName($row['name']);
                     $ticket->getShowing()->getRoom()->setNombre($row['nombre']);
                     $ticket->getShowing()->setMovie();
                     $ticket->getShowing()->getMovie()->setTitle($row['title_Movie']);
@@ -98,8 +97,6 @@
                 $this->connection = Connection::GetInstance();
 
                 $result = $this->connection->Execute($procedure,$parameters);
-                
-                var_dump($result[0]["AVAILABILITY"]);
                 
                 return $result[0]["AVAILABILITY"];
                 } catch (Exception $ex) {
