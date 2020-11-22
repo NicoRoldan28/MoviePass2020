@@ -1,7 +1,7 @@
 <?php namespace Models;
 
     use Models\User as User;
-
+    use Models\Pay as Pay;
 
     class Buy{
         private $idBuy;
@@ -9,15 +9,19 @@
         private $date;
         private $discount;
         private $total;
+        private $pago;
         private $User;
 
         public function setUser(){$this->User= new User();}
         public function getUser(){return $this->User;}
 
+        public function setPago(){$this->pago= new Pay();}
+        public function getPago(){return $this->pago;}
+
         public function setIdBuy($idBuy){$this->idBuy=$idBuy;}
         public function getIdBuy(){return $this->idBuy;}
 
-        public function setQuantityTickets($quantityTicket){$this->quantityTicket=$quantityTicket;}
+        public function setQuantityTicket($quantityTicket){$this->quantityTicket=$quantityTicket;}
         public function getQuantityTicket(){return $this->quantityTicket;}
 
         public function setDate($date){$this->date=$date;}

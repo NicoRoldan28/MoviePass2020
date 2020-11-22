@@ -200,8 +200,6 @@ class ShowingDAO implements IDAO{
 
                 $result = $this->connection->Execute($query,$parameters);
                 
-                var_dump($result[0]["price_ticket"]);
-                
                 return $result[0]["price_ticket"];
                 } catch (Exception $ex) {
                     throw $ex;

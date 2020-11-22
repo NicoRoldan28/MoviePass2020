@@ -148,11 +148,7 @@ truncate table ticket;
 
 create table Buy(
 id_Buy integer auto_increment primary key,
-<<<<<<< HEAD
 quantityTickets integer not null,
-=======
-quantityTickets int not null,
->>>>>>> Rodrigo
 discount float not null,
 days date,
 total integer,
@@ -434,7 +430,7 @@ drop procedure `CountMoneyForTurn`;
 DELIMITER //
 create procedure `GetAllTicketByIdBuy`(in id integer)
 BEGIN
-select c.namee, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
+select c.name, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
 inner join showings s
 on s.id_Showing = ti.id_Showing
 inner join movies m
@@ -443,27 +439,42 @@ inner join room r
 on s.idRoom = r.idRoom
 inner join cinemas c
 on r.id_Cine = c.id_cinema
-where ti.id_Buy = id;
+where ti.id_Buy = 1
+;
 END //
 
-call `GetAllTicketByIdBuy`();
+call `GetAllTicketByIdBuy`(10);
+select * from ticket;
+select * from buy;
 
 drop procedure `GetAllTicketByIdBuy`;
 
 
-
-
 DELIMITER // 
-create procedure `GetAllByIdUser`(in id integer)
+create procedure `GetAllByIdUser`(in id integer,in idBuy integer)
 BEGIN
-select * from ticket t
+select c.name, r.nombre, m.title_Movie, s.day ,ti.id_Buy, ti.nro_entrada from ticket ti
 inner join buy b
-on b.id_Buy = t.id_Buy
-where id_User = id
-group by t.id_Buy;
+on b.id_Buy = ti.id_Buy
+inner join showings s
+on s.id_Showing = ti.id_Showing
+inner join movies m
+on m.id_Movie = s.idMovie
+inner join room r
+on s.idRoom = r.idRoom
+inner join cinemas c
+on r.id_Cine = c.id_cinema
+where b.id_User = id
+group by b.id_Buy
+having b.id_Buy = idBuy;
 END //
 
-call `GetAllByIdUser`();
+
+select * from ticket;
+select * from buy;
+
+truncate ticket;
+call `GetAllByIdUser`(2);
 
 drop procedure `GetAllByIdUser`;
 
@@ -534,7 +545,7 @@ END //
 
 
 
-call `CargarBuy`(1,0.25,'2020-03-03',1500);
+call `CargarBuy`(2,0,'2020-03-03',1500,5);
 drop procedure `CargarBuy`;
 select * from ticket;
 select * from buy;
@@ -550,11 +561,15 @@ BEGIN
 	INSERT INTO paytc(days,total)
 	VALUES (days,total);
 	UPDATE buy b
-	SET id_Pay = last_insert_id()
+	SET b.id_Pay = last_insert_id()
 	WHERE b.id_Buy = idBuy;
 END //
 
+select * from buy;
 drop procedure `AcreditePay`;
 call `AcreditePay`("2020-12-20",1800,1);
 
+
+SELECT b.id_Buy FROM buy b where b.id_User = 2
+                order by b.id_Buy desc limit 1;
 

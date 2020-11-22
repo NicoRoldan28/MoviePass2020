@@ -1,6 +1,7 @@
 <div class="sidebar">
       <a href="<?php echo  FRONT_ROOT."User/user "?>"><i class="fas fa-desktop"></i><span>List All Movie</span></a>
       <a href="<?php echo  FRONT_ROOT."Cinema/SelectDays"?>"><i class="fas fa-desktop"></i><span>Select Days</span></a>
+      <a href="<?php echo  FRONT_ROOT."Buy/ShowListBuyView"?>"><i class="fas fa-desktop"></i><span>Get All Buys</span></a>
       <br>
       <div>
             <form action="<?php echo FRONT_ROOT?>Cinema/seachShowingsForMovieForGender" method="post">

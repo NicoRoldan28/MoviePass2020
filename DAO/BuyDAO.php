@@ -12,9 +12,8 @@
         public function Add(Buy $buy){
             try
             {
-                $procedure = 'call CargarBuy(:id_User,:quantityTickets,:discount,:days,:total);';
+                $procedure = 'call CargarBuy(:id_User,:discount,:days,:total,:quantityTickets);';
                 $parameters["id_User"]=$buy->getUser()->getId();
-                $parameters["quantityTicket"]=$buy->getQuantityTickets();
                 $parameters["discount"]=$buy->getDiscount();
                 $parameters["days"]=$buy->getDate();
                 $parameters["total"]=$buy->getTotal();
@@ -49,6 +48,8 @@
                     $buy->setQuantityTicket($row["quantityTickets"]);
                     $buy->setDate($row["days"]);
                     $buy->setDiscount($row["discount"]);
+                    $buy->setPago();
+                    $buy->getPago()->setIdPay($row["id_Pay"]);
                     $buy->getTotal($row["total"]);
                     array_push($buyList, $buy);
                 }
@@ -66,8 +67,8 @@
             try
             {
                 $buyList = array();
-                $procedure = 'call GetAllByIdUser(:id);';
-                $parameters['id']=$id;
+                $procedure = 'call GetAllBuyByIdUser(:id);';
+                $parameters['id']=$idUser;
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($procedure,$parameters);
                 
@@ -81,6 +82,8 @@
                     $buy->setQuantityTicket($row["quantityTickets"]);
                     $buy->setDate($row["days"]);
                     $buy->setDiscount($row["discount"]);
+                    $buy->setPago();
+                    $buy->getPago()->setIdPay($row["idPago"]);
                     $buy->setTotal($row["total"]);
                     array_push($buyList, $buy);
                 }
@@ -114,8 +117,6 @@
             {
                 throw $ex;
             }
-            
-            
         }
 
         public function GetBuyForId($id)
@@ -135,6 +136,8 @@
                     $buy->setQuantityTicket($row["quantityTickets"]);
                     $buy->setDate($row["days"]);
                     $buy->setDiscount($row["discount"]);
+                    $buy->setPago();
+                    $buy->getPago()->setIdPay($row["id_Pay"]);
                     $buy->setTotal($row["total"]);
                 }
                 

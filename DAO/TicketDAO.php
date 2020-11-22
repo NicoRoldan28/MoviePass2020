@@ -38,7 +38,6 @@
                 foreach($result as $row){
                     $ticket= new Ticket();
                     $ticket->setIdTicket($row['nro_entrada']);
-                    $ticket->setQr($row['qr']);
                     $ticket->setShowing();
                     $ticket->getShowing()->setIdShowing($row['id_Showing']);
 
@@ -63,19 +62,19 @@
                 $this->connection = Connection::GetInstance();
 
                 $result = $this->connection->Execute($procedure,$parameters);
-
+                //var_dump($result);
                 foreach($result as $row){
 
 
                     $ticket = new Ticket();
                     $ticket->setIdTicket($row['nro_entrada']);
                     $ticket->setShowing();
-                    $ticket->getShowing()->setDay($row['day']);
+                    $ticket->getShowing()->setDayTime($row['day']);
                     $ticket->setBuy();
-                    $ticket->getBuy()->setId($row['id_Buy']);
+                    $ticket->getBuy()->setIdBuy($row['id_Buy']);
                     $ticket->getShowing()->setRoom();
                     $ticket->getShowing()->getRoom()->setCinema();
-                    $ticket->getShowing()->getRoom()->getCinema()->setName($row['namee']);
+                    $ticket->getShowing()->getRoom()->getCinema()->setName($row['name']);
                     $ticket->getShowing()->getRoom()->setNombre($row['nombre']);
                     $ticket->getShowing()->setMovie();
                     $ticket->getShowing()->getMovie()->setTitle($row['title_Movie']);
@@ -87,6 +86,44 @@
                     throw $ex;
                 }
         }
+
+        public function GetAllByIdUser($id,$idBuy){
+            try {
+                $ticketList = array();
+                $procedure = 'call GetAllByIdUser(:id,:idBuy);';
+                $parameters['id']=$id;
+                $parameters['idBuy']=$idBuy;
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($procedure,$parameters);
+                foreach($result as $row){
+
+
+                    $ticket = new Ticket();
+                    $ticket->setIdTicket($row['nro_entrada']);
+                    $ticket->setShowing();
+                    $ticket->getShowing()->setDayTime($row['day']);
+                    $ticket->setBuy();
+                    $ticket->getBuy()->setIdBuy($row['id_Buy']);
+                    $ticket->getShowing()->setRoom();
+                    $ticket->getShowing()->getRoom()->setCinema();
+                    $ticket->getShowing()->getRoom()->getCinema()->setName($row['name']);
+                    $ticket->getShowing()->getRoom()->setNombre($row['nombre']);
+                    $ticket->getShowing()->setMovie();
+                    $ticket->getShowing()->getMovie()->setTitle($row['title_Movie']);
+
+                    //var_dump($ticket);
+                    array_push($ticketList,$ticket);
+                }
+                return $ticketList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
+
+
        
         public function CheckAvailability($idShowing){
             try {
@@ -97,8 +134,6 @@
                 $this->connection = Connection::GetInstance();
 
                 $result = $this->connection->Execute($procedure,$parameters);
-                
-                var_dump($result[0]["AVAILABILITY"]);
                 
                 return $result[0]["AVAILABILITY"];
                 } catch (Exception $ex) {

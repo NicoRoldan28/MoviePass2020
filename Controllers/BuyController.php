@@ -10,22 +10,6 @@
 
 
     use DAO\ShowingDAO as ShowingDAO;
-    /*use Models\Cinema as Cinema;
-    use Models\Room as Room;
-    use Models\Showing as Showing;
-    use Models\Movie as Movie;
-
-    use DAO\CinemaDAO as CinemaDAO;
-    use DAO\RoomDAO as RoomDAO;
-    
-    use DAO\MovieDAO as MovieDAO;
-
-    use \Exception as Exception;
-    use \DateTime as DateTime;
-
-    use DAO\GenderDAO as GenderDAO;
-    use Models\Gender as Gender;*/
-
 
     class BuyController{
 
@@ -47,12 +31,12 @@
            
             $buy->setUser();
             $buy->getUser()->setId($_SESSION['loggedUser']->getId());
-            $buy->setQuantityTickets($quantity);
             $buy->setDate(date('Y-m-d'));
             $buy->setQuantityTicket($quantity);
 
+            $_SESSION["Showing"] = $idShowing;
+
             $price = $this->showingDAO->GetPrice($idShowing);
-            //var_dump($price);
 
             if((date("D")=='Tue'||date("D")=='Wed')&&$quantity>=2){
 
@@ -64,69 +48,21 @@
                 $buy->setTotal(($price*$quantity));
             }
             $capacidad = $this->ticketDAO->CheckAvailability($idShowing);
-            //var_dump($capacidad);
 
             if(($this->ticketDAO->CheckAvailability($idShowing))>=$quantity){
                 $idBuy = $this->buyDAO->Add($buy);
 
-                //var_dump($idBuy);
-                /*for ($i=0; $i < $quantity; $i++) { 
-                    $ticket = new Ticket();
-                    $ticket->setShowing();
-                    $ticket->getShowing()->setIdShowing($idShowing);
-
-                    $ticket->setBuy();
-                    $ticket->getBuy()->setIdBuy($idBuy);
-
-                    $this->ticketDAO->Add($ticket);*/
-                
-                    $z = $this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId());
-                    var_dump($z);
-                    $this->showAddInfoTarjetaView();
+                var_dump($this->buyDAO->GetBuyForId($idBuy));
+                $z = $this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId());
+                //$this->showAddInfoTarjetaView();
                 }
             }
-
-            
-            //var_dump($this->ticketDAO->getAll());
-
-            /*$idUser = $this->userDAO->GetIdByEmail($_SESSION["loggedUser"]->getEmail());
-            $buy->setUser();
-            $buy->getUser()->setId($idUser);
-            $idBuy=$this->buyDAO->Add($buy);
-
-            $buy->setIdBuy($idBuy);
-
-
-            $ticket = new Ticket();
-            $ticket->setQr('asdsadds');
-            $ticket->setIdShowing($idShowing);
-            $ticket->setIdBuy($idBuy);
-            $showing = $this->showingDAO->GetById($idShowing);
-            $result = $this->checkAvailability($showing);
-            if($quantity<=$result){
-                for ($i=0; $i < $quantity; $i++) { 
-                $this->ticketDAO->Add($ticket);
-            }
-            $this->ShowReceip($buy);
-            }else{
-                require_once(VIEWS_PATH.'nav-user.php');
-                echo("<br><br><br><br><br><br><H1 style='color:white;'>no quantity available!!</H1>");
-            }*/
         public function showAddInfoTarjetaView(){
                 require_once(VIEWS_PATH."IngresarTarjeta.php");
             }  
 
-            /*public function payBuy(){
-                
-                $pay = new Pay();
-
-            }  */ 
-
             public function ValidateCard($nombre,$cvv,$cardNumber,$mes,$type)
-        {
-            
-            var_dump(date("Y-m-d"));
-            
+        {         
             if($this->validateCC($cardNumber, $type)){
                 $pay = new Pay();
                 $pay->setDate(date("Y-m-d"));
@@ -138,20 +74,38 @@
                 for ($i=0; $i < $buy->getQuantityTicket(); $i++) { 
                     $ticket = new Ticket();
                     $ticket->setShowing();
-                    $ticket->getShowing()->setIdShowing($idShowing);
+                    $ticket->getShowing()->setIdShowing($_SESSION["Showing"]);
 
                     $ticket->setBuy();
-                    $ticket->getBuy()->setIdBuy($idBuy);
-
+                    $ticket->getBuy()->setIdBuy($buy->getIdBuy());
+                    //var_dump($ticket);
                     $this->ticketDAO->Add($ticket);
+                    $this->ShowListTicketView();
                 }
-
             }else{
                 $message="Error, Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card";
                 $scrip2="IngresarTarjeta.php";
                    include_once(VIEWS_PATH."Errors.php");
             }
         }
+
+        public function ShowListTicketView()
+           {
+               require_once(VIEWS_PATH."validate-session.php");
+               $ticketList =array();
+               $ticketList =$this->ticketDAO->GetAllByIdUser($_SESSION['loggedUser']->getId(),$this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId()));
+               $buy = $this->buyDAO->GetBuyForId($this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId())); 
+
+               require_once(VIEWS_PATH."buy-list2.php");
+           }
+
+           public function ShowListBuyView(){
+            require_once(VIEWS_PATH."validate-session.php");
+            $buyList =array();
+            $buyList =$this->buyDAO->GetAllByUser($_SESSION['loggedUser']->getId());
+            //var_dump($buyList);
+            require_once(VIEWS_PATH."buy-list.php");
+           }
 
         function validateCC($cardNumber, $type) {  
             if($type == "Master")  
@@ -174,15 +128,23 @@
                 $number = (string)$cardNumber;
                 $length = strlen($number);
                 return $length;
-            }
-            
-    }
-        
-        
+            }    
 
-
+            public function ShowListTicket($id){
+                $buy=$this->buyDAO->GetBuyForId($id);
+                if($buy->getPago()->getIdPay()!=0)
+                {
+                    $ticketList = array();
+                    $ticketList = $this->ticketDAO->GetAllTicketByIdBuy($id);
+                    require_once(VIEWS_PATH.'ticket-list.php');
+                }
+                else{
+                    $message="No termino de pagar las entradas, sera redirigo a la pestaña para cargar la tarjeta de credito y acretar el pago";
+                    $scrip2="IngresarTarjeta.php";
+                    require_once(VIEWS_PATH.'errors.php');
+                }
+                
     
-
-
-
+            }
+    }
 ?>
