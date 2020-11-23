@@ -204,6 +204,20 @@ class MovieDAO implements IDAO{
                  }
         }
 
+        public function getSold($idMovie){
+            try{
+                $procedure = "call CountMoneyForMovie(:Valuee);";
+                $parameters["Valuee"] = $idMovie;
+                $this->connection = Connection::GetInstance();
+                $result=$this->connection->Execute($procedure,$parameters);
+                return $result[0]["total"];
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         /*foreach ($resultSet as $row)
         {                
             $cinema = new Cinema();

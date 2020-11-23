@@ -63,6 +63,21 @@ class MovieController{
 
     }
 
+    public function ConsultSold($dayTimeStart,$dayTimeFinish){
+        $x=0;
+        $movieList=array();
+        $total=array();
+        $movieList= $this->movieDAO->GetAllForShowingActivas();
+        foreach($movieList as $movie)
+        {
+
+         array_push($total,$this->movieDAO->getSold($movie->getId()));
+
+        }
+        require_once(VIEWS_PATH."movie-listWithTotal.php");
+        
+    }
+
 }
  
 ?>

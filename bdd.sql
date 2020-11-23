@@ -349,7 +349,7 @@ BEGIN
 	where s.idMovie = Valuee;
 END //
 
-call `CountQuantityForMovie`();
+call `CountQuantityForMovie`(724989);
 
 drop procedure `CountQuantityForMovie`;
 
@@ -367,65 +367,42 @@ call `CountQuantityForCinema`();
 
 drop procedure `CountQuantityForCinema`;
 
-
-DELIMITER //
-CREATE PROCEDURE `CountQuantityForTurn` (in Valuee int)
-BEGIN
-	select count(t.nro_entrada) from Ticket t
-	inner join Showings s
-	on s.id_Showing = t.id_Showing 
-	where s.id_turno = Valuee;
-END //
-
-call `CountQuantityForTurn`();
-
 drop procedure `CountQuantityForTurn`;
 
 
-DELIMITER //
-CREATE PROCEDURE `CountMoneyForMovie` (in Valuee int)
-BEGIN
-    select sum(b.total) from buy b
-	inner join ticket t
-	on t.id_Buy = b.id_Buy 
-	inner join showings s
-	on t.id_Showing = s.id_Showing
-	where s.idMovie = valuee;
-END //
-
-call `CountMoneyForMovie`();
-
-drop procedure `CountMoneyForMovie`;
+call `CountMoneyForMovie`(724989);
 
 DELIMITER //
-CREATE PROCEDURE `CountMoneyForCinema` (in Valuee int)
+CREATE PROCEDURE CountMoneyForMovie (in Valuee int)
 BEGIN
-    select sum(b.total) from buy b
-	inner join ticket t
-	on t.id_Buy = b.id_Buy 
-	inner join showings s
-	on t.id_Showing = s.id_Showing
-	where s.idCine = valuee;
+    select sum(ta.total) from (select b.total from buy b
+    inner join ticket t on
+    t.id_Buy = b.id_Buy
+    inner join showings s on
+    s.id_Showing = t.id_Showing
+    where s.idMovie = Valuee
+    group by b.id_Buy) as ta;
 END //
 
-call `CountMoneyForTurn`();
 
-drop procedure `CountMoneyForTurn`;
+drop procedure `CountMoneyForCinema`;
 
 DELIMITER //
-CREATE PROCEDURE `CountMoneyForTurn` (in Valuee int)
+CREATE PROCEDURE CountMoneyForCinema (in Valuee int)
 BEGIN
-    select sum(b.total) from buy b
-	inner join ticket t
-	on t.id_Buy = b.id_Buy 
-	inner join showings s
-	on t.id_Showing = s.id_Showing
-	where s.id_turno = valuee;
+    select sum(ta.total) from (select b.total from buy b
+    inner join ticket t
+    on t.id_Buy = b.id_Buy 
+    inner join showings s
+    on t.id_Showing = s.id_Showing
+    inner join room r
+    on r.idRoom = s.idRoom
+    where r.id_Cine = Valuee
+    group by b.id_Buy) as ta;
 END //
 
-call `CountMoneyForTurn`();
+call `CountMoneyForCinema`(3);
 
-drop procedure `CountMoneyForTurn`;
 
 DELIMITER //
 create procedure `GetAllTicketByIdBuy`(in id integer)

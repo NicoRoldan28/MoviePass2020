@@ -4,12 +4,14 @@
         <ul class="submenu">
           <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowAddCinemaView "?>">CINEMA ADD</a></li>
           <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListCinemaView "?>">CINEMA LIST</a></li>
+          <li><a href="<?php echo  FRONT_ROOT."Cinema/ConsultSold "?>">TOTAL SOLD </a></li>
         </ul>
     </li>
     <li><a href="#">MOVIES</a>
       <ul class="submenu">
           <li><a href="<?php echo  FRONT_ROOT."Movie/SaveDataBD "?>">UPDATE MOVIES</a></li>
           <li><a href="<?php echo  FRONT_ROOT."Movie/ShowListView"?>">LIST MOVIES</a></li>
+          <li><a href="<?php echo  FRONT_ROOT."Movie/ConsultSold "?>">TOTAL SOLD</a></li>
       </ul>
     </li>
       <li><a href="#">GENDERS</a>
@@ -30,6 +32,7 @@
           <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListShowingView "?>">SHOWINGS LIST</a></li>
         </ul>
       </li>
+      <li><a href="<?php echo  FRONT_ROOT."Cinema/SelectDaysForBuys"?>">GET ALL SOLDS</span></a></li>
   </ul>
 </nav>
 

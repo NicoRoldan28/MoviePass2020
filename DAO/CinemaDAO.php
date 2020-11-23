@@ -187,8 +187,19 @@
             }
         }
 
-
-
-    }
+        public function getSold($id_cinema){
+            try{
+                $procedure = "call CountMoneyForCinema(:id);";
+                $parameters["id"] = $id_cinema;
+                $this->connection = Connection::GetInstance();
+                $result=$this->connection->Execute($procedure,$parameters);
+                return $result[0]["total"];
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+}
 
 ?>

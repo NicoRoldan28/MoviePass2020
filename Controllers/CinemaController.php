@@ -16,6 +16,8 @@
 
        use DAO\GenderDAO as GenderDAO;
        use Models\Gender as Gender;
+
+       use Controllers\MovieController as MovieController;
    
        class CinemaController{
    
@@ -24,6 +26,8 @@
            private $showingDAO;
            private $movieDAO;
            private $genderDAO;
+
+           private $MovieController;
    
            public function __construct(){
                $this->cinemaDAO = new CinemaDAO();
@@ -31,6 +35,9 @@
                $this->movieDAO= new MovieDAO();
                $this->showingDAO = new ShowingDAO();
                $this->genderDAO = new GenderDAO();
+
+               $this->MovieController=new MovieController();
+
            }
    
            //################ CINEMA ######################################################################################################
@@ -94,6 +101,17 @@
                     $scrip2="registerCinema.php";
                     include_once(VIEWS_PATH."Errors.php");
                }          
+           }
+           public function ConsultSold($dayTimeStart,$dayTimeFinish){
+            
+               $cinemaList=array();
+               $cinemaList= $this->cinemaDAO->GetAll();
+               foreach($cinemaList as $cinema)
+               {
+                $cinema->setTotal($this->cinemaDAO->getSold($cinema->getId()));
+               }
+               require_once(VIEWS_PATH."listCinemaWithTotal.php");
+               
            }
    
            ################### ROOM #########################################################################################################
@@ -373,6 +391,29 @@
            {
             require_once(VIEWS_PATH."validate-session.php");
             require_once(VIEWS_PATH."selectDays.php");
+           }
+
+           public function SelectDaysForBuys()
+           {
+            require_once(VIEWS_PATH."validate-session.php");
+            require_once(VIEWS_PATH."selectDays2.php");
+           }
+
+           public function SearchDateForSold($dayTimeStart,$dayTimeFinish,$type)
+           {
+            $fechaActual=date("Y-m-d");
+
+            if(($dayTimeStart>=$fechaActual)&&($dayTimeFinish>=$fechaActual))
+            {
+                if($type=="Cinema")
+                {
+                    $this->ConsultSold($dayTimeStart,$dayTimeFinish);
+                }
+                else if($type=="Movie")
+                {
+                    $this->MovieController->ConsultSold($dayTimeStart,$dayTimeFinish);
+                }
+            }
            }
 
            public function SearchDate($dayTimeStart,$dayTimeFinish){
