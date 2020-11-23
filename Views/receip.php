@@ -1,8 +1,13 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'head.php');?></nav> 
+<nav style='position: fixed'><?php require_once('head.php');
+/*require_once(VIEWS_PATH.'nav-user2.php');*/?></nav> 
 <br><br><br><br><br>
-<form name='mensaje' action="<?php echo FRONT_ROOT?>Buy/registerCard" method="POST" >
-        <div id="register">
-                <div id="ticket">
+
+<?php
+foreach ($buyList as $buy) { ?>
+      <div id="register">
+              <form action=<?php echo FRONT_ROOT."Buy/showTicketListView"?> method="post">
+        
+        <div id="ticket">
                                 <div id="entries">
                                         <tr>
                                                 <th>Date: </th>        
@@ -19,12 +24,9 @@
                                 </tbody>
                         <tr>
                                 <th>Quantity ticket</th>
-                                <th id="total"><?php echo $buy->getQuantityTickets(); ?></th>
+                                <th id="total"><?php echo $buy->getQuantityTicket(); ?></th>
                         </tr>
-                        <tr>
-                                <th>Price</th>
-                                <th id="total">300</th>
-                        </tr>
+                
                         <tr>
                                 <th>Discount</th>
                                 <th id="total"><?php echo $buy->getDiscount().'%'; ?></th>
@@ -38,8 +40,14 @@
                         </tfoot>
                         </table>
                         <td>
-                                <button type="submit" name="btnPay" class="btn btn-danger" value="<?php echo $buy->getTotal().'-'.$buy->getIdBuy(); ?>"> PAGAR CON TARJETA DE CREDITO </button>
-                        </td>
+                          </td>
                 </div>
-        </div>   
-</form>
+        
+              
+              <button class= "btn btn-default" type="submit" name="idShowing" value=<?php echo $buy->getIdBuy();?>>Confirm</button>
+
+        </form>
+                
+        </div>     
+<?php
+} ?>
