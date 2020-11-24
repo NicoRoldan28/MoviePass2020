@@ -187,10 +187,12 @@
             }
         }
 
-        public function getSold($id_cinema){
+        public function getSold($id_cinema,$dayTimeStart,$dayTimeFinish){
             try{
-                $procedure = "call CountMoneyForCinema(:id);";
+                $procedure = "call CountMoneyForCinema(:id,:dayS,:dayF);";
                 $parameters["id"] = $id_cinema;
+                $parameters["dayS"] = $dayTimeStart;
+                $parameters["dayF"] = $dayTimeFinish;
                 $this->connection = Connection::GetInstance();
                 $result=$this->connection->Execute($procedure,$parameters);
                 return $result[0]["total"];

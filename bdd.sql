@@ -147,6 +147,8 @@ select * from ticket;
 
 truncate table ticket;
 
+
+
 ######################################  Buy  ##############################################
 
 
@@ -400,7 +402,7 @@ drop procedure `CountQuantityForTurn`;
 call `CountMoneyForMovie`(724989);
 
 DELIMITER //
-CREATE PROCEDURE CountMoneyForMovie (in Valuee int)
+CREATE PROCEDURE CountMoneyForMovie (in Valuee int,in dayS int, in dayF int)
 BEGIN
     select sum(ta.total) from (select b.total from buy b
     inner join ticket t on
@@ -408,14 +410,15 @@ BEGIN
     inner join showings s on
     s.id_Showing = t.id_Showing
     where s.idMovie = Valuee
+    and s.day between dayS and dayF
     group by b.id_Buy) as ta;
 END //
 
 
-drop procedure `CountMoneyForCinema`;
+drop procedure `CountMoneyForMovie`;
 
 DELIMITER //
-CREATE PROCEDURE CountMoneyForCinema (in Valuee int)
+CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS int, in dayF int)
 BEGIN
     select sum(ta.total) from (select b.total from buy b
     inner join ticket t
@@ -425,6 +428,7 @@ BEGIN
     inner join room r
     on r.idRoom = s.idRoom
     where r.id_Cine = Valuee
+    and s.day between dayS and dayF
     group by b.id_Buy) as ta;
 END //
 
@@ -452,7 +456,7 @@ END //
 
 
 
-call `GetAllTicketByIdBuy`(3);
+call `GetAllTicketByIdBuy`(2);
 select * from ticket;
 select * from buy;
 
@@ -490,8 +494,17 @@ drop procedure `GetAllByIdUser`;
 DELIMITER //
 create procedure `AddTicket`(in )
 
+DELIMITER //
+create procedure `GetAllBuyByIdUser`(in id integer)
+BEGIN
+select b.id_Buy, b.quantityTickets, b.discount, b.days, b.total, ifnull(b.id_Pay,0) as idPago, b.id_User from buy b
+where b.id_User = id
+and b.id_User !=null
+group by b.id_Buy;
+END
 
-
+drop procedure `GetAllBuyByIdUser`;
+select * from buy
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SELECTS Y TRUNCATES%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -574,6 +587,8 @@ BEGIN
 	WHERE b.id_Buy = idBuy;
 END //
 
+
+
 select * from paytc;
 
 select * from buy;
@@ -583,4 +598,25 @@ call `AcreditePay`("2020-12-20",1800,1);
 
 SELECT b.id_Buy FROM buy b where b.id_User = 2
                 order by b.id_Buy desc limit 1;
+
+SELECT t.id_Showing from ticket t 
+WHERE(t.id_Showing = 2)
+group by t.id_Showing;
+
+DELIMITER //
+CREATE PROCEDURE `getTicketByIdBuy` (in id int)
+BEGIN
+	select t.id_Showing from ticket t
+	WHERE(t.id_Buy = id)
+	group by t.id_Showing;
+END //
+
+drop procedure `getTicketByIdBuy`;
+call `getTicketByIdBuy`(13);
+
+select * from buy
+select * from ticket
+
+
+
 

@@ -87,6 +87,31 @@
                 }
         }
 
+        public function getTicketByIdBuy($id)
+        {
+            try {
+                $ticketList = array();
+                var_dump($id);
+                $procedure = 'call GetAllTicketByIdBuy(:id);';
+                $parameters['id']=$id;
+
+                /* 
+            $query = 'SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from '.$this->tableName.' as s 
+            inner join room r on r.idRoom = s.idRoom WHERE(s.idMovie = :idMovie);';
+
+            $parameters["idMovie"] = $idMovie;
+                */
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($procedure,$parameters);
+                var_dump($result);
+                return $result;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
         public function GetAllByIdUser($id,$idBuy){
             try {
                 $ticketList = array();

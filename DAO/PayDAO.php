@@ -12,12 +12,6 @@
         public function AcreditPay(Pay $pay,$idBuy){
             try
             {
-
-                var_dump($pay->getDate());
-                var_dump($pay->getTotal());
-                var_dump($idBuy);
-
-
                 $procedure = 'call AcreditePay(:days,:total,:idBuy);';
                 $parameters["days"]=$pay->getDate();
                 $parameters["total"]=$pay->getTotal();

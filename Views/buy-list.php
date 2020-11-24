@@ -1,40 +1,53 @@
-<nav style='position: fixed'><?php require_once(VIEWS_PATH.'head.php');?></nav> 
-        <form action="<?php echo FRONT_ROOT?>Buy/ShowListTicket" method="POST" >
-        <div class="TableStylesRooms">
-        <table>
-        <thead>
-        <tr>
-                <th>Date</th>
-                <th>Quantity ticket</th>
-                <th>Discount</th>
-                <th>Instance</th>
-                <th>Total</th>
-                <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-      foreach($buyList as $buy)
-      {
-       ?>
-                <tr>
-                <td><?php echo $buy->getDate() ?></td>
-                <td><?php echo $buy->getQuantityTicket() ?></td>
-                <td><?php echo $buy->getDiscount().'%' ?></td>
-                <td><?php if($buy->getPago()->getIdPay()!=0){
-                   echo "Pago" ;    
-                }
-                else{
-                   echo "Impago" ;   
-                }
-                 ?></td>
-                <td><?php echo $buy->getTotal() ?></td>
-                <td><button type="submit" name="idBuy" value=<?php echo $buy->getIdBuy();?>>Show Tickets </button></td>
-                </tr>
-                <?php 
-      }
-      ?>
-        </tbody>
-        </table>
-        </div>
-    </form>
+<nav style='position: fixed'><?php require_once('head.php');
+/*require_once(VIEWS_PATH.'nav-user2.php');*/?></nav> 
+<br><br><br><br><br>
+
+<?php
+foreach ($buyList as $buy) { ?>
+      <div id="register">
+              <form action=<?php echo FRONT_ROOT."Buy/ShowListTicket"?> method="post">
+        
+                 <div id="ticket">
+                                <div id="entries">
+                                        <tr>
+                                                <th>Date: </th>        
+                                                <th> <?php echo $buy->getDate(); ?></th>
+                                        </tr>    
+                                </div>
+
+                                <br>
+                        <h1>TICKET</h1>
+                        <H3 style="text-align:center;">MoviePass</H3>
+                        <br><br>
+                        <table>
+                                <tbody id="entries">        
+                                </tbody>
+                        <tr>
+                                <th>Quantity ticket</th>
+                                <th id="total"><?php echo $buy->getQuantityTicket(); ?></th>
+                        </tr>
+                
+                        <tr>
+                                <th>Discount</th>
+                                <th id="total"><?php echo $buy->getDiscount().'%'; ?></th>
+                        </tr>
+                        <tfoot>
+                                <tr>
+                                        <th>Total</th>
+                                        <th id="total"><?php echo $buy->getTotal(); ?></th>
+                                </tr>
+                        
+                        </tfoot>
+                        </table>
+                        <td>
+                          </td>
+                </div>
+        
+              
+              <button class= "" type="submit" name="idShowing" value=<?php echo $buy->getIdBuy();?>>Confirm</button>
+
+       
+                
+        </div>  </form>    
+<?php
+} ?>

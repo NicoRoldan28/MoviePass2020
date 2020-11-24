@@ -204,10 +204,12 @@ class MovieDAO implements IDAO{
                  }
         }
 
-        public function getSold($idMovie){
+        public function getSold($idMovie,$dayTimeStart,$dayTimeFinish){
             try{
-                $procedure = "call CountMoneyForMovie(:Valuee);";
+                $procedure = "call CountMoneyForMovie(:Valuee,:dayS,:dayF);";
                 $parameters["Valuee"] = $idMovie;
+                $parameters["dayS"] = $dayTimeStart;
+                $parameters["dayF"] = $dayTimeFinish;
                 $this->connection = Connection::GetInstance();
                 $result=$this->connection->Execute($procedure,$parameters);
                 return $result[0]["total"];

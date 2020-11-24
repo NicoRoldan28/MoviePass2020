@@ -71,7 +71,7 @@ class MovieController{
         foreach($movieList as $movie)
         {
 
-         array_push($total,$this->movieDAO->getSold($movie->getId()));
+         array_push($total,$this->movieDAO->getSold($movie->getId(),$dayTimeStart,$dayTimeFinish));
 
         }
         require_once(VIEWS_PATH."movie-listWithTotal.php");
