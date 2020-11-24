@@ -122,7 +122,7 @@
                    include_once(VIEWS_PATH."Errors.php");
                 }
             }else{
-                $message="Error, Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card";
+                $message="Error, Credit card invalid. Please make sure that you entered a valid credit card";
                 $scrip2="IngresarTarjeta.php";
                    include_once(VIEWS_PATH."Errors.php");
             }
@@ -244,13 +244,12 @@
         $mail->Password   = "fernandamama";                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-/
         //Recipients
         $mail->setFrom('nicolasroldan31@gmail.com', 'Nicolas');
         $mail->addAddress("$correo");     // Add a recipient
 
         // Attachments
-        $mail->addAttachment('Qr\img\qrcode.png',);         // Add attachments
+        $mail->addAttachment('Qr\img\qrcode.png');         // Add attachments
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML

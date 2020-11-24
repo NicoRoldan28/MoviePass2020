@@ -1,5 +1,4 @@
-<nav style='position: fixed'><?php require_once('head.php');
-/*require_once(VIEWS_PATH.'nav-user2.php');*/?></nav> 
+<nav style='position: fixed'><?php require_once('head.php');?></nav> 
 <br><br><br><br><br>
 
 <?php

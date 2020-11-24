@@ -156,12 +156,43 @@ class ShowingDAO implements IDAO{
                 }
         }
         
-        public function GetShowingForDay($dayTime){
+        public function GetShowingForDayAndYesterday($dayTime){
             try {
                 //var_dump($dayTime);
                 $showingList = array();
                 
                 $procedure = 'call ShowingForDayAndYesterday(:dayTime);';
+    
+                $parameters["dayTime"] = $dayTime;
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($procedure,$parameters);
+                foreach($result as $row){
+                    $showing= new Showing();
+                    $showing->setIdShowing($row["id_Showing"]);
+                    $showing->setDayTime($row["day"]);
+                    $showing->setMovie();
+                    $showing->getMovie()->setId($row["idMovie"]);
+                    $showing->setRoom();
+                    $showing->getRoom()->setId($row["idRoom"]);
+                    $showing->setHrFinish($row["hrFinish"]);
+    
+                    $showing->getRoom()->setCinema();
+                    $showing->getRoom()->getCinema()->setId($row['id_Cine']);
+                    array_push($showingList,$showing);
+                }
+                
+                return $showingList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+        public function GetShowingForDay($dayTime){
+            try {
+                //var_dump($dayTime);
+                $showingList = array();
+                
+                $procedure = 'call ShowingForDay(:dayTime);';
     
                 $parameters["dayTime"] = $dayTime;
                 $this->connection = Connection::GetInstance();

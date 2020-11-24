@@ -16,6 +16,8 @@
 
        use DAO\GenderDAO as GenderDAO;
        use Models\Gender as Gender;
+       use DAO\TicketDAO as TicketDAO;
+
 
        use Controllers\MovieController as MovieController;
    
@@ -25,6 +27,8 @@
            private $roomDAO;
            private $showingDAO;
            private $movieDAO;
+           private $ticketDAO;
+
            private $genderDAO;
 
            private $MovieController;
@@ -35,6 +39,8 @@
                $this->movieDAO= new MovieDAO();
                $this->showingDAO = new ShowingDAO();
                $this->genderDAO = new GenderDAO();
+               $this->ticketDAO = new TicketDAO();
+
 
                $this->MovieController=new MovieController();
 
@@ -201,6 +207,8 @@
                 $showing->getMovie()->setImage($movie->getImage());
                 $showing->getMovie()->setLenguage($movie->getLenguage());
                 $showing->getMovie()->setGenders($movie->getGenders());
+
+                $showing->setAvailability($this->ticketDAO->CheckAvailability($showing->getIdShowing()));
                 }
                 return $showingList;
            }
@@ -243,15 +251,18 @@
                 $showing2->setHrFinish($horassss);
 
                 $showingList=$this->showingDAO->GetShowingForDay($showing2->getDayTime());
-                var_dump($showingList);
+                $showingList2=$this->showingDAO->GetShowingForDayAndYesterday($showing2->getDayTime());
+
+
                 if($showingList==null)
                 {
                     $this->showingDAO->Add($showing2);
                     $i++;
+                    $this->ShowListShowingView2();
                 }
                 else if(!($this->buscarMovieInShowing($showingList,$idMovie) ) ) {
 
-                    foreach($showingList as $showing)
+                    foreach($showingList2 as $showing)
                     {   
                             $date3=date_create($showing->getHrFinish());
 
@@ -303,7 +314,13 @@
                 if($f==$i)
                         {
                            $this->showingDAO->Add($showing2);
-                         }        
+                           $this->ShowListShowingView2();
+                         } 
+                         elseif($showingList2==null || $showingList==null)
+                         {
+                             $this->showingDAO->Add($showing2);
+                             $this->ShowListShowingView2();
+                         }       
                 else{
                        $cinemaList = $this->cinemaDAO->getAll();
                        $message="Error, no se ha podido agregar la funcion";

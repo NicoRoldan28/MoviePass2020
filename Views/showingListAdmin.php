@@ -17,6 +17,7 @@
                     <th>Horario fin</th>
                     <th>Duracion</th>
                     <th>capacidad</th>
+                    <th>disponibilidad</th>
                     <th>Lenguaje</th>                   
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                             <td><?php echo $showing->getHrFinish() ?></td>
                             <td><?php echo $showing->getMovie()->getLenght();?></td>
                             <td><?php echo $showing->getRoom()->getCapacidad();?></td>
+                            <td><?php echo $showing->getAvailability();?></td>
                             <td><?php echo $showing->getMovie()->getLenguage();?></td>
                         </tr>
                     <?php 
