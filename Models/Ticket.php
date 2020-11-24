@@ -7,7 +7,6 @@
         private $idTicket;
         private $Showing;
         private $Buy;
-        private $cargado;
 
         public function setIdTicket($idTicket){$this->idTicket=$idTicket;}
         public function getIdTicket(){return $this->idTicket;}
@@ -18,8 +17,5 @@
 
         public function setBuy(){$this->Buy = new Buy();}
         public function getBuy(){return $this->Buy;}
-
-        public function setCargado(){$this->cargado = cargado;}
-        public function GetCargado(){return $this->cargado;}
     }
 ?>

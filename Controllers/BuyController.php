@@ -173,7 +173,8 @@
             require_once(VIEWS_PATH."validate-session.php");
             $buyList =array();
             $buyList =$this->buyDAO->GetAllByUser($_SESSION['loggedUser']->getId());
-            require_once(VIEWS_PATH."buy-list.php");
+            var_dump($buyList);
+            //require_once(VIEWS_PATH."buy-list.php");
            }
 
         function validateCC($cardNumber, $type) {  
@@ -244,13 +245,12 @@
         $mail->Password   = "fernandamama";                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-/
         //Recipients
         $mail->setFrom('nicolasroldan31@gmail.com', 'Nicolas');
         $mail->addAddress("$correo");     // Add a recipient
 
         // Attachments
-        $mail->addAttachment('Qr\img\qrcode.png',);         // Add attachments
+        $mail->addAttachment('Qr\img\qrcode.png');         // Add attachments
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML

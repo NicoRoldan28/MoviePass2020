@@ -243,15 +243,18 @@
                 $showing2->setHrFinish($horassss);
 
                 $showingList=$this->showingDAO->GetShowingForDay($showing2->getDayTime());
-                var_dump($showingList);
+                $showingList2=$this->showingDAO->GetShowingForDayAndYesterday($showing2->getDayTime());
+                //var_dump($showingList);
                 if($showingList==null)
                 {
                     $this->showingDAO->Add($showing2);
                     $i++;
+                    $this->ShowListShowingView2();
                 }
+                
                 else if(!($this->buscarMovieInShowing($showingList,$idMovie) ) ) {
-
-                    foreach($showingList as $showing)
+                    
+                    foreach($showingList2 as $showing)
                     {   
                             $date3=date_create($showing->getHrFinish());
 
@@ -303,7 +306,13 @@
                 if($f==$i)
                         {
                            $this->showingDAO->Add($showing2);
-                         }        
+                           $this->ShowListShowingView2();
+                         }
+                elseif($showingList2==null || $showingList==null)
+                         {
+                             $this->showingDAO->Add($showing2);
+                             $this->ShowListShowingView2();
+                         }                       
                 else{
                        $cinemaList = $this->cinemaDAO->getAll();
                        $message="Error, no se ha podido agregar la funcion";

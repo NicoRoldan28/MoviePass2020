@@ -33,7 +33,7 @@
                             <td><?php echo $showing->getRoom()->getNombre();?></td>
                             <td><?php echo $showing->getDayTime() ?></td>
                             <td><?php echo $showing->getHrFinish() ?></td>
-                            <td><?php echo $showing->getMovie()->getLenght();?></td>
+                            <td><?php echo $showing->getMovie()->getLenght();?> minutos</td>
                             <td><?php echo $showing->getRoom()->getCapacidad();?></td>
                             <td><?php echo $showing->getMovie()->getLenguage();?></td>
                         </tr>

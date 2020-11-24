@@ -1,6 +1,6 @@
 <?php
     require_once('head.php');
-    //require_once('nav-admin.php');
+    require_once('nav-admin.php');
     date_default_timezone_set('America/Argentina/Buenos_Aires');
     ?>
 <body class= "backgroundDeadPool">
