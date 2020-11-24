@@ -583,3 +583,34 @@ BEGIN
     WHERE CAST(dayTime AS date) = CAST(s.day AS date)
     or  CAST(DATE_ADD(dayTime, INTERVAL -1 DAY) AS date) = CAST(s.day AS date);
 END //
+use mp;
+DELIMITER //
+CREATE PROCEDURE CountMoneyForMovie (in Valuee int,in dayS int, in dayF int)
+BEGIN
+    select sum(ta.total) from (select b.total from buy b
+    inner join ticket t on
+    t.id_Buy = b.id_Buy
+    inner join showings s on
+    s.id_Showing = t.id_Showing
+    where s.idMovie = Valuee
+    and s.day between dayS and dayF
+    group by b.id_Buy) as ta;
+END //
+
+drop procedure CountMoneyForMovie;
+drop procedure CountMoneyForCinema;
+
+DELIMITER //
+CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS int, in dayF int)
+BEGIN
+    select sum(ta.total) from (select b.total from buy b
+    inner join ticket t
+    on t.id_Buy = b.id_Buy 
+    inner join showings s
+    on t.id_Showing = s.id_Showing
+    inner join room r
+    on r.idRoom = s.idRoom
+    where r.id_Cine = Valuee
+    and s.day between dayS and dayF
+    group by b.id_Buy) as ta;
+END //
