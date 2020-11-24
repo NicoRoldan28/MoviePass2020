@@ -249,7 +249,7 @@
 
                 //var_dump($showing2->getDayTime());
                 $showingList=$this->showingDAO->GetShowingForDay($showing2->getDayTime());
-                //var_dump($showingList);
+                var_dump($showingList);
                 //var_dump($showingList);
                 if($showingList==null)
                 {
@@ -266,12 +266,12 @@
                     {   
                             $date3=date_create($showing->getHrFinish());
                             //var_dump("hola");
-                            //var_dump($date3);
-                            //var_dump($date2);
+                            var_dump($date3);
+                            var_dump($date2);
 
 
                             $diff=date_diff($date3,$date2);
-                            //var_dump($diff);
+                            var_dump($diff);
 
                             //$date6=date_format($date2,'Y-m-d H:i:s');
                             //var_dump($showing->getDayTime());
@@ -359,11 +359,11 @@
                 if($f==$i)
                         {
                            $this->showingDAO->Add($showing2);
-                           $this->ShowListShowingView2();
+                          // $this->ShowListShowingView2();
                          } 
                 elseif($showingList==null)
                 {
-                    $this->ShowListShowingView2();
+                    //$this->ShowListShowingView2();
                 }         
                 else{
                        $cinemaList = $this->cinemaDAO->getAll();

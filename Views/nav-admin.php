@@ -32,7 +32,7 @@
           <li><a href="<?php echo  FRONT_ROOT."Cinema/ShowListShowingView "?>">SHOWINGS LIST</a></li>
         </ul>
       </li>
-      <li><a href="<?php echo  FRONT_ROOT."Cinema/SelectDaysForBuys"?>">GET ALL SOLDS</span></a></li>
+      
   </ul>
 </nav>
 

@@ -15,6 +15,8 @@ create table perfilUsers(
 
 drop table perfilUsers;
 select * from perfilusers;
+delete from perfilUsers where id_perfil=8;
+
 
 
 #######################################  ROL  ##############################################
@@ -31,12 +33,14 @@ select * from rol;
 
 create table users(
 id_user integer auto_increment primary key,
-email varchar(30) not null,
+email varchar(40) not null,
 password varchar (20) not null,
 id_perfilUser integer not null,
 id_rol integer not null,
 constraint fk_id_perfilUser foreign key(id_perfilUser) references perfilUsers(id_perfil),
 constraint fk_id_rol foreign key(id_rol) references rol(id_rol));
+
+
 
 drop table users;
 select * from users;
@@ -204,6 +208,7 @@ insert into perfilusers(user_name,firstName,lastName,dni) value('Rodri_07','Rodr
 insert into users(email,password,id_perfilUser,id_rol) value('rodrigo_villarroel@outlook.com',123456,1,2);
 
 
+
 select * from users u
 inner join perfilusers p
 on u.id_perfilUser = p.id_perfil;
@@ -231,12 +236,21 @@ CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varch
 
 BEGIN
     insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
+    insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
+
+END //
+
+CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
+CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
+
+BEGIN
+    insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
     -- set id = last_insert_id();select @id;
     insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
 
 END //
 
-call `CargarUserClient`();
+call `CargarUserClient`("nicolas","nico","roldan",41306783,"rodrigo.villarroel.07@gmail.com","1234");
 
 drop procedure `CargarUserClient`;
 
@@ -259,9 +273,22 @@ BEGIN
 	WHERE CAST(dayTime AS date) = CAST(s.day AS date);
 END //
 
-call `ShowingForDay`();
 
-drop procedure `ShowingForDay`;
+DELIMITER //
+CREATE PROCEDURE `ShowingForDayAndYesterday` (in dayTime datetime)
+BEGIN
+	select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+	inner join room r on s.idRoom = r.idRoom
+	WHERE CAST(dayTime AS date) = CAST(s.day AS date)
+    or  CAST(DATE_ADD(dayTime, INTERVAL -1 DAY) AS date) = CAST(s.day AS date);
+END //
+	
+and  DATE_ADD(dayTime, INTERVAL -1 DAY) = CAST(s.day AS date);
+select DATE_ADD("2020-11-29", INTERVAL -1 DAY) as day
+
+call `ShowingForDayAndYesterday`("2020-11-29 22:00:00");
+
+drop procedure `ShowingForDayAndYesterday`;
 
 DELIMITER //
 Create Procedure `ShowingForDays` (in days date, in endDay date)
@@ -271,7 +298,7 @@ BEGIN
     where s.day between days and endDay
     order By s.day;
 END //
-
+select * from showings
 call `ShowingForDays`();
 
 drop procedure `ShowingForDays`;
@@ -416,11 +443,16 @@ inner join room r
 on s.idRoom = r.idRoom
 inner join cinemas c
 on r.id_Cine = c.id_cinema
-where ti.id_Buy = 1
+where ti.id_Buy = id
 ;
 END //
 
-call `GetAllTicketByIdBuy`(10);
+
+
+
+
+
+call `GetAllTicketByIdBuy`(3);
 select * from ticket;
 select * from buy;
 
@@ -541,6 +573,8 @@ BEGIN
 	SET b.id_Pay = last_insert_id()
 	WHERE b.id_Buy = idBuy;
 END //
+
+select * from paytc;
 
 select * from buy;
 drop procedure `AcreditePay`;

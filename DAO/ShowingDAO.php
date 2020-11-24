@@ -161,7 +161,7 @@ class ShowingDAO implements IDAO{
                 //var_dump($dayTime);
                 $showingList = array();
                 
-                $procedure = 'call ShowingForDay(:dayTime);';
+                $procedure = 'call ShowingForDayAndYesterday(:dayTime);';
     
                 $parameters["dayTime"] = $dayTime;
                 $this->connection = Connection::GetInstance();
