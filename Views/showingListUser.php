@@ -6,7 +6,6 @@
             <table style="text-align:center;">
             <thead>
                 <tr>
-                    <th>id</th>
                     <th>Pelicula</th>
                     <th>Cine</th>
                     <th>SALA</th>
@@ -27,8 +26,6 @@
                         ?>
                         <tr> 
                         <form action="<?php echo FRONT_ROOT?>Buy/buyTicket" method="post">
-                            <td><?php echo $showing->getIdShowing();?></td>
-                        
                             <td><?php echo $showing->getMovie()->getTitle();?></td>
                             <td><?php echo $showing->getRoom()->getCinema()->getName();?></td>
                             <td><?php echo $showing->getRoom()->getNombre();?></td>

@@ -109,6 +109,7 @@
                         $ticket->getBuy()->setIdBuy($buy->getIdBuy());
 
                         $this->ticketDAO->Add($ticket);
+                        $this->ShowListTicketView();
                     }
 
                 }else{
