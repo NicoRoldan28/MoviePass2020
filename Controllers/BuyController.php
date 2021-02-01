@@ -173,8 +173,8 @@
             require_once(VIEWS_PATH."validate-session.php");
             $buyList =array();
             $buyList =$this->buyDAO->GetAllByUser($_SESSION['loggedUser']->getId());
-            var_dump($buyList);
-            //require_once(VIEWS_PATH."buy-list.php");
+            //var_dump($buyList);
+            require_once(VIEWS_PATH."buy-list.php");
            }
 
         function validateCC($cardNumber, $type) {  

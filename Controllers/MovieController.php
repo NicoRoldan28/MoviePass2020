@@ -70,7 +70,6 @@ class MovieController{
         $movieList= $this->movieDAO->GetAllForShowingActivas();
         foreach($movieList as $movie)
         {
-
          array_push($total,$this->movieDAO->getSold($movie->getId(),$dayTimeStart,$dayTimeFinish));
 
         }
