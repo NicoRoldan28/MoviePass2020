@@ -15,6 +15,9 @@
        use \DateTime as DateTime;
 
        use DAO\GenderDAO as GenderDAO;
+
+       use DAO\TicketDAO as TicketDAO;
+
        use Models\Gender as Gender;
 
        use Controllers\MovieController as MovieController;
@@ -26,15 +29,19 @@
            private $showingDAO;
            private $movieDAO;
            private $genderDAO;
+           private $ticketDAO;
 
            private $MovieController;
    
            public function __construct(){
+
                $this->cinemaDAO = new CinemaDAO();
                $this->roomDAO = new RoomDAO();
                $this->movieDAO= new MovieDAO();
                $this->showingDAO = new ShowingDAO();
                $this->genderDAO = new GenderDAO();
+
+               $this->ticketDAO = new TicketDAO();
 
                $this->MovieController=new MovieController();
 
@@ -201,6 +208,7 @@
                 $showing->getMovie()->setImage($movie->getImage());
                 $showing->getMovie()->setLenguage($movie->getLenguage());
                 $showing->getMovie()->setGenders($movie->getGenders());
+                $showing->setAvailability($this->ticketDAO->CheckAvailability($showing->getIdShowing()));
                 }
                 return $showingList;
            }

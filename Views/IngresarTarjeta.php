@@ -20,11 +20,11 @@ require_once('head.php');
             
             <div class="form-group CVV">
                 <label for="cvv">CVV</label>
-                <input type="text" class="form-control" name="cvv" required>
+                <input type="number"  min=0 max=9999 class="form-control" name="cvv" required>
             </div>
             <div class="form-group" id="card-number-field">
                 <label for="cardNumber">Card Number</label>
-                <input type="text" maxlength="16" minlength="16" min=0 class="form-control" name="cardNumber" autocomplete="off"  required>
+                <input type="number" min=0 class="form-control" name="cardNumber" autocomplete="off"  required>
             </div>
             <div class="form-group" id="expiration-date">
                 <label for="bdaymonth">Expiration Date (month and year):</label>

@@ -275,7 +275,6 @@ BEGIN
 	WHERE CAST(dayTime AS date) = CAST(s.day AS date);
 END //
 
-
 DELIMITER //
 CREATE PROCEDURE `ShowingForDayAndYesterday` (in dayTime datetime)
 BEGIN
@@ -285,9 +284,6 @@ BEGIN
     or  CAST(DATE_ADD(dayTime, INTERVAL -1 DAY) AS date) = CAST(s.day AS date);
 END //
 	
-and  DATE_ADD(dayTime, INTERVAL -1 DAY) = CAST(s.day AS date);
-select DATE_ADD("2020-11-29", INTERVAL -1 DAY) as day
-
 call `ShowingForDayAndYesterday`("2020-11-29 22:00:00");
 
 drop procedure `ShowingForDayAndYesterday`;
@@ -399,17 +395,18 @@ drop procedure `CountQuantityForCinema`;
 drop procedure `CountQuantityForTurn`;
 
 
-call `CountMoneyForMovie`(724989);
+call `CountMoneyForMovie`(724989, "2020/11/23", "2020/11/28");
 
 DELIMITER //
-CREATE PROCEDURE CountMoneyForMovie (in Valuee int,in dayS int, in dayF int)
+CREATE PROCEDURE CountMoneyForMovie (in Valuee int,in dayS date, in dayF date)
 BEGIN
     select sum(ta.total) from (select b.total from buy b
     inner join ticket t on
     t.id_Buy = b.id_Buy
     inner join showings s on
     s.id_Showing = t.id_Showing
-    where s.idMovie = Valuee
+    where s.idMovie = 724989
+    
     and s.day between dayS and dayF
     group by b.id_Buy) as ta;
 END //
@@ -418,7 +415,7 @@ END //
 drop procedure `CountMoneyForMovie`;
 
 DELIMITER //
-CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS int, in dayF int)
+CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS date, in dayF date)
 BEGIN
     select sum(ta.total) from (select b.total from buy b
     inner join ticket t
@@ -432,7 +429,7 @@ BEGIN
     group by b.id_Buy) as ta;
 END //
 
-call `CountMoneyForCinema`(3);
+call `CountMoneyForCinema`(3,);
 
 
 DELIMITER //
@@ -499,10 +496,11 @@ create procedure `GetAllBuyByIdUser`(in id integer)
 BEGIN
 select b.id_Buy, b.quantityTickets, b.discount, b.days, b.total, ifnull(b.id_Pay,0) as idPago, b.id_User from buy b
 where b.id_User = id
-and b.id_User !=null
+and b.id_Pay !=0
 group by b.id_Buy;
 END
 
+call `GetAllBuyByIdUser`(2); 
 drop procedure `GetAllBuyByIdUser`;
 select * from buy
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -587,8 +585,6 @@ BEGIN
 	WHERE b.id_Buy = idBuy;
 END //
 
-
-
 select * from paytc;
 
 select * from buy;
@@ -616,7 +612,3 @@ call `getTicketByIdBuy`(13);
 
 select * from buy
 select * from ticket
-
-
-
-
