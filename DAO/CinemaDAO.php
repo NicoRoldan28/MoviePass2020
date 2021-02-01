@@ -195,7 +195,7 @@
                 $parameters["dayF"] = $dayTimeFinish;
                 $this->connection = Connection::GetInstance();
                 $result=$this->connection->Execute($procedure,$parameters);
-                return $result[0]["sum(ta.total)"];
+                return $result[0]["total"];
             }
             catch(Exception $ex)
             {

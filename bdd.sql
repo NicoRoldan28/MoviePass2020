@@ -243,6 +243,7 @@ BEGIN
 END //
 
 CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
+DELIMITER //
 CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varchar(50),in lastName varchar(50),in dni int, in email varchar(50),in password varchar(50))
 
 BEGIN
@@ -400,24 +401,26 @@ call `CountMoneyForMovie`(724989, "2020/11/23", "2020/11/28");
 DELIMITER //
 CREATE PROCEDURE CountMoneyForMovie (in Valuee int,in dayS date, in dayF date)
 BEGIN
-    select sum(ta.total) from (select b.total from buy b
+    select ifnull(sum(ta.total),0) as total from (select b.total from buy b
     inner join ticket t on
     t.id_Buy = b.id_Buy
     inner join showings s on
     s.id_Showing = t.id_Showing
-    where s.idMovie = 724989
+    where s.idMovie = Valuee
     
     and s.day between dayS and dayF
     group by b.id_Buy) as ta;
 END //
 
 
-drop procedure `CountMoneyForMovie`;
+call `CountMoneyForMovie`(766208,2021-01-01,2021-01-20);
+
+drop procedure `CountMoneyForCinema`;
 
 DELIMITER //
 CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS date, in dayF date)
 BEGIN
-    select sum(ta.total) from (select b.total from buy b
+    select ifnull(sum(ta.total),0) as total from (select b.total from buy b
     inner join ticket t
     on t.id_Buy = b.id_Buy 
     inner join showings s
@@ -429,8 +432,8 @@ BEGIN
     group by b.id_Buy) as ta;
 END //
 
-call `CountMoneyForCinema`(3,);
 
+drop procedure `GetAllTicketByIdBuy`;
 
 DELIMITER //
 create procedure `GetAllTicketByIdBuy`(in id integer)
@@ -448,12 +451,18 @@ where ti.id_Buy = id
 ;
 END //
 
+DELIMITER //
+create procedure `GetNumberTicketByIdBuy`(in id integer)
+BEGIN
+select ti.nro_entrada from ticket ti
+where ti.id_Buy = id
+;
+END //
 
 
+call `GetNumberTicketByIdBuy`(20);
 
-
-
-call `GetAllTicketByIdBuy`(2);
+call `GetAllTicketByIdBuy`(20);
 select * from ticket;
 select * from buy;
 
@@ -498,7 +507,7 @@ select b.id_Buy, b.quantityTickets, b.discount, b.days, b.total, ifnull(b.id_Pay
 where b.id_User = id
 and b.id_Pay !=0
 group by b.id_Buy;
-END
+END //
 
 call `GetAllBuyByIdUser`(2); 
 drop procedure `GetAllBuyByIdUser`;

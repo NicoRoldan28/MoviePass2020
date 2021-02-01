@@ -10,10 +10,10 @@
                 <h1>Select Day for See Total Sold</h1>
                 <br>
                 <br>
-                <label>Date && Hs Start <input type="datetime-local" name="dayTimeStart" min="<?php echo date('Y-m-d\TH:i'); ?>" required></label>
+                <label>Date && Hs Start <input type="datetime-local" name="dayTimeStart" required></label>
                 <br>
                 <br>
-                <label>Date && Hs Finish <input type="datetime-local" name="dayTimeFinish" min="<?php echo date('Y-m-d\TH:i') ; ?>" required></label>
+                <label>Date && Hs Finish <input type="datetime-local" name="dayTimeFinish" required></label>
                 <br>
                 <label>Cinemas<input type="radio" name="type" value="Cinema" required></label>
                 <label>Movies<input type="radio" name="type" value="Movie"></label>

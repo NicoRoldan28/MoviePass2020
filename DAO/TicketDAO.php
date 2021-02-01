@@ -87,6 +87,30 @@
                 }
         }
 
+        public function GetNumberTicketByIdBuy($id){
+            try {
+                $ticketList = array();
+                $procedure = 'call GetNumberTicketByIdBuy(:id);';
+                $parameters['id']=$id;
+
+                $this->connection = Connection::GetInstance();
+
+                $result = $this->connection->Execute($procedure,$parameters);
+                //var_dump($result);
+                foreach($result as $row){
+
+
+                    $ticket = new Ticket();
+                    $ticket->setIdTicket($row['nro_entrada']);
+
+                    array_push($ticketList,$ticket);
+                }
+                return $ticketList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
         public function getTicketByIdBuy($id)
         {
             try {

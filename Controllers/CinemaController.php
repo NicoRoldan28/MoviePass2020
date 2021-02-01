@@ -286,7 +286,7 @@
 
                                         if(($diff->format('%H')>=1) || ($diff->format('%I')>=15))
                                             {
-                                                $i++;;
+                                                $i++;
                                             }
                                             else{
                                                 $i--;
@@ -318,7 +318,6 @@
                          }
                 elseif($showingList2==null || $showingList==null)
                          {
-                             $this->showingDAO->Add($showing2);
                              $this->ShowListShowingView2();
                          }                       
                 else{
@@ -357,10 +356,6 @@
 
            public function SearchDateForSold($dayTimeStart,$dayTimeFinish,$type)
            {
-            $fechaActual=date("Y-m-d");
-
-            if(($dayTimeStart>=$fechaActual)&&($dayTimeFinish>=$fechaActual))
-            {
                 if($type=="Cinema")
                 {
                     $this->ConsultSold($dayTimeStart,$dayTimeFinish);
@@ -369,7 +364,6 @@
                 {
                     $this->MovieController->ConsultSold($dayTimeStart,$dayTimeFinish);
                 }
-            }
            }
 
            public function SearchDate($dayTimeStart,$dayTimeFinish){
@@ -402,5 +396,6 @@
             }
             return $i;
             }
+            
     }
 ?>
