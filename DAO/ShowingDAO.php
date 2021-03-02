@@ -21,7 +21,7 @@ class ShowingDAO implements IDAO{
             $this->connection = Connection::GetInstance();
 
             $result = $this->connection->Execute($query);
-            
+
             foreach($result as $row){
                 $showing= new Showing();
                 $showing->setIdShowing($row['id_Showing']);
@@ -33,7 +33,7 @@ class ShowingDAO implements IDAO{
                 $showing->getRoom()->setCinema();
                 $showing->getRoom()->getCinema()->setId($row['id_Cine']);
                 $showing->setHrFinish($row['hrFinish']);
-    
+
                 array_push($showingList,$showing);
             }
             return $showingList;
@@ -214,6 +214,35 @@ class ShowingDAO implements IDAO{
                     array_push($showingList,$showing);
                 }
                 
+                return $showingList;
+                } catch (Exception $ex) {
+                    throw $ex;
+                }
+        }
+
+        public function GetForId($id){
+            try {
+                $showingList = array();
+                $query = 'SELECT s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from '.$this->tableName.' s inner join room r on r.idRoom = s.idRoom and(s.id_Showing = :id) order By r.id_Cine ;';
+                $parameters["id"] = $id;
+                $this->connection = Connection::GetInstance();
+    
+                $result = $this->connection->Execute($query,$parameters);
+    
+                foreach($result as $row){
+                    $showing= new Showing();
+                    $showing->setIdShowing($row['id_Showing']);
+                    $showing->setDayTime($row['day']);
+                    $showing->setMovie();
+                    $showing->getMovie()->setId($row['idMovie']);
+                    $showing->setRoom();
+                    $showing->getRoom()->setId($row['idRoom']);
+                    $showing->getRoom()->setCinema();
+                    $showing->getRoom()->getCinema()->setId($row['id_Cine']);
+                    $showing->setHrFinish($row['hrFinish']);
+    
+                    array_push($showingList,$showing);
+                }
                 return $showingList;
                 } catch (Exception $ex) {
                     throw $ex;

@@ -100,7 +100,12 @@ class MovieDAO implements IDAO{
             try {
                 $movieList = array();
 
-                $query = 'SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM '.$this->tableName.' as m inner join showings s on s.idMovie = m.id_Movie inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie where(gxm.id_Gender = :id_Gender) group by m.id_Movie;';
+                $query = 'SELECT m.id_Movie, m.title_Movie, m.image, m.lenght, m.lenguage FROM '.$this->tableName.' as m
+                inner join showings s on s.idMovie = m.id_Movie
+                inner join gendersxmovies gxm on gxm.id_Movie = m.id_Movie
+                where(gxm.id_Gender = :id_Gender)
+                and s.day >= (select NOW())
+                group by m.id_Movie;';
 
                 $parameters['id_Gender']=$idGender;
 

@@ -10,7 +10,7 @@ require_once('nav-admin.php');?>
                 <br>
                 <label>PRICE TICKET<input class="input-login" type="number" name="price_ticket" placeholder="Enter Price Ticket" min=0 required ></label>
                 <br>
-                <label>CAPACITY<input class="input-login" type="number" name="capacity" placeholder="Enter Capacity" min=0 equired></label>
+                <label>CAPACITY<input class="input-login" type="number" name="capacity" placeholder="Enter Capacity" min=1 required></label>
                 <br>
                 <label>CINEMA <br><br>
                 <select name="nombreCine" required>

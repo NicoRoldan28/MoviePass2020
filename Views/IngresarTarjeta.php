@@ -14,13 +14,13 @@ require_once('head.php');
     <div class="payment">
         <form action=<?php echo FRONT_ROOT."Buy/ValidateCard"?> method="post">
             <div class="form-group owner">
-                <label for="owner">Nombre</label>
+                <label for="owner">Name</label>
                 <input type="text" class="form-control" name="nombre" required>
             </div>
             
             <div class="form-group CVV">
                 <label for="cvv">CVV</label>
-                <input type="number"  min=0 max=9999 class="form-control" name="cvv" required>
+                <input type="number"  min=1 max=999 class="form-control" name="cvv" required>
             </div>
             <div class="form-group" id="card-number-field">
                 <label for="cardNumber">Card Number</label>

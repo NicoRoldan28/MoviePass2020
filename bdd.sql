@@ -290,7 +290,7 @@ call `ShowingForDayAndYesterday`("2020-11-29 22:00:00");
 drop procedure `ShowingForDayAndYesterday`;
 
 DELIMITER //
-Create Procedure `ShowingForDays` (in days date, in endDay date)
+Create Procedure `ShowingForDays` (in days datetime, in endDay datetime)
 BEGIN
     select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
 	inner join room r on s.idRoom = r.idRoom
@@ -298,9 +298,10 @@ BEGIN
     order By s.day;
 END //
 select * from showings
-call `ShowingForDays`();
+call `ShowingForDays`('2020-03-02 16:00:00','2020-03-02 22:00:00');
 
 drop procedure `ShowingForDays`;
+
 
 
 DELIMITER //

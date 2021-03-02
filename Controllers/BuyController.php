@@ -79,9 +79,9 @@
                 $this->showAddInfoTarjetaView();
                 }
              else{
-                 $showingList=$this->showingDAO->GetAll();
+                 $showingList=$this->showingDAO->GetForId($idShowing);
                  $showingList=$this->CinemaController->cargarShowings($showingList);
-                 $message="Error, La cantidad de entradas que quiere comprar es incorrecta.Las entradas disponibles para esa funcion son :".$this->ticketDAO->CheckAvailability($idShowing)."";
+                 $message="Error, La cantidad de entradas que desea comprar no estan disponibles. Las entradas disponibles para esa funcion son ".$this->ticketDAO->CheckAvailability($idShowing)."";
                  $scrip2="showingListUser.php";
                  include_once(VIEWS_PATH."Errors.php");
             }
@@ -118,13 +118,13 @@
                 }
                 else{
                     $message="Error, Credit card has expired";
-                $scrip2="IngresarTarjeta.php";
-                   include_once(VIEWS_PATH."Errors.php");
+                    $scrip2="IngresarTarjeta.php";
+                    include_once(VIEWS_PATH."Errors.php");
                 }
             }else{
-                $message="Error, Credit card invalid. Please make sure that you entered a valid " . $denum . " credit card";
+                $message="Error, Credit card invalid. Please make sure that you entered a valid";
                 $scrip2="IngresarTarjeta.php";
-                   include_once(VIEWS_PATH."Errors.php");
+                include_once(VIEWS_PATH."Errors.php");
             }
         }
 
@@ -177,21 +177,17 @@
                $messageA=array();
                $i=0;
                $ticketList =array();
-               //$ticketList =$this->ticketDAO->GetAllByIdUser($_SESSION['loggedUser']->getId(),$this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId()));
-               //var_dump($ticketList);
+
                $buy = $this->buyDAO->GetBuyForId($this->buyDAO->GetLastBuy($_SESSION['loggedUser']->getId())); 
-               //var_dump($buy);
 
                $ticketList=$this->ticketDAO->GetAllTicketByIdBuy($buy->getIdBuy());
 
-               //var_dump($ticketList);
 
                $ticketList2=$this->ticketDAO->GetNumberTicketByIdBuy($buy->getIdBuy());
-               //var_dump($ticketList2);
+ 
                if($ticketList2 !=null){
                foreach($ticketList2 as $ticket)
                {
-                   //var_dump($ticket->getIdTicket());
                     array_push($nameT,$ticket->getIdTicket());
                     if($numeroTicket==null)
                 {
@@ -207,62 +203,7 @@
                var_dump($numeroTicket);
             }
            
-               /*if($ticketList !=null)
-               {
-                foreach($ticketList as $ticket)
-               {
-                    var_dump($ticket->getIdTicket());
-                    $nameM=$ticket->getShowing()->getMovie()->getTitle();
-                    $nameC=$ticket->getShowing()->getRoom()->getCinema()->getName();
-                    $nameR=$ticket->getShowing()->getRoom()->getNombre();
-                    $nameD=$ticket->getShowing()->getDayTime();
-                    array_push($nameT,$ticket->getIdTicket());
-               }
-            }
-            //var_dump("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA XQ CARAJOS ESTAS ACA PVTOOOO");
-                //var_dump($nameT);
-                foreach($nameT as $result){
-                    if($numeroTicket==null)
-                    {
-                        $numeroTicket=$result;
-                    }
-                    else{
-                       $numeroTicket= $numeroTicket."/".$result; 
-                    }
-                }
-                //$this->generateMenssage($nameT);
-                return $numeroTicket;
-                /*$numeroTicket=null;
-                foreach($nameT as $result){
-                    if($numeroTicket==null)
-                    {
-                        $numeroTicket=$result;
-                    }
-                    else{
-                       $numeroTicket= $numeroTicket."/".$result; 
-                    }
-                }
-                var_dump("2");
-
-               array_push($messageA,($message3="Movie :" . $nameM.",Cinema :" .$nameC. ",Room :" .$nameR.  ",Day  :". $nameD. ",Numeros Ticket :".$numeroTicket . ""));
-
-               $correo=$_SESSION["loggedUser"]->getEmail();
-               var_dump($nameT);
-               var_dump($message3);
-               */
-               //$QrList=$this->GenerateQrx2($message3);
-               //$this->CargarCorreo($correo);
-               //$message="La transaccion se completo con exito, en unos instantes le llegara un correo electronico con el codigo Qr para ingresar a la funcion";
-               //$scrip2="buy-list2.php";
-               
-               //require_once(VIEWS_PATH."Errors.php");*/
-
-
-
-
-
-
-           public function generateMenssage($nameT){
+            public function generateMenssage($nameT){
             var_dump($nameT);
 
            }
@@ -270,7 +211,6 @@
             require_once(VIEWS_PATH."validate-session.php");
             $buyList =array();
             $buyList =$this->buyDAO->GetAllByUser($_SESSION['loggedUser']->getId());
-            //var_dump($buyList);
             require_once(VIEWS_PATH."buy-list.php");
            }
 
