@@ -1,6 +1,6 @@
 
 use MP;
-create database MP;
+
 drop database MP;
 
 #######################################  perfilUsers  ##############################################
@@ -15,8 +15,11 @@ create table perfilUsers(
 
 drop table perfilUsers;
 select * from perfilusers;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 
 
 #######################################  ROL  ##############################################
@@ -33,14 +36,12 @@ select * from rol;
 
 create table users(
 id_user integer auto_increment primary key,
-email varchar(40) not null,
+email varchar(50) not null,
 password varchar (20) not null,
 id_perfilUser integer not null,
 id_rol integer not null,
 constraint fk_id_perfilUser foreign key(id_perfilUser) references perfilUsers(id_perfil),
 constraint fk_id_rol foreign key(id_rol) references rol(id_rol));
-
-
 
 drop table users;
 select * from users;
@@ -136,6 +137,7 @@ truncate showings;
 
 create table Ticket(
 nro_entrada integer auto_increment primary key,
+-- qr varchar(30) not null,
 id_Showing integer not null,
 id_Buy integer not null,
 constraint fk_id_Showing foreign key(id_Showing) references showings(id_Showing),
@@ -144,17 +146,14 @@ constraint fk_id_Buy foreign key(id_Buy) references Buy(id_Buy)
 
 drop table ticket;
 select * from ticket;
-
 truncate table ticket;
-
-
 
 ######################################  Buy  ##############################################
 
 
 create table Buy(
 id_Buy integer auto_increment primary key,
-quantityTickets integer not null,
+quantityTickets int not null,
 discount float not null,
 days date,
 total integer,
@@ -172,11 +171,6 @@ truncate table buy;
 
 create table CreditAccount(
 id_CreditAccount integer primary key,
-name varchar(50),
-cvv int not null,
-expiration varchar(50),
-cardNumber integer not null,
-type varchar(50),
 company varchar(50));
 
 drop table CreditAccount;
@@ -210,7 +204,6 @@ insert into perfilusers(user_name,firstName,lastName,dni) value('Rodri_07','Rodr
 insert into users(email,password,id_perfilUser,id_rol) value('rodrigo_villarroel@outlook.com',123456,1,2);
 
 
-
 select * from users u
 inner join perfilusers p
 on u.id_perfilUser = p.id_perfil;
@@ -238,6 +231,7 @@ CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varch
 
 BEGIN
     insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
+<<<<<<< HEAD
     insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
 
 END //
@@ -248,12 +242,14 @@ CREATE PROCEDURE `CargarUserClient` (in user_name varchar(50),in firstName varch
 
 BEGIN
     insert into perfilusers(user_name,firstName,lastName,dni) value(user_name,firstName,lastName,dni);
+=======
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
     -- set id = last_insert_id();select @id;
     insert into users(email,password,id_rol,id_perfilUser) value(email,password,1,last_insert_id());
 
 END //
 
-call `CargarUserClient`("nicolas","nico","roldan",41306783,"rodrigo.villarroel.07@gmail.com","1234");
+call `CargarUserClient`();
 
 drop procedure `CargarUserClient`;
 
@@ -276,6 +272,7 @@ BEGIN
 	WHERE CAST(dayTime AS date) = CAST(s.day AS date);
 END //
 
+<<<<<<< HEAD
 DELIMITER //
 CREATE PROCEDURE `ShowingForDayAndYesterday` (in dayTime datetime)
 BEGIN
@@ -288,6 +285,11 @@ END //
 call `ShowingForDayAndYesterday`("2020-11-29 22:00:00");
 
 drop procedure `ShowingForDayAndYesterday`;
+=======
+call `ShowingForDay`();
+
+drop procedure `ShowingForDay`;
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 
 DELIMITER //
 Create Procedure `ShowingForDays` (in days datetime, in endDay datetime)
@@ -297,8 +299,13 @@ BEGIN
     where s.day between days and endDay
     order By s.day;
 END //
+<<<<<<< HEAD
 select * from showings
 call `ShowingForDays`('2020-03-02 16:00:00','2020-03-02 22:00:00');
+=======
+
+call `ShowingForDays`();
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 
 drop procedure `ShowingForDays`;
 
@@ -357,15 +364,8 @@ call `Total`();
 
 drop procedure `Total`;
 
-SELECT r.price_ticket from Showings as s 
-                inner join room r on r.idRoom = s.idRoom 
-                
-                WHERE(s.id_Showing = 4);
 
-'SELECT c.price_ticket from '.$this->tableName.' as s 
-                inner join room r on r.idRoom = s.idRoom 
-                inner join cinemas c on c.id_cinema = r.id_Cine
-                WHERE(s.id_Showing = :id);';
+
 
 DELIMITER //
 CREATE PROCEDURE `CountQuantityForMovie` (in Valuee int)
@@ -376,7 +376,7 @@ BEGIN
 	where s.idMovie = Valuee;
 END //
 
-call `CountQuantityForMovie`(724989);
+call `CountQuantityForMovie`(621151);
 
 drop procedure `CountQuantityForMovie`;
 
@@ -394,9 +394,21 @@ call `CountQuantityForCinema`();
 
 drop procedure `CountQuantityForCinema`;
 
+
+DELIMITER //
+CREATE PROCEDURE `CountQuantityForTurn` (in Valuee int)
+BEGIN
+	select count(t.nro_entrada) from Ticket t
+	inner join Showings s
+	on s.id_Showing = t.id_Showing 
+	where s.id_turno = Valuee;
+END //
+
+call `CountQuantityForTurn`();
+
 drop procedure `CountQuantityForTurn`;
 
-
+<<<<<<< HEAD
 call `CountMoneyForMovie`(724989, "2020/11/23", "2020/11/28");
 
 DELIMITER //
@@ -411,14 +423,29 @@ BEGIN
     
     and s.day between dayS and dayF
     group by b.id_Buy) as ta;
+=======
+
+DELIMITER //
+CREATE PROCEDURE `CountMoneyForMovie` (in Valuee int)
+BEGIN
+    select sum(ta.total) from (select b.total from buy b
+	inner join ticket t on
+	t.id_Buy = b.id_Buy
+	inner join showings s on
+	s.id_Showing = t.id_Showing
+	where s.idMovie = Valuee
+	group by b.id_Buy) as ta;
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 END //
 
+call `CountMoneyForMovie`(621151);
 
 call `CountMoneyForMovie`(766208,2021-01-01,2021-01-20);
 
 drop procedure `CountMoneyForCinema`;
 
 DELIMITER //
+<<<<<<< HEAD
 CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS date, in dayF date)
 BEGIN
     select ifnull(sum(ta.total),0) as total from (select b.total from buy b
@@ -426,15 +453,48 @@ BEGIN
     on t.id_Buy = b.id_Buy 
     inner join showings s
     on t.id_Showing = s.id_Showing
+=======
+CREATE PROCEDURE `CountMoneyForCinema` (in Valuee int)
+BEGIN
+    select sum(ta.total) from (select b.total from buy b
+	inner join ticket t
+	on t.id_Buy = b.id_Buy 
+	inner join showings s
+	on t.id_Showing = s.id_Showing
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
     inner join room r
-    on r.idRoom = s.idRoom
-    where r.id_Cine = Valuee
-    and s.day between dayS and dayF
+	on r.idRoom = s.idRoom
+	where r.id_Cine = Valuee
     group by b.id_Buy) as ta;
 END //
 
+<<<<<<< HEAD
 
 drop procedure `GetAllTicketByIdBuy`;
+=======
+select * from ticket;
+
+call `CountMoneyForCinema`(2);
+
+drop procedure CountMoneyForCinema;
+
+drop procedure `CountMoneyForTurn`;
+
+DELIMITER //
+CREATE PROCEDURE `CountMoneyForTurn` (in Valuee int)
+BEGIN
+    select sum(b.total) from buy b
+	inner join ticket t
+	on t.id_Buy = b.id_Buy 
+	inner join showings s
+	on t.id_Showing = s.id_Showing
+	where s.id_turno = valuee;
+END //
+
+call `CountMoneyForTurn`();
+
+drop procedure `CountMoneyForTurn`;
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 
 DELIMITER //
 create procedure `GetAllTicketByIdBuy`(in id integer)
@@ -448,10 +508,10 @@ inner join room r
 on s.idRoom = r.idRoom
 inner join cinemas c
 on r.id_Cine = c.id_cinema
-where ti.id_Buy = id
-;
+where ti.id_Buy = id;
 END //
 
+<<<<<<< HEAD
 DELIMITER //
 create procedure `GetNumberTicketByIdBuy`(in id integer)
 BEGIN
@@ -459,15 +519,22 @@ select ti.nro_entrada from ticket ti
 where ti.id_Buy = id
 ;
 END //
+=======
+call `GetAllTicketByIdBuy`(4);
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 
+drop procedure `GetAllTicketByIdBuy`;
 
 call `GetNumberTicketByIdBuy`(20);
 
+<<<<<<< HEAD
 call `GetAllTicketByIdBuy`(20);
 select * from ticket;
 select * from buy;
 
 drop procedure `GetAllTicketByIdBuy`;
+=======
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 
 
 DELIMITER // 
@@ -490,29 +557,40 @@ having b.id_Buy = idBuy;
 END //
 
 
-select * from ticket;
-select * from buy;
-
-truncate ticket;
 call `GetAllByIdUser`(2);
 
 drop procedure `GetAllByIdUser`;
 
-DELIMITER //
-create procedure `AddTicket`(in )
 
 DELIMITER //
 create procedure `GetAllBuyByIdUser`(in id integer)
 BEGIN
 select b.id_Buy, b.quantityTickets, b.discount, b.days, b.total, ifnull(b.id_Pay,0) as idPago, b.id_User from buy b
+<<<<<<< HEAD
 where b.id_User = id
 and b.id_Pay !=0
+=======
+where b.id_User = 2
+ and b.id_Pay !=0
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 group by b.id_Buy;
 END //
 
+<<<<<<< HEAD
 call `GetAllBuyByIdUser`(2); 
 drop procedure `GetAllBuyByIdUser`;
+=======
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 select * from buy
+
+call `GetAllBuyByIdUser`(2);
+drop procedure `GetAllBuyByIdUser`;
+
+DELIMITER //
+create procedure `AddTicket`(in )
+
+
+
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SELECTS Y TRUNCATES%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -575,8 +653,9 @@ END //
 
 
 
-call `CargarBuy`(2,0,'2020-03-03',1500,5);
+call `CargarBuy`(1,0.25,'2020-03-03',1500);
 drop procedure `CargarBuy`;
+
 select * from ticket;
 select * from buy;
 select * from paytc;
@@ -591,34 +670,63 @@ BEGIN
 	INSERT INTO paytc(days,total)
 	VALUES (days,total);
 	UPDATE buy b
-	SET b.id_Pay = last_insert_id()
+	SET id_Pay = last_insert_id()
 	WHERE b.id_Buy = idBuy;
 END //
 
+<<<<<<< HEAD
 select * from paytc;
 
 select * from buy;
+=======
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d
 drop procedure `AcreditePay`;
 call `AcreditePay`("2020-12-20",1800,1);
 
-
-SELECT b.id_Buy FROM buy b where b.id_User = 2
-                order by b.id_Buy desc limit 1;
-
-SELECT t.id_Showing from ticket t 
-WHERE(t.id_Showing = 2)
-group by t.id_Showing;
-
 DELIMITER //
-CREATE PROCEDURE `getTicketByIdBuy` (in id int)
+CREATE PROCEDURE ShowingForDayAndYesterday (in dayTime datetime)
 BEGIN
-	select t.id_Showing from ticket t
-	WHERE(t.id_Buy = id)
-	group by t.id_Showing;
+    select s.id_Showing, s.day, s.idMovie, s.idRoom, s.hrFinish, r.id_Cine from showings s
+    inner join room r on s.idRoom = r.idRoom
+    WHERE CAST(dayTime AS date) = CAST(s.day AS date)
+    or  CAST(DATE_ADD(dayTime, INTERVAL -1 DAY) AS date) = CAST(s.day AS date);
+END //
+use mp;
+DELIMITER //
+CREATE PROCEDURE CountMoneyForMovie (in Valuee int,in dayS int, in dayF int)
+BEGIN
+    select sum(ta.total) from (select b.total from buy b
+    inner join ticket t on
+    t.id_Buy = b.id_Buy
+    inner join showings s on
+    s.id_Showing = t.id_Showing
+    where s.idMovie = Valuee
+    and s.day between dayS and dayF
+    group by b.id_Buy) as ta;
 END //
 
+<<<<<<< HEAD
 drop procedure `getTicketByIdBuy`;
 call `getTicketByIdBuy`(13);
 
 select * from buy
 select * from ticket
+=======
+drop procedure CountMoneyForMovie;
+drop procedure CountMoneyForCinema;
+
+DELIMITER //
+CREATE PROCEDURE CountMoneyForCinema (in Valuee int,in dayS int, in dayF int)
+BEGIN
+    select sum(ta.total) from (select b.total from buy b
+    inner join ticket t
+    on t.id_Buy = b.id_Buy 
+    inner join showings s
+    on t.id_Showing = s.id_Showing
+    inner join room r
+    on r.idRoom = s.idRoom
+    where r.id_Cine = Valuee
+    and s.day between dayS and dayF
+    group by b.id_Buy) as ta;
+END //
+>>>>>>> 518f8e555436ec483d18b11516a9d7d565a20e1d

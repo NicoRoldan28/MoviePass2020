@@ -217,7 +217,7 @@ class MovieDAO implements IDAO{
                 $parameters["dayF"] = $dayTimeFinish;
                 $this->connection = Connection::GetInstance();
                 $result=$this->connection->Execute($procedure,$parameters);
-                return $result[0]["total"];
+                return $result[0]["sum(ta.total)"];
             }
             catch(Exception $ex)
             {

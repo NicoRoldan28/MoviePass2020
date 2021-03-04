@@ -28,8 +28,9 @@
            private $roomDAO;
            private $showingDAO;
            private $movieDAO;
-           private $genderDAO;
            private $ticketDAO;
+
+           private $genderDAO;
 
            private $MovieController;
    
@@ -40,6 +41,8 @@
                $this->movieDAO= new MovieDAO();
                $this->showingDAO = new ShowingDAO();
                $this->genderDAO = new GenderDAO();
+               $this->ticketDAO = new TicketDAO();
+
 
                $this->ticketDAO = new TicketDAO();
 

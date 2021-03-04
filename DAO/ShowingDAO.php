@@ -187,7 +187,6 @@ class ShowingDAO implements IDAO{
                     throw $ex;
                 }
         }
-
         public function GetShowingForDay($dayTime){
             try {
                 //var_dump($dayTime);
