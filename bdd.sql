@@ -15,7 +15,7 @@ create table perfilUsers(
 
 drop table perfilUsers;
 select * from perfilusers;
-delete from perfilUsers where id_perfil=8;
+
 
 
 

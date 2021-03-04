@@ -70,7 +70,7 @@
         public function readDni($dni)
         {
             try {
-                $perfilUser = null;
+            $perfilUser = null;
 
             $query = "SELECT * FROM ".$this->tablePerfilUsers." WHERE (dni = :dni)";
 
@@ -86,7 +86,7 @@
                 $user->setId($row["id_user"]);
                 $perfilUser->setDni($row["dni"]);
             }
-            if($perfilUser==null)
+            if($perfilUser!=null)
                 $verific=false;
             else
                 $verific=true;
